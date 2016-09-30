@@ -1,5 +1,5 @@
 package com.etsmtl.equipe9.controller;
 
-public class GGCtrl {
+public class ClientCtrl {
 	
 }
