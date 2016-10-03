@@ -9,14 +9,10 @@ import com.etsmtl.equipe9.service.IDAO;
 
 public final class DAOFactory {
 
-    /*
-    Serveur : big-data-3.logti.etsmtl.ca
-    Port : 1521
-    SID : Log660
-     */
-    private static final String username = "equipe9";
-    private static final String password = "88lyZUIU";
-    private static final String driver = "";
+    private static final String USERNAME = "equipe9";
+    private static final String PASSWORD = "88lyZUIU";
+    private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private static final String URL = "jdbc:oracle:thin:@big-data-3.logti.etsmtl.ca:1521:Log660";
 
     private static volatile DAOFactory instance = null;
 
@@ -35,8 +31,9 @@ public final class DAOFactory {
     public Connection getConn() {
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection(driver, username, password);
-            } catch (SQLException ex) {
+                Class.forName(DRIVER);
+                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(DAOFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

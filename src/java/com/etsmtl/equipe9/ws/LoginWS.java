@@ -7,7 +7,7 @@ import javax.ws.rs.core.UriInfo;
 
 @Path("login")
 public class LoginWS {
-	LoginCtrl ctrl = new LoginCtrl();
+    private LoginCtrl ctrl = new LoginCtrl();
 	
 	@Context
     private UriInfo context;

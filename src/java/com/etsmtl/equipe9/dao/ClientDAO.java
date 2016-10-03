@@ -1,8 +1,5 @@
 package com.etsmtl.equipe9.dao;
 
-import com.etsmtl.equipe9.service.IDAO;
-
-
 public class ClientDAO extends DAO {
 
     @Override
