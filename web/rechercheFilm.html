@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Recherche</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-tagsinput.css">
+        <link rel="stylesheet" href="css/datepicker.css">
+        <link rel="stylesheet" href="css/rechercheFilm.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <<script src="js/bootstrap-tagsinput.js"></script>
+        
+        <script src="js/bootstrap-datepicker.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <!--C'est la bar de recherche avec les options avancé.-->
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control input-lg" placeholder="Titre" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div> 
+                        <div class="text-right">
+                            <a href="#" data-toggle="collapse" data-target="#rechercheAvancee" role="button" class="btn btn-link btn-large">
+                                <span class="glyphicon glyphicon-cog"></span> Recherche Avancée
+                            </a>
+                        </div>
+                    </div>
+                    <div id="rechercheAvancee" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <label>Acteurs:</label>
+                                <input id="inputSuccess" type="text" value="" data-role="tagsinput" />
+                                
+                                <label>Acteurs:</label>
+                                <input id="inputSuccess" type="text" value="" data-role="tagsinput" />
+                                                                
+                                <label>Acteurs:</label>
+                                <input id="inputSuccess" type="text" value="" data-role="tagsinput" />
+                                
+                                <label>Acteurs:</label>
+                                <input id="inputSuccess" type="text" value="" data-role="tagsinput" />
+                                
+                                <label>Début:</label>
+                                <select class="selectpicker" id="debutAnnee"></select>
+                                
+                                <label>Fin:</label>
+                                <select class="selectpicker"  multiple data-actions-box="true" id="finAnnee"></select>
+                                
+                                <label>Langue Originale:</label>
+                                <select class="selectpicker"  multiple data-actions-box="true" id="finAnnee"></select>
+                                
+                                <label>Genre:</label>
+                                <select class="selectpicker"  multiple data-actions-box="true" id="finAnnee"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bar de recherche -->
+            
+            <table id="listeFilms" class="table table-hover" cellspacing="0" width="100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Titre</th>
+                        <th>Année Sortie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Avengers</td>
+                        <td>2010</td>
+                    </tr>
+                    <tr>
+                        <td>Pirates des Caraibes</td>
+                        <td>2005</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </body>
+    <script type="text/javascript">
+        var today = new Date();
+        var min = 1900,
+            max = today.getFullYear(),
+            debut = document.getElementById('debutAnnee'),
+            fin = document.getElementById('finAnnee');
+
+        for (var i = min; i<=max; i++){
+            var opt1 = document.createElement('option');
+            var opt2 = document.createElement('option');
+            
+            opt1.value = i;
+            opt1.innerHTML = i;
+            opt2.value = i;
+            opt2.innerHTML = i;
+            
+            debut.appendChild(opt1);
+            fin.appendChild(opt2);
+        }
+    </script>
+</html>
