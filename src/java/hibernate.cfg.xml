@@ -7,5 +7,21 @@
     <property name="hibernate.connection.url">jdbc:oracle:thin:@big-data-3.logti.etsmtl.ca:1521:Log660</property>
     <property name="hibernate.connection.username">equipe9</property>
     <property name="hibernate.connection.password">88lyZUIU</property>
+    <mapping class="com.etsmtl.equipe9.model.Scenariste"/>
+    <mapping class="com.etsmtl.equipe9.model.Cartecredit"/>
+    <mapping class="com.etsmtl.equipe9.model.Personne"/>
+    <mapping class="com.etsmtl.equipe9.model.LocationId"/>
+    <mapping class="com.etsmtl.equipe9.model.Film"/>
+    <mapping class="com.etsmtl.equipe9.model.Lienmedia"/>
+    <mapping class="com.etsmtl.equipe9.model.Exemplaire"/>
+    <mapping class="com.etsmtl.equipe9.model.Genre"/>
+    <mapping class="com.etsmtl.equipe9.model.Pays"/>
+    <mapping class="com.etsmtl.equipe9.model.PersonnageId"/>
+    <mapping class="com.etsmtl.equipe9.model.Client"/>
+    <mapping class="com.etsmtl.equipe9.model.Location"/>
+    <mapping class="com.etsmtl.equipe9.model.Adresse"/>
+    <mapping class="com.etsmtl.equipe9.model.Employe"/>
+    <mapping class="com.etsmtl.equipe9.model.Forfait"/>
+    <mapping class="com.etsmtl.equipe9.model.Personnage"/>
   </session-factory>
 </hibernate-configuration>

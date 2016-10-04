@@ -7,7 +7,7 @@ import javax.ws.rs.core.UriInfo;
 
 @Path("client")
 public class ClientWS {
-	ClientCtrl ctrl = new ClientCtrl();
+    private ClientCtrl ctrl = new ClientCtrl();
 	
 	@Context
     private UriInfo context;

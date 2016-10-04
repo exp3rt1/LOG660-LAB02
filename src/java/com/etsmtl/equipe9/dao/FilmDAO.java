@@ -1,8 +1,5 @@
 package com.etsmtl.equipe9.dao;
 
-import java.sql.Connection;
-import com.etsmtl.equipe9.service.IDAO;
-
 public class FilmDAO extends DAO {
 
     @Override
