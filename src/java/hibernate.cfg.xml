@@ -9,8 +9,8 @@
     <property name="hibernate.connection.password">88lyZUIU</property>
     <mapping class="com.etsmtl.equipe9.model.Scenariste"/>
     <mapping class="com.etsmtl.equipe9.model.Cartecredit"/>
-    <mapping class="com.etsmtl.equipe9.model.Personne"/>
     <mapping class="com.etsmtl.equipe9.model.LocationId"/>
+    <mapping class="com.etsmtl.equipe9.model.Personne"/>
     <mapping class="com.etsmtl.equipe9.model.Film"/>
     <mapping class="com.etsmtl.equipe9.model.Lienmedia"/>
     <mapping class="com.etsmtl.equipe9.model.Exemplaire"/>
