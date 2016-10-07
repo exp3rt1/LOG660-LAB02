@@ -45,10 +45,11 @@ public class Film  implements java.io.Serializable {
     private Integer duree;
     
     @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="FILMPAYS", schema="EQUIPE9", joinColumns = { 
-        @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
+    @JoinTable(name="FILMPAYS", schema="EQUIPE9", 
+        joinColumns = { 
+            @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
         inverseJoinColumns = { 
-        @JoinColumn(name="IDPAYS", nullable=false, updatable=false) })
+            @JoinColumn(name="IDPAYS", nullable=false, updatable=false) })
     private Set<Pays> pays = new HashSet<>(0);
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
@@ -57,6 +58,7 @@ public class Film  implements java.io.Serializable {
     @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
     private Set<Personnage> personnages = new HashSet<>(0);
     
+    @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="FILMGENRE", schema="EQUIPE9", joinColumns = { 
         @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
         inverseJoinColumns = { 
@@ -139,8 +141,8 @@ public class Film  implements java.io.Serializable {
     public Set<Pays> getPays() {
         return this.pays;
     }
-    public void setPayses(Set<Pays> payses) {
-        this.pays = payses;
+    public void setPays(Set<Pays> pays) {
+        this.pays = pays;
     }
     public Set<Lienmedia> getLiensmedia() {
         return this.liensmedia;
