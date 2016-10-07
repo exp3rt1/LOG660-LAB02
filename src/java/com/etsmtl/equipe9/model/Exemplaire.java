@@ -29,21 +29,12 @@ public class Exemplaire  implements java.io.Serializable {
     
     @Column(name="ESTLOUE", nullable=false)
     private boolean estloue;
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="exemplaire")
-    private Set<Location> locations = new HashSet<Location>(0);
 
     public Exemplaire() {}
 	
     public Exemplaire(Long idexemplaire, boolean estloue) {
         this.idexemplaire = idexemplaire;
         this.estloue = estloue;
-    }
-    public Exemplaire(Long idexemplaire, Film film, boolean estloue, Set<Location> locations) {
-       this.idexemplaire = idexemplaire;
-       this.film = film;
-       this.estloue = estloue;
-       this.locations = locations;
     }
     
     
@@ -64,12 +55,6 @@ public class Exemplaire  implements java.io.Serializable {
     }    
     public void setEstloue(boolean estloue) {
         this.estloue = estloue;
-    }
-    public Set<Location> getLocations() {
-        return this.locations;
-    }  
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
     }
     
 }

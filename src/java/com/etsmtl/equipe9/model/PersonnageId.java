@@ -1,16 +1,17 @@
 package com.etsmtl.equipe9.model;
 
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class PersonnageId implements java.io.Serializable {
 
-    @Column(name = "IDFILM", nullable = false, precision = 22, scale = 0)
+    @Column(name = "IDFILM", nullable = false)
     private Long idfilm;
     
-    @Column(name = "IDACTEUR", nullable = false, precision = 22, scale = 0)
+    @Column(name = "IDACTEUR", nullable = false)
     private Long idacteur;
 
     public PersonnageId() {}
@@ -41,8 +42,8 @@ public class PersonnageId implements java.io.Serializable {
         if (!(other instanceof PersonnageId)) {return false;}
         PersonnageId castOther = (PersonnageId) other;
 
-        return ((this.getIdfilm() == castOther.getIdfilm()) || (this.getIdfilm() != null && castOther.getIdfilm() != null && this.getIdfilm().equals(castOther.getIdfilm())))
-                && ((this.getIdacteur() == castOther.getIdacteur()) || (this.getIdacteur() != null && castOther.getIdacteur() != null && this.getIdacteur().equals(castOther.getIdacteur())));
+        return ((Objects.equals(this.getIdfilm(), castOther.getIdfilm())) || (this.getIdfilm() != null && castOther.getIdfilm() != null && this.getIdfilm().equals(castOther.getIdfilm())))
+                && ((Objects.equals(this.getIdacteur(), castOther.getIdacteur())) || (this.getIdacteur() != null && castOther.getIdacteur() != null && this.getIdacteur().equals(castOther.getIdacteur())));
     }
 
     @Override

@@ -27,9 +27,7 @@ public class Scenariste  implements java.io.Serializable {
     @Column(name="NOM", nullable=false, length=50)
     private String nom;
 
-    public Scenariste() {
-    }
-
+    public Scenariste() {}
 	
     public Scenariste(Long idscenariste, String nom) {
         this.idscenariste = idscenariste;

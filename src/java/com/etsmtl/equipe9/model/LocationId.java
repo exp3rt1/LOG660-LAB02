@@ -2,8 +2,11 @@ package com.etsmtl.equipe9.model;
 
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Embeddable
 public class LocationId  implements java.io.Serializable {
@@ -14,6 +17,7 @@ public class LocationId  implements java.io.Serializable {
     @Column(name="IDEXEMPLAIRE", nullable=false)
     private Long idexemplaire;
     
+    @Temporal(TemporalType.DATE)
     @Column(name="DATELOCATION", nullable=false, length=7)
     private Date datelocation;
 
@@ -47,26 +51,26 @@ public class LocationId  implements java.io.Serializable {
     
     
     @Override
-   public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof LocationId) ) return false;
-		 LocationId castOther = ( LocationId ) other; 
-         
-		 return ( (this.getCourrielclient()==castOther.getCourrielclient()) || ( this.getCourrielclient()!=null && castOther.getCourrielclient()!=null && this.getCourrielclient().equals(castOther.getCourrielclient()) ) )
- && ( (this.getIdexemplaire()==castOther.getIdexemplaire()) || ( this.getIdexemplaire()!=null && castOther.getIdexemplaire()!=null && this.getIdexemplaire().equals(castOther.getIdexemplaire()) ) )
- && ( (this.getDatelocation()==castOther.getDatelocation()) || ( this.getDatelocation()!=null && castOther.getDatelocation()!=null && this.getDatelocation().equals(castOther.getDatelocation()) ) );
-   }
+    public boolean equals(Object other) {
+        if ( (this == other ) ) return true;
+        if ( (other == null ) ) return false;
+        if ( !(other instanceof LocationId) ) return false;
+        LocationId castOther = ( LocationId ) other; 
+
+        return ( (this.getCourrielclient() == null ? castOther.getCourrielclient() == null : this.getCourrielclient().equals(castOther.getCourrielclient())) || ( this.getCourrielclient()!=null && castOther.getCourrielclient()!=null && this.getCourrielclient().equals(castOther.getCourrielclient()) ) )
+            && ( ( Objects.equals(this.getIdexemplaire(), castOther.getIdexemplaire())) || ( this.getIdexemplaire()!=null && castOther.getIdexemplaire()!=null && this.getIdexemplaire().equals(castOther.getIdexemplaire()) ) )
+            && ( (this.getDatelocation()==castOther.getDatelocation()) || ( this.getDatelocation()!=null && castOther.getDatelocation()!=null && this.getDatelocation().equals(castOther.getDatelocation()) ) );
+    }
    
     @Override
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + ( getCourrielclient() == null ? 0 : this.getCourrielclient().hashCode() );
-         result = 37 * result + ( getIdexemplaire() == null ? 0 : this.getIdexemplaire().hashCode() );
-         result = 37 * result + ( getDatelocation() == null ? 0 : this.getDatelocation().hashCode() );
-         return result;
-   }   
+    public int hashCode() {
+        int result = 17;
+        
+        result = 37 * result + ( getCourrielclient() == null ? 0 : this.getCourrielclient().hashCode() );
+        result = 37 * result + ( getIdexemplaire() == null ? 0 : this.getIdexemplaire().hashCode() );
+        result = 37 * result + ( getDatelocation() == null ? 0 : this.getDatelocation().hashCode() );
+        return result;
+    }   
 
 
 }

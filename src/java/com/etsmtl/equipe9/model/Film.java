@@ -46,18 +46,21 @@ public class Film  implements java.io.Serializable {
     
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="FILMPAYS", schema="EQUIPE9", joinColumns = { 
-    @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
-    inverseJoinColumns = { 
-    @JoinColumn(name="IDPAYS", nullable=false, updatable=false) })
-    private Set<Pays> payses = new HashSet<>(0);
+        @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
+        inverseJoinColumns = { 
+        @JoinColumn(name="IDPAYS", nullable=false, updatable=false) })
+    private Set<Pays> pays = new HashSet<>(0);
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
-    private Set<Lienmedia> lienmedias = new HashSet<>(0);
+    private Set<Lienmedia> liensmedia = new HashSet<>(0);
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
     private Set<Personnage> personnages = new HashSet<>(0);
     
-    @ManyToMany(fetch=FetchType.LAZY, mappedBy="films")
+    @JoinTable(name="FILMGENRE", schema="EQUIPE9", joinColumns = { 
+        @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
+        inverseJoinColumns = { 
+        @JoinColumn(name="IDGENRE", nullable=false, updatable=false) })
     private Set<Genre> genres = new HashSet<>(0);
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
@@ -74,7 +77,7 @@ public class Film  implements java.io.Serializable {
         this.anneesortie = anneesortie;
         this.resumescenario = resumescenario;
     }
-    public Film(Long idfilm, Personne realisateur, String titre, Integer anneesortie, String langueoriginale, String resumescenario, Integer duree, Set<Pays> payses, Set<Lienmedia> lienmedias, Set<Personnage> personnages, Set<Genre> genres, Set<Exemplaire> exemplaires, Set<Scenariste> scenaristes) {
+    public Film(Long idfilm, Personne realisateur, String titre, Integer anneesortie, String langueoriginale, String resumescenario, Integer duree, Set<Pays> pays, Set<Lienmedia> lienmedias, Set<Personnage> personnages, Set<Genre> genres, Set<Exemplaire> exemplaires, Set<Scenariste> scenaristes) {
        this.idfilm = idfilm;
        this.realisateur = realisateur;
        this.titre = titre;
@@ -82,8 +85,8 @@ public class Film  implements java.io.Serializable {
        this.langueoriginale = langueoriginale;
        this.resumescenario = resumescenario;
        this.duree = duree;
-       this.payses = payses;
-       this.lienmedias = lienmedias;
+       this.pays = pays;
+       this.liensmedia = lienmedias;
        this.personnages = personnages;
        this.genres = genres;
        this.exemplaires = exemplaires;
@@ -133,17 +136,17 @@ public class Film  implements java.io.Serializable {
     public void setDuree(Integer duree) {
         this.duree = duree;
     }
-    public Set<Pays> getPayses() {
-        return this.payses;
+    public Set<Pays> getPays() {
+        return this.pays;
     }
     public void setPayses(Set<Pays> payses) {
-        this.payses = payses;
+        this.pays = payses;
     }
-    public Set<Lienmedia> getLienmedias() {
-        return this.lienmedias;
+    public Set<Lienmedia> getLiensmedia() {
+        return this.liensmedia;
     }
-    public void setLienmedias(Set<Lienmedia> lienmedias) {
-        this.lienmedias = lienmedias;
+    public void setLiensmedia(Set<Lienmedia> liensmedia) {
+        this.liensmedia = liensmedia;
     }
     public Set<Personnage> getPersonnages() {
         return this.personnages;

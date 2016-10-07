@@ -20,17 +20,13 @@ public class Genre  implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="IDGENRE", unique=true, nullable=false, precision=22, scale=0)
+    @Column(name="IDGENRE", unique=true, nullable=false)
     private Long idgenre;
     
     @Column(name="NOM", nullable=false, length=30)
     private String nom;
     
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="FILMGENRE", schema="EQUIPE9", joinColumns = { 
-    @JoinColumn(name="IDGENRE", nullable=false, updatable=false) }, 
-    inverseJoinColumns = { 
-    @JoinColumn(name="IDFILM", nullable=false, updatable=false) })
+    @ManyToMany(fetch=FetchType.LAZY , mappedBy = "genres")
     private Set<Film> films = new HashSet<>(0);
 
     public Genre() {}

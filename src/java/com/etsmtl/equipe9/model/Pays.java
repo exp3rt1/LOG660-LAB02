@@ -18,14 +18,14 @@ public class Pays  implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="IDPAYS", unique=true, nullable=false, precision=22, scale=0)
+    @Column(name="IDPAYS", unique=true, nullable=false)
     private Long idpays;
     
     @Column(name="NOM", nullable=false, length=50)
     private String nom;
     
-    @ManyToMany(fetch=FetchType.LAZY, mappedBy="payses")
-    private Set<Film> films = new HashSet<Film>(0);
+    @ManyToMany(fetch=FetchType.LAZY, mappedBy="pays")
+    private Set<Film> films = new HashSet<>(0);
 
     public Pays() {
     }

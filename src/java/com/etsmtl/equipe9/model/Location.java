@@ -21,7 +21,7 @@ public class Location  implements java.io.Serializable {
     @EmbeddedId
     @AttributeOverrides( {
         @AttributeOverride(name="courrielclient", column=@Column(name="COURRIELCLIENT", nullable=false, length=500) ), 
-        @AttributeOverride(name="idexemplaire", column=@Column(name="IDEXEMPLAIRE", nullable=false, precision=22, scale=0) ), 
+        @AttributeOverride(name="idexemplaire", column=@Column(name="IDEXEMPLAIRE", nullable=false) ), 
         @AttributeOverride(name="datelocation", column=@Column(name="DATELOCATION", nullable=false, length=7) ) } )
     private LocationId id;
     

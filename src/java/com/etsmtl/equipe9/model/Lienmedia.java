@@ -17,7 +17,7 @@ public class Lienmedia  implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="IDLIENMEDIA", unique=true, nullable=false, precision=22, scale=0)
+    @Column(name="IDLIENMEDIA", unique=true, nullable=false)
     private Long idlienmedia;
     
     @ManyToOne(fetch=FetchType.LAZY)

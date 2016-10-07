@@ -17,8 +17,8 @@ public class Personnage  implements java.io.Serializable {
 
     @EmbeddedId
     @AttributeOverrides( {
-        @AttributeOverride(name="idfilm", column=@Column(name="IDFILM", nullable=false, precision=22, scale=0) ), 
-        @AttributeOverride(name="idacteur", column=@Column(name="IDACTEUR", nullable=false, precision=22, scale=0) ) } )
+        @AttributeOverride(name="idfilm", column=@Column(name="IDFILM", nullable=false) ), 
+        @AttributeOverride(name="idacteur", column=@Column(name="IDACTEUR", nullable=false) ) } )
     private PersonnageId id;
     
     @ManyToOne(fetch=FetchType.LAZY)

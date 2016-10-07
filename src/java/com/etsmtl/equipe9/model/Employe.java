@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +21,7 @@ public class Employe  implements java.io.Serializable {
     @Column(name="MATRICULEEMPLOYE", unique=true, nullable=false, length=7)
     private String matriculeemploye;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="IDADRESSE")
     private Adresse adresse;
     

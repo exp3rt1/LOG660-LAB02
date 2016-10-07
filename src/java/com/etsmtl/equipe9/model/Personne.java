@@ -36,16 +36,16 @@ public class Personne  implements java.io.Serializable {
     private String lieunaissance;
     
     @Column(name="BIOGRAPHIE")
-    private Clob biographie;
+    private String biographie;
     
     @Column(name="PHOTOURL", length=2000)
     private String photourl;
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="acteur")
-    private Set<Personnage> personnages = new HashSet<Personnage>(0);
+    private Set<Personnage> personnages = new HashSet<>(0);
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="personne")
-    private Set<Film> films = new HashSet<Film>(0);
+    private Set<Film> films = new HashSet<>(0);
 
     public Personne() {}
 	
@@ -53,7 +53,7 @@ public class Personne  implements java.io.Serializable {
         this.idpersonne = idpersonne;
         this.nom = nom;
     }
-    public Personne(Long idpersonne, String nom, Date datenaissance, String lieunaissance, Clob biographie, String photourl, Set<Personnage> personnages, Set<Film> films) {
+    public Personne(Long idpersonne, String nom, Date datenaissance, String lieunaissance, String biographie, String photourl, Set<Personnage> personnages, Set<Film> films) {
        this.idpersonne = idpersonne;
        this.nom = nom;
        this.datenaissance = datenaissance;
@@ -89,10 +89,10 @@ public class Personne  implements java.io.Serializable {
     public void setLieunaissance(String lieunaissance) {
         this.lieunaissance = lieunaissance;
     }
-    public Clob getBiographie() {
+    public String getBiographie() {
         return this.biographie;
     }
-    public void setBiographie(Clob biographie) {
+    public void setBiographie(String biographie) {
         this.biographie = biographie;
     } 
     public String getPhotourl() {

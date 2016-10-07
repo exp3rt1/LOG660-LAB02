@@ -1,13 +1,9 @@
 package com.etsmtl.equipe9.model;
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,9 +26,6 @@ public class Cartecredit  implements java.io.Serializable {
     @Column(name="TYPE", nullable=false, length=15)
     private String type;
     
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="cartecredit")
-    private Set<Client> clients = new HashSet<Client>(0);
-    
     public Cartecredit() {}
     
     public Cartecredit(String numero, Integer moisexpiration, Integer anneeexpiration, String cvv, String type) {
@@ -41,14 +34,6 @@ public class Cartecredit  implements java.io.Serializable {
         this.anneeexpiration = anneeexpiration;
         this.cvv = cvv;
         this.type = type;
-    }
-    public Cartecredit(String numero, Integer moisexpiration, Integer anneeexpiration, String cvv, String type, Set<Client> clients) {
-       this.numero = numero;
-       this.moisexpiration = moisexpiration;
-       this.anneeexpiration = anneeexpiration;
-       this.cvv = cvv;
-       this.type = type;
-       this.clients = clients;
     }
     
     public String getNumero() {
@@ -80,12 +65,6 @@ public class Cartecredit  implements java.io.Serializable {
     } 
     public void setType(String type) {
         this.type = type;
-    }
-    public Set<Client> getClients() {
-        return this.clients;
-    }
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
     }
     
 }
