@@ -44,7 +44,7 @@ public class Personne  implements java.io.Serializable {
     @OneToMany(fetch=FetchType.LAZY, mappedBy="acteur")
     private Set<Personnage> personnages = new HashSet<>(0);
     
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="personne")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="realisateur")
     private Set<Film> films = new HashSet<>(0);
 
     public Personne() {}
