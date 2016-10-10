@@ -9,7 +9,7 @@ public class ClientCtrl {
     public String getPassword (String courriel){
         
         ClientDAO dao = new ClientDAO();
-        return dao.getClient(courriel).getMotpasse();
+        return dao.findById(courriel).getMotpasse();
     }
     
     public static void main(String[] args) {
