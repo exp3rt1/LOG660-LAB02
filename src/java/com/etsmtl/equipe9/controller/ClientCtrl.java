@@ -1,11 +1,20 @@
 package com.etsmtl.equipe9.controller;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import com.etsmtl.equipe9.service.IDAO;
+import com.etsmtl.equipe9.dao.ClientDAO;
 
-@Stateless
+
+
 public class ClientCtrl {
-    @EJB
-    private IDAO db;
+    
+    public String getPassword (String courriel){
+        
+        ClientDAO dao = new ClientDAO();
+        return dao.getClient(courriel).getMotpasse();
+    }
+    
+    public static void main(String[] args) {
+        ClientCtrl pass = new ClientCtrl();
+        String password = pass.getPassword("RobertBSutton56@yahoo.com");
+        System.out.println(password);
+    }
 }

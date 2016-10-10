@@ -7,3 +7,5 @@ nbproject/genfiles.properties
 nbproject/project.properties
 nbproject/project.xml
 nbproject/rest-build.xml
+/dist/
+/build/
