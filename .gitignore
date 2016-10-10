@@ -1,1 +1,9 @@
 web/WEB-INF/glassfish-web.xml
+/nbproject/private/
+build.xml
+nbproject/ant-deploy.xml
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/project.properties
+nbproject/project.xml
+nbproject/rest-build.xml
