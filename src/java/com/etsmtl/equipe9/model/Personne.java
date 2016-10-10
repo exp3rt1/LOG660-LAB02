@@ -1,119 +1,177 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.etsmtl.equipe9.model;
 
-
-import java.sql.Clob;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author Nicolas Desktop
+ */
 @Entity
-@Table(name="PERSONNE",schema="EQUIPE9")
-public class Personne  implements java.io.Serializable {
+@Table(name = "PERSONNE", catalog = "", schema = "EQUIPE9")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
+    , @NamedQuery(name = "Personne.findByIdpersonne", query = "SELECT p FROM Personne p WHERE p.idpersonne = :idpersonne")
+    , @NamedQuery(name = "Personne.findByNom", query = "SELECT p FROM Personne p WHERE p.nom = :nom")
+    , @NamedQuery(name = "Personne.findByDatenaissance", query = "SELECT p FROM Personne p WHERE p.datenaissance = :datenaissance")
+    , @NamedQuery(name = "Personne.findByLieunaissance", query = "SELECT p FROM Personne p WHERE p.lieunaissance = :lieunaissance")
+    , @NamedQuery(name = "Personne.findByPhotourl", query = "SELECT p FROM Personne p WHERE p.photourl = :photourl")})
+public class Personne implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="IDPERSONNE", unique=true, nullable=false)
-    private Long idpersonne;
-    
-    @Column(name="NOM", nullable=false, length=500)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IDPERSONNE")
+    private BigDecimal idpersonne;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
+    @Column(name = "NOM")
     private String nom;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(name="DATENAISSANCE", length=7)
+    @Column(name = "DATENAISSANCE")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date datenaissance;
-    
-    @Column(name="LIEUNAISSANCE", length=100)
+    @Size(max = 100)
+    @Column(name = "LIEUNAISSANCE")
     private String lieunaissance;
-    
-    @Column(name="BIOGRAPHIE")
+    @Lob
+    @Column(name = "BIOGRAPHIE")
     private String biographie;
-    
-    @Column(name="PHOTOURL", length=2000)
+    @Size(max = 2000)
+    @Column(name = "PHOTOURL")
     private String photourl;
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="acteur")
-    private Set<Personnage> personnages = new HashSet<>(0);
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="personne")
-    private Set<Film> films = new HashSet<>(0);
+    @OneToMany(mappedBy = "idrealisateur")
+    private Collection<Film> filmCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personne")
+    private Collection<Personnage> personnageCollection;
 
-    public Personne() {}
-	
-    public Personne(Long idpersonne, String nom) {
+    public Personne() {
+    }
+
+    public Personne(BigDecimal idpersonne) {
+        this.idpersonne = idpersonne;
+    }
+
+    public Personne(BigDecimal idpersonne, String nom) {
         this.idpersonne = idpersonne;
         this.nom = nom;
     }
-    public Personne(Long idpersonne, String nom, Date datenaissance, String lieunaissance, String biographie, String photourl, Set<Personnage> personnages, Set<Film> films) {
-       this.idpersonne = idpersonne;
-       this.nom = nom;
-       this.datenaissance = datenaissance;
-       this.lieunaissance = lieunaissance;
-       this.biographie = biographie;
-       this.photourl = photourl;
-       this.personnages = personnages;
-       this.films = films;
+
+    public BigDecimal getIdpersonne() {
+        return idpersonne;
     }
-    
-    
-    public Long getIdpersonne() {
-        return this.idpersonne;
-    }
-    public void setIdpersonne(Long idpersonne) {
+
+    public void setIdpersonne(BigDecimal idpersonne) {
         this.idpersonne = idpersonne;
     }
+
     public String getNom() {
-        return this.nom;
+        return nom;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
+
     public Date getDatenaissance() {
-        return this.datenaissance;
+        return datenaissance;
     }
+
     public void setDatenaissance(Date datenaissance) {
         this.datenaissance = datenaissance;
     }
+
     public String getLieunaissance() {
-        return this.lieunaissance;
+        return lieunaissance;
     }
+
     public void setLieunaissance(String lieunaissance) {
         this.lieunaissance = lieunaissance;
     }
+
     public String getBiographie() {
-        return this.biographie;
+        return biographie;
     }
+
     public void setBiographie(String biographie) {
         this.biographie = biographie;
-    } 
-    public String getPhotourl() {
-        return this.photourl;
     }
+
+    public String getPhotourl() {
+        return photourl;
+    }
+
     public void setPhotourl(String photourl) {
         this.photourl = photourl;
     }
-    public Set<Personnage> getPersonnages() {
-        return this.personnages;
+
+    @XmlTransient
+    public Collection<Film> getFilmCollection() {
+        return filmCollection;
     }
-    public void setPersonnages(Set<Personnage> personnages) {
-        this.personnages = personnages;
+
+    public void setFilmCollection(Collection<Film> filmCollection) {
+        this.filmCollection = filmCollection;
     }
-    public Set<Film> getFilms() {
-        return this.films;
+
+    @XmlTransient
+    public Collection<Personnage> getPersonnageCollection() {
+        return personnageCollection;
     }
-    public void setFilms(Set<Film> films) {
-        this.films = films;
+
+    public void setPersonnageCollection(Collection<Personnage> personnageCollection) {
+        this.personnageCollection = personnageCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idpersonne != null ? idpersonne.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Personne)) {
+            return false;
+        }
+        Personne other = (Personne) object;
+        if ((this.idpersonne == null && other.idpersonne != null) || (this.idpersonne != null && !this.idpersonne.equals(other.idpersonne))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Personne[ idpersonne=" + idpersonne + " ]";
     }
     
 }
-
-

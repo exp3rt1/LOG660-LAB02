@@ -1,180 +1,241 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.etsmtl.equipe9.model;
 
-
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author Nicolas Desktop
+ */
 @Entity
-@Table(name="FILM",schema="EQUIPE9")
-public class Film  implements java.io.Serializable {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="IDFILM", unique=true, nullable=false)
-    private Long idfilm;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="IDREALISATEUR")
-    private Personne realisateur;
-    
-    @Column(name="TITRE", nullable=false, length=200)
-    private String titre;
-    
-    @Column(name="ANNEESORTIE", nullable=false)
-    private Integer anneesortie;
-    
-    @Column(name="LANGUEORIGINALE", length=20)
-    private String langueoriginale;
-    
-    @Column(name="RESUMESCENARIO", nullable=false, length=2000)
-    private String resumescenario;
-    
-    @Column(name="DUREE")
-    private Integer duree;
-    
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="FILMPAYS", schema="EQUIPE9", 
-        joinColumns = { 
-            @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
-        inverseJoinColumns = { 
-            @JoinColumn(name="IDPAYS", nullable=false, updatable=false) })
-    private Set<Pays> pays = new HashSet<>(0);
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
-    private Set<Lienmedia> liensmedia = new HashSet<>(0);
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
-    private Set<Personnage> personnages = new HashSet<>(0);
-    
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="FILMGENRE", schema="EQUIPE9", joinColumns = { 
-        @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
-        inverseJoinColumns = { 
-        @JoinColumn(name="IDGENRE", nullable=false, updatable=false) })
-    private Set<Genre> genres = new HashSet<>(0);
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
-    private Set<Exemplaire> exemplaires = new HashSet<>(0);
-    
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="film")
-    private Set<Scenariste> scenaristes = new HashSet<>(0);
+@Table(name = "FILM", catalog = "", schema = "EQUIPE9")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Film.findAll", query = "SELECT f FROM Film f")
+    , @NamedQuery(name = "Film.findByIdfilm", query = "SELECT f FROM Film f WHERE f.idfilm = :idfilm")
+    , @NamedQuery(name = "Film.findByTitre", query = "SELECT f FROM Film f WHERE f.titre = :titre")
+    , @NamedQuery(name = "Film.findByAnneesortie", query = "SELECT f FROM Film f WHERE f.anneesortie = :anneesortie")
+    , @NamedQuery(name = "Film.findByLangueoriginale", query = "SELECT f FROM Film f WHERE f.langueoriginale = :langueoriginale")
+    , @NamedQuery(name = "Film.findByResumescenario", query = "SELECT f FROM Film f WHERE f.resumescenario = :resumescenario")
+    , @NamedQuery(name = "Film.findByDuree", query = "SELECT f FROM Film f WHERE f.duree = :duree")})
+public class Film implements Serializable {
 
-    public Film() {}
-	
-    public Film(Long idfilm, String titre, Integer anneesortie, String resumescenario) {
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IDFILM")
+    private BigDecimal idfilm;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "TITRE")
+    private String titre;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ANNEESORTIE")
+    private BigInteger anneesortie;
+    @Size(max = 20)
+    @Column(name = "LANGUEORIGINALE")
+    private String langueoriginale;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2000)
+    @Column(name = "RESUMESCENARIO")
+    private String resumescenario;
+    @Column(name = "DUREE")
+    private BigInteger duree;
+    @JoinTable(name = "FILMPAYS", joinColumns = {
+        @JoinColumn(name = "IDFILM", referencedColumnName = "IDFILM")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDPAYS", referencedColumnName = "IDPAYS")})
+    @ManyToMany
+    private Collection<Pays> paysCollection;
+    @ManyToMany(mappedBy = "filmCollection")
+    private Collection<Genre> genreCollection;
+    @OneToMany(mappedBy = "idfilm")
+    private Collection<Exemplaire> exemplaireCollection;
+    @JoinColumn(name = "IDREALISATEUR", referencedColumnName = "IDPERSONNE")
+    @ManyToOne
+    private Personne idrealisateur;
+    @OneToMany(mappedBy = "idfilm")
+    private Collection<Scenariste> scenaristeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
+    private Collection<Personnage> personnageCollection;
+    @OneToMany(mappedBy = "idfilm")
+    private Collection<Lienmedia> lienmediaCollection;
+
+    public Film() {
+    }
+
+    public Film(BigDecimal idfilm) {
+        this.idfilm = idfilm;
+    }
+
+    public Film(BigDecimal idfilm, String titre, BigInteger anneesortie, String resumescenario) {
         this.idfilm = idfilm;
         this.titre = titre;
         this.anneesortie = anneesortie;
         this.resumescenario = resumescenario;
     }
-    public Film(Long idfilm, Personne realisateur, String titre, Integer anneesortie, String langueoriginale, String resumescenario, Integer duree, Set<Pays> pays, Set<Lienmedia> lienmedias, Set<Personnage> personnages, Set<Genre> genres, Set<Exemplaire> exemplaires, Set<Scenariste> scenaristes) {
-       this.idfilm = idfilm;
-       this.realisateur = realisateur;
-       this.titre = titre;
-       this.anneesortie = anneesortie;
-       this.langueoriginale = langueoriginale;
-       this.resumescenario = resumescenario;
-       this.duree = duree;
-       this.pays = pays;
-       this.liensmedia = lienmedias;
-       this.personnages = personnages;
-       this.genres = genres;
-       this.exemplaires = exemplaires;
-       this.scenaristes = scenaristes;
+
+    public BigDecimal getIdfilm() {
+        return idfilm;
     }
-    
-    
-    public Long getIdfilm() {
-        return this.idfilm;
-    }  
-    public void setIdfilm(Long idfilm) {
+
+    public void setIdfilm(BigDecimal idfilm) {
         this.idfilm = idfilm;
     }
-    public Personne getRealisateur() {
-        return this.realisateur;
-    }
-    public void setRealisateur(Personne realisateur) {
-        this.realisateur = realisateur;
-    }
+
     public String getTitre() {
-        return this.titre;
-    } 
+        return titre;
+    }
+
     public void setTitre(String titre) {
         this.titre = titre;
     }
-    public Integer getAnneesortie() {
-        return this.anneesortie;
+
+    public BigInteger getAnneesortie() {
+        return anneesortie;
     }
-    public void setAnneesortie(Integer anneesortie) {
+
+    public void setAnneesortie(BigInteger anneesortie) {
         this.anneesortie = anneesortie;
     }
+
     public String getLangueoriginale() {
-        return this.langueoriginale;
+        return langueoriginale;
     }
+
     public void setLangueoriginale(String langueoriginale) {
         this.langueoriginale = langueoriginale;
     }
+
     public String getResumescenario() {
-        return this.resumescenario;
+        return resumescenario;
     }
+
     public void setResumescenario(String resumescenario) {
         this.resumescenario = resumescenario;
     }
-    public Integer getDuree() {
-        return this.duree;
+
+    public BigInteger getDuree() {
+        return duree;
     }
-    public void setDuree(Integer duree) {
+
+    public void setDuree(BigInteger duree) {
         this.duree = duree;
     }
-    public Set<Pays> getPays() {
-        return this.pays;
+
+    @XmlTransient
+    public Collection<Pays> getPaysCollection() {
+        return paysCollection;
     }
-    public void setPays(Set<Pays> pays) {
-        this.pays = pays;
+
+    public void setPaysCollection(Collection<Pays> paysCollection) {
+        this.paysCollection = paysCollection;
     }
-    public Set<Lienmedia> getLiensmedia() {
-        return this.liensmedia;
+
+    @XmlTransient
+    public Collection<Genre> getGenreCollection() {
+        return genreCollection;
     }
-    public void setLiensmedia(Set<Lienmedia> liensmedia) {
-        this.liensmedia = liensmedia;
+
+    public void setGenreCollection(Collection<Genre> genreCollection) {
+        this.genreCollection = genreCollection;
     }
-    public Set<Personnage> getPersonnages() {
-        return this.personnages;
+
+    @XmlTransient
+    public Collection<Exemplaire> getExemplaireCollection() {
+        return exemplaireCollection;
     }
-    public void setPersonnages(Set<Personnage> personnages) {
-        this.personnages = personnages;
+
+    public void setExemplaireCollection(Collection<Exemplaire> exemplaireCollection) {
+        this.exemplaireCollection = exemplaireCollection;
     }
-    public Set<Genre> getGenres() {
-        return this.genres;
+
+    public Personne getIdrealisateur() {
+        return idrealisateur;
     }
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
+
+    public void setIdrealisateur(Personne idrealisateur) {
+        this.idrealisateur = idrealisateur;
     }
-    public Set<Exemplaire> getExemplaires() {
-        return this.exemplaires;
+
+    @XmlTransient
+    public Collection<Scenariste> getScenaristeCollection() {
+        return scenaristeCollection;
     }
-    public void setExemplaires(Set<Exemplaire> exemplaires) {
-        this.exemplaires = exemplaires;
+
+    public void setScenaristeCollection(Collection<Scenariste> scenaristeCollection) {
+        this.scenaristeCollection = scenaristeCollection;
     }
-    public Set<Scenariste> getScenaristes() {
-        return this.scenaristes;
+
+    @XmlTransient
+    public Collection<Personnage> getPersonnageCollection() {
+        return personnageCollection;
     }
-    public void setScenaristes(Set<Scenariste> scenaristes) {
-        this.scenaristes = scenaristes;
+
+    public void setPersonnageCollection(Collection<Personnage> personnageCollection) {
+        this.personnageCollection = personnageCollection;
+    }
+
+    @XmlTransient
+    public Collection<Lienmedia> getLienmediaCollection() {
+        return lienmediaCollection;
+    }
+
+    public void setLienmediaCollection(Collection<Lienmedia> lienmediaCollection) {
+        this.lienmediaCollection = lienmediaCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idfilm != null ? idfilm.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Film)) {
+            return false;
+        }
+        Film other = (Film) object;
+        if ((this.idfilm == null && other.idfilm != null) || (this.idfilm != null && !this.idfilm.equals(other.idfilm))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Film[ idfilm=" + idfilm + " ]";
     }
     
 }
-
-

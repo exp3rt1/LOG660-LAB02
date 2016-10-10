@@ -5,7 +5,8 @@
  */
 package com.etsmtl.equipe9.dao;
 
-import com.etsmtl.equipe9.model.Client;
+import com.etsmtl.equipe9.model.Personne;
+import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,17 +16,17 @@ import javax.persistence.Persistence;
  *
  * @author Nicolas Desktop
  */
-public class ClientDAO {
+public class PersonneDAO {
 
-    public Client getClient(String courriel) {
+    public Personne getPersonne(BigDecimal personId) {
 
         EntityManagerFactory emf
                 = Persistence.createEntityManagerFactory("WebApplication1PU");
         EntityManager em = emf.createEntityManager();
-        Client cli =  em.find(Client.class, courriel);
+        Personne per =  em.find(Personne.class, personId);
         em.close();
         emf.close();
         
-        return cli;
+        return per;
     }
 }

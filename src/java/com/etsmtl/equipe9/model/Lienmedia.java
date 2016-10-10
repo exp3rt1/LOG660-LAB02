@@ -1,74 +1,125 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.etsmtl.equipe9.model;
 
-
+import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author Nicolas Desktop
+ */
 @Entity
-@Table(name="LIENMEDIA",schema="EQUIPE9")
-public class Lienmedia  implements java.io.Serializable {
+@Table(name = "LIENMEDIA", catalog = "", schema = "EQUIPE9")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Lienmedia.findAll", query = "SELECT l FROM Lienmedia l")
+    , @NamedQuery(name = "Lienmedia.findByIdlienmedia", query = "SELECT l FROM Lienmedia l WHERE l.idlienmedia = :idlienmedia")
+    , @NamedQuery(name = "Lienmedia.findByUrl", query = "SELECT l FROM Lienmedia l WHERE l.url = :url")
+    , @NamedQuery(name = "Lienmedia.findByType", query = "SELECT l FROM Lienmedia l WHERE l.type = :type")})
+public class Lienmedia implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="IDLIENMEDIA", unique=true, nullable=false)
-    private Long idlienmedia;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="IDFILM")
-    private Film film;
-    
-    @Column(name="URL", length=2000)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IDLIENMEDIA")
+    private BigDecimal idlienmedia;
+    @Size(max = 2000)
+    @Column(name = "URL")
     private String url;
-    
-    @Column(name="TYPE", nullable=false, length=15)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "TYPE")
     private String type;
+    @JoinColumn(name = "IDFILM", referencedColumnName = "IDFILM")
+    @ManyToOne
+    private Film idfilm;
 
-    public Lienmedia() {}
-    
-    public Lienmedia(Long idlienmedia, String type) {
+    public Lienmedia() {
+    }
+
+    public Lienmedia(BigDecimal idlienmedia) {
+        this.idlienmedia = idlienmedia;
+    }
+
+    public Lienmedia(BigDecimal idlienmedia, String type) {
         this.idlienmedia = idlienmedia;
         this.type = type;
     }
-    public Lienmedia(Long idlienmedia, Film film, String url, String type) {
-       this.idlienmedia = idlienmedia;
-       this.film = film;
-       this.url = url;
-       this.type = type;
+
+    public BigDecimal getIdlienmedia() {
+        return idlienmedia;
     }
-    
-    
-    public Long getIdlienmedia() {
-        return this.idlienmedia;
-    }
-    public void setIdlienmedia(Long idlienmedia) {
+
+    public void setIdlienmedia(BigDecimal idlienmedia) {
         this.idlienmedia = idlienmedia;
     }
-    public Film getFilm() {
-        return this.film;
-    }
-    public void setFilm(Film film) {
-        this.film = film;
-    }
+
     public String getUrl() {
-        return this.url;
+        return url;
     }
+
     public void setUrl(String url) {
         this.url = url;
     }
+
     public String getType() {
-        return this.type;
+        return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }
+
+    public Film getIdfilm() {
+        return idfilm;
+    }
+
+    public void setIdfilm(Film idfilm) {
+        this.idfilm = idfilm;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idlienmedia != null ? idlienmedia.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Lienmedia)) {
+            return false;
+        }
+        Lienmedia other = (Lienmedia) object;
+        if ((this.idlienmedia == null && other.idlienmedia != null) || (this.idlienmedia != null && !this.idlienmedia.equals(other.idlienmedia))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Lienmedia[ idlienmedia=" + idlienmedia + " ]";
+    }
     
 }
-
-

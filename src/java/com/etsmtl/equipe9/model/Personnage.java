@@ -1,77 +1,116 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.etsmtl.equipe9.model;
 
-
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author Nicolas Desktop
+ */
 @Entity
-@Table(name="PERSONNAGE",schema="EQUIPE9")
-public class Personnage  implements java.io.Serializable {
+@Table(name = "PERSONNAGE", catalog = "", schema = "EQUIPE9")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Personnage.findAll", query = "SELECT p FROM Personnage p")
+    , @NamedQuery(name = "Personnage.findByIdfilm", query = "SELECT p FROM Personnage p WHERE p.personnagePK.idfilm = :idfilm")
+    , @NamedQuery(name = "Personnage.findByIdacteur", query = "SELECT p FROM Personnage p WHERE p.personnagePK.idacteur = :idacteur")
+    , @NamedQuery(name = "Personnage.findByNompersonnage", query = "SELECT p FROM Personnage p WHERE p.nompersonnage = :nompersonnage")})
+public class Personnage implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
-    @AttributeOverrides( {
-        @AttributeOverride(name="idfilm", column=@Column(name="IDFILM", nullable=false) ), 
-        @AttributeOverride(name="idacteur", column=@Column(name="IDACTEUR", nullable=false) ) } )
-    private PersonnageId id;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="IDFILM", nullable=false, insertable=false, updatable=false)
-    private Film film;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="IDACTEUR", nullable=false, insertable=false, updatable=false)
-    private Personne acteur;
-    
-    @Column(name="NOMPERSONNAGE", length=500)
+    protected PersonnagePK personnagePK;
+    @Size(max = 500)
+    @Column(name = "NOMPERSONNAGE")
     private String nompersonnage;
+    @JoinColumn(name = "IDFILM", referencedColumnName = "IDFILM", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Film film;
+    @JoinColumn(name = "IDACTEUR", referencedColumnName = "IDPERSONNE", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Personne personne;
 
-    public Personnage() {}
+    public Personnage() {
+    }
 
-    public Personnage(PersonnageId id, Film film, Personne acteur) {
-        this.id = id;
-        this.film = film;
-        this.acteur = acteur;
+    public Personnage(PersonnagePK personnagePK) {
+        this.personnagePK = personnagePK;
     }
-    public Personnage(PersonnageId id, Film film, Personne acteur, String nompersonnage) {
-       this.id = id;
-       this.film = film;
-       this.acteur = acteur;
-       this.nompersonnage = nompersonnage;
+
+    public Personnage(BigInteger idfilm, BigInteger idacteur) {
+        this.personnagePK = new PersonnagePK(idfilm, idacteur);
     }
-   
-    
-    public PersonnageId getId() {
-        return this.id;
-    } 
-    public void setId(PersonnageId id) {
-        this.id = id;
+
+    public PersonnagePK getPersonnagePK() {
+        return personnagePK;
     }
-    public Film getFilm() {
-        return this.film;
+
+    public void setPersonnagePK(PersonnagePK personnagePK) {
+        this.personnagePK = personnagePK;
     }
-    public void setFilm(Film film) {
-        this.film = film;
-    }
-    public Personne getActeur() {
-        return this.acteur;
-    }
-    public void setActeur(Personne acteur) {
-        this.acteur = acteur;
-    }
+
     public String getNompersonnage() {
-        return this.nompersonnage;
+        return nompersonnage;
     }
+
     public void setNompersonnage(String nompersonnage) {
         this.nompersonnage = nompersonnage;
     }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (personnagePK != null ? personnagePK.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Personnage)) {
+            return false;
+        }
+        Personnage other = (Personnage) object;
+        if ((this.personnagePK == null && other.personnagePK != null) || (this.personnagePK != null && !this.personnagePK.equals(other.personnagePK))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Personnage[ personnagePK=" + personnagePK + " ]";
+    }
     
 }
-
-
