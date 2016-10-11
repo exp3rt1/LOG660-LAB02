@@ -26,7 +26,7 @@ public class Film  implements java.io.Serializable {
     private Long idfilm;
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="IDPERSONNE")
+    @JoinColumn(name="IDREALISATEUR")
     private Personne realisateur;
     
     @Column(name="TITRE", nullable=false, length=200)
