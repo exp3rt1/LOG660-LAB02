@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 
 public class FilmDAO implements IDAO{
@@ -27,6 +28,20 @@ public class FilmDAO implements IDAO{
         emf.close();
         
         return film;
+    }
+    
+    
+    public List<Film> findById(List<Long> listeId) {
+        
+        EntityManagerFactory emf
+                = Persistence.createEntityManagerFactory("WebApplication1PU");
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("select f from Film f where f.idfilm in :listeId").setParameter("listeId", listeId);
+        List<Film> liste = query.getResultList();
+        em.close();
+        emf.close();
+        
+        return liste;
     }
     
     @Override
