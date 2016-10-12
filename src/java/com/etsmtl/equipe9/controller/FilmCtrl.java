@@ -66,7 +66,7 @@ public class FilmCtrl {
             List<Predicate> predi = new ArrayList<Predicate>();
             for (String titre : listeTitre) {
                 
-                predi.add( cb.or(cb.like(film.get("titre"), "%"+titre+"%")));
+                predi.add( cb.or(cb.like(cb.lower(film.get("titre")), "%"+titre.toLowerCase()+"%")));
             }
             Predicate or = cb.or(predi.toArray(new Predicate[]{}));
             predicates.add(or); 
@@ -78,7 +78,7 @@ public class FilmCtrl {
             List<Predicate> predi = new ArrayList<Predicate>();
             for (String langue : listeLangue) {
                 
-                predi.add( cb.or(cb.equal(film.get("langueoriginale"), langue)));
+                predi.add( cb.or(cb.equal(cb.lower(film.get("langueoriginale")), langue.toLowerCase())));
             }
             Predicate or = cb.or(predi.toArray(new Predicate[]{}));
             predicates.add(or); 
@@ -90,7 +90,7 @@ public class FilmCtrl {
             List<Predicate> predi = new ArrayList<Predicate>();
             for (String g : listeGenre) {
                 
-                predi.add( cb.or(cb.equal(filmGenre.get("nom"), g)));
+                predi.add( cb.or(cb.equal(cb.lower(filmGenre.get("nom")), g.toLowerCase())));
             }
             Predicate or = cb.or(predi.toArray(new Predicate[]{}));
             predicates.add(or); 
@@ -102,7 +102,7 @@ public class FilmCtrl {
             List<Predicate> predi = new ArrayList<Predicate>();
             for (String p : listepays) {
                 
-                predi.add( cb.or(cb.equal(filmPays.get("nom"), p)));
+                predi.add( cb.or(cb.equal(cb.lower(filmPays.get("nom")), p.toLowerCase())));
             }
             Predicate or = cb.or(predi.toArray(new Predicate[]{}));
             predicates.add(or); 
@@ -114,7 +114,7 @@ public class FilmCtrl {
             List<Predicate> predi = new ArrayList<Predicate>();
             for (String r : listeRealisateur) {
                 
-                predi.add( cb.or(cb.like(filmRealisateur.get("nom"), "%"+r+"%")));
+                predi.add( cb.or(cb.like(cb.lower(filmRealisateur.get("nom")), "%"+r.toLowerCase()+"%")));
             }
             Predicate or = cb.or(predi.toArray(new Predicate[]{}));
             predicates.add(or); 
@@ -126,7 +126,7 @@ public class FilmCtrl {
             List<Predicate> predi = new ArrayList<Predicate>();
             for (String a : listeActeur) {
                 
-                predi.add( cb.or(cb.like(filmPersonnagePersonne.get("nom"), "%"+a+"%")));
+                predi.add( cb.or(cb.like(cb.lower(filmPersonnagePersonne.get("nom")), "%"+a.toLowerCase()+"%")));
             }
             Predicate or = cb.or(predi.toArray(new Predicate[]{}));
             predicates.add(or); 
@@ -144,7 +144,7 @@ public class FilmCtrl {
             predicates.add(or); 
         }
         
-        // Critere Vide
+        // Critere Vide, on retourne tous les films
         if (listeAnneeSortie.isEmpty() && listeActeur.isEmpty() && listeRealisateur.isEmpty()
                 && listepays.isEmpty() && listeGenre.isEmpty() && listeLangue.isEmpty() && listeTitre.isEmpty()) {
 
@@ -177,26 +177,26 @@ public class FilmCtrl {
        
         List<String> listetitre = new ArrayList<>();
         //listetitre.add("ou");
-        //listetitre.add("an");
+        //listetitre.add("bat");
         
         List<String> listelangue = new ArrayList<>();
         //listelangue.add("Portuguese");
         //listelangue.add("English");
         
         List<String> listepays = new ArrayList<>();
-        //listepays.add("UK");
+        //listepays.add("uk");
         //listepays.add("USA");
         
         List<String> listegenre = new ArrayList<>();
         //listegenre.add("Comedy");
-        //listegenre.add("Action");
+        //listegenre.add("action");
         
         List<String> listerealisateur = new ArrayList<>();
-        //listerealisateur.add("Tim");
+        //listerealisateur.add("tim");
         //listerealisateur.add("Tim B");
         
         List<String> listeacteur = new ArrayList<>();
-        //listeacteur.add("Jack");
+        //listeacteur.add("jack");
         //listeacteur.add("Anna");
         
         List<Integer> listeanneesortie = new ArrayList<>();
