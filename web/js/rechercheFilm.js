@@ -105,29 +105,6 @@ function advancedFilmSearch(){
     sendToWebService(rechercheFilms);
 }
 
-function sendToWebService(rechercheFilms){
-    alert(JSON.stringify(rechercheFilms));
-    /*
-    $.ajax({
-        type: "POST",
-        url: "/LOG660-LAB02/webresources/film/recherche",
-        headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-        },
-        contentType: "application/json",
-        dataType: "application/json",
-        data: rechercheFilms,
-        success: function (data) {
-            alert("tabarnak");
-            console.log(data);
-        },
-        error: function (xhr) {
-            alert(xhr.responseText);
-        }
-    });
-    */
-}
 
 function setDatesInDateSelect() {
     var dates = document.getElementById('anneesSortie');
@@ -197,5 +174,33 @@ function addDateInterval(){
     
     //$(debut).selectpicker();
     //$(fin).selectpicker();
+    
+}
+
+function sendToWebService(rechercheFilms){
+    
+    alert(JSON.stringify(rechercheFilms));
+  
+    $.ajax({
+        type: "POST",
+        url: "/LOG660-LAB02/webresources/film/recherche",
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: rechercheFilms,
+        success: function (data) {
+            // redirection sur rechercheFilm
+            console.log(data);
+        },
+        error: function (xhr, status, error) {
+            // Mettre les champs en erreur
+            alert(xhr.responseText);
+            alert(status);
+            alert(error);
+        }
+    });
     
 }
