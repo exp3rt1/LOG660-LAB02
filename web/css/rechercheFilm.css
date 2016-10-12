@@ -8,3 +8,24 @@ and open the template in the editor.
     Author     : Oli
 */
 
+#addDateInterval {
+    margin-left: 15px;
+    cursor: pointer;
+    color: #337ab7;
+}
+
+#addDateInterval:hover {
+    cursor: pointer;
+    color: #337ab7;
+    text-decoration: underline;
+}
+
+#addDateInterval:active {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+}
+
+.dateSelect {
+    margin-left: 15px;
+}

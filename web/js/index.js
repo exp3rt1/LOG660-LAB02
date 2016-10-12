@@ -11,14 +11,24 @@ $(document).ready(function(){
         console.log(courriel + ": " + motPasse);
         
         $.ajax({
-            type: "GET",
-            url: "/LOG660-LAB02/client/login",
+            type: "POST",
+            url: "/LOG660-LAB02/webresources/client/login",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
             dataType: "json",
+            data: JSON.stringify({courriel: courriel, motDePasse: motPasse}),
             success: function (data) {
+                // redirection sur rechercheFilm
                 console.log(data);
             },
-            error: function (xhr) {
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
                 alert(xhr.responseText);
+                alert(status);
+                alert(error);
             }
         });
     });

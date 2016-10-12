@@ -17,6 +17,8 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        
         <!-- TagsInput -->
         <link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">
         <script src="js/bootstrap-tagsinput.js"></script>
@@ -25,12 +27,15 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
         
+        
         <!-- DataTables -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css" />
         <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
         
-        <!-- Our -->
+        <!-- Our shit -->
         <script src="js/rechercheFilm.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/rechercheFilm.css" />
+        
     </head>
     <body>
         <div class="container">
@@ -39,7 +44,8 @@ and open the template in the editor.
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="input-group col-md-12">
-                            <input id="titre" type="text" class="form-control input-lg" placeholder="Titre" />
+                            <input id="titre" type="text" class="form-control input-lg" 
+                                   placeholder="Titre" style="height: 46px; font-size: 20px;"/>
                             <span class="input-group-btn">
                                 <button id="rechercheBouton" class="btn btn-info btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -56,32 +62,32 @@ and open the template in the editor.
                         <div class="panel-body">
                             <div class="col-md-12">
                                 <div>
-                                    <label>Titre(s):</label>
+                                    <label>Titre(s) :</label>
                                     <input id="titres" type="text" value="" data-role="tagsinput" />
                                 </div>
                                 <div>
-                                    <label>Réalisateur(s):</label>
+                                    <label>Réalisateur(s) :</label>
                                     <input id="realisateurs" type="text" value="" data-role="tagsinput" />
                                 </div>
                                 <div>
-                                    <label>Acteur(s):</label>
+                                    <label>Acteur(s) :</label>
                                     <input id="acteurs" type="text" value="" data-role="tagsinput" />
-                                </div>
+                                </div>                      
+                                <div id="dateDiv">
+                                    <label>Année(s) de sortie :</label>
+                                    <select id="anneesSortie" class="selectpicker" multiple data-actions-box="true"></select>
+                                    <span id="addDateInterval" onclick="addDateInterval();">Ajouter une intervalle d'années</span>
+                                </div>                           
                                 <div>
-                                    <label>Année de sortie(Début):</label>
-                                    <select id="debutAnnee" class="selectpicker"></select>
-
-                                    <label>Année de sortie(Fin):</label>
-                                    <select id="finAnnee" class="selectpicker"></select>
-                                </div>
-                                <div>
-                                    <label>Pays de production(s):</label>
+                                    <label>Pays de production :</label>
                                     <select id="pays" class="selectpicker"  multiple data-actions-box="true"></select>
-
-                                    <label>Langue(s) Originale(s):</label>
+                                </div>
+                                <div>
+                                    <label>Langue(s) originale(s) :</label>
                                     <select id="languesOriginales" class="selectpicker"  multiple data-actions-box="true"></select>
-
-                                    <label>Genre(s):</label>
+                                </div>
+                                <div>
+                                    <label>Genre(s) :</label>
                                     <select id="genres" class="selectpicker"  multiple data-actions-box="true" ></select>
                                 </div>
                                
@@ -153,38 +159,4 @@ and open the template in the editor.
             </table>
         </div>
     </body>
-    <script type="text/javascript">
-        var today = new Date();
-        var min = 1900,
-            max = today.getFullYear(),
-            debut = document.getElementById('debutAnnee'),
-            fin = document.getElementById('finAnnee');
-
-        for (var i = min; i<=max; i++){
-            var opt1 = document.createElement('option');
-            var opt2 = document.createElement('option');
-            
-            opt1.value = i;
-            opt1.innerHTML = i;
-            opt2.value = i;
-            opt2.innerHTML = i;
-            
-            debut.appendChild(opt1);
-            fin.appendChild(opt2);
-        }
-        
-        $(document).ready(function() {
-            $('#listeFilms').DataTable({
-                "bFilter": false,
-                "bJQueryUI": true,
-                "bProcessing": true,
-                "bInfo": false,
-                "bLengthChange": false,
-                "bPaginate": true,
-                "pageLength": 5,
-                "pagingType": "simple_numbers",
-                "dom": 'lrtip'
-            });
-        } );
-    </script>
 </html>
