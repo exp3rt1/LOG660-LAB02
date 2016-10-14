@@ -72,6 +72,27 @@ and open the template in the editor.
     padding: 15px !important;
 }
 
+#listeFilms {
+    table-layout: fixed !important;
+}
+
+#listeFilms .dataTableRow,  #listeFilms .dataTableRow td{
+    cursor: pointer !important;
+}
+
+#listeFilms .dataTableRow:hover {
+    background-color: lightgray !important;
+}
+
+/*
+#listeFilms .dataTableTitleTD {
+    width: 90% !important;
+}
+
+#listeFilms .dataTableYearTD {
+    width: 10% !important;
+}
+*/
 
 
 

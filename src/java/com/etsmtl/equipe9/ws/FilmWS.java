@@ -6,8 +6,11 @@
 package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.FilmCtrl;
+import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
+import com.etsmtl.equipe9.model.Film;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -19,6 +22,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -43,27 +47,89 @@ public class FilmWS {
     @Consumes(MediaType.APPLICATION_JSON)
     public String recherche(String data) {
         
-        /*ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
         ArrayList<String> actors = new ArrayList<>();
         ArrayList<Integer> releaseDates = new ArrayList<>();
         ArrayList<String> countries = new ArrayList<>();
         ArrayList<String> originalLanguages = new ArrayList<>();
         ArrayList<String> genres = new ArrayList<>();
-        ArrayList<YearInterval> dateIntervals = new ArrayList<>();*/
+        ArrayList<YearInterval> dateIntervals = new ArrayList<>();
           
         try {
+            
             JSONObject searchObject = (JSONObject) new JSONParser().parse(data);
             
+            JSONArray titres = (JSONArray) searchObject.get("titres");
+            if(titres != null){
+                titres.stream().forEach((titre) -> {titles.add((String)titre);});
+            }
             
+            JSONArray realisateurs = (JSONArray) searchObject.get("realisateurs");
+            if(realisateurs != null){
+                realisateurs.stream().forEach((realisateur) -> {directors.add((String)realisateur);});
+            }
             
-            // TODO: Parse data
-            // TODO: Call controller
-            // TODO: Return data
+            JSONArray acteurs = (JSONArray) searchObject.get("acteurs");
+            if(acteurs != null){
+                acteurs.stream().forEach((acteur) -> {actors.add((String)acteur);});
+            }
             
+            JSONArray pays = (JSONArray) searchObject.get("pays");
+            if(pays != null){
+                pays.stream().forEach((unPays) -> {countries.add((String)unPays);});
+            }
             
-            return "{\"GG\":\"ÇA MARCHE\"}";
-
+            JSONArray languesOriginales = (JSONArray) searchObject.get("languesOriginales");
+            if(languesOriginales != null){
+                languesOriginales.stream().forEach((langueOriginale) -> {originalLanguages.add((String)langueOriginale);});
+            }
+            
+            JSONArray genrerinos = (JSONArray) searchObject.get("genres");
+            if(genrerinos != null){
+                genrerinos.stream().forEach((genrerino) -> {genres.add((String)genrerino);});
+            }
+            
+            JSONArray anneesSortie = (JSONArray) searchObject.get("anneesSortie");
+            if(anneesSortie != null){
+                for(Object anneeSortie : anneesSortie){
+                    Integer releaseDate = Integer.parseInt((String) anneeSortie);
+                    releaseDates.add(releaseDate);
+                }
+            }
+            
+            JSONArray intervallesAnnees = (JSONArray) searchObject.get("intervallesAnnees");
+            if(intervallesAnnees != null){
+                for(Object intervalleAnnees : intervallesAnnees){
+                    String interval = (String) intervalleAnnees;
+                    String start = interval.split(",")[0];
+                    String fin = interval.split(",")[1];
+                    dateIntervals.add(new YearInterval(Integer.parseInt(start),Integer.parseInt(fin)));
+                }
+            }
+            
+            FilmDTO filmDTO = new FilmDTO();
+            filmDTO.setActors(actors);
+            filmDTO.setCountries(countries);
+            filmDTO.setDateIntervals(dateIntervals);
+            filmDTO.setDirectors(directors);
+            filmDTO.setGenres(genres);
+            filmDTO.setOriginalLanguages(originalLanguages);
+            filmDTO.setReleaseDates(releaseDates);
+            filmDTO.setTitles(titles);
+            
+            List<Film> searchResults = filmCtrl.getFilms(filmDTO);        
+            
+            JSONArray json = new JSONArray();  
+            searchResults.stream().forEach((film) -> {
+                JSONArray jsonFilm = new JSONArray();
+                jsonFilm.add(film.getIdfilm().toString());
+                jsonFilm.add(film.getTitre());
+                jsonFilm.add(film.getAnneesortie());
+                json.add(jsonFilm);
+            });
+            
+            return json.toJSONString();
          
         } 
         catch (ParseException ex) {
