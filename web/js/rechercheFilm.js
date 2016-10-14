@@ -15,7 +15,7 @@ $(document).ready(function(){
                 "bInfo": false,
                 "bLengthChange": false,
                 "bPaginate": true,
-                "pageLength": 5,
+                "pageLength": 25,
                 "pagingType": "simple_numbers",
                 "dom": 'lrtip'
     });
@@ -84,14 +84,14 @@ function advancedFilmSearch(){
         var endIsNull = (endDate === undefined || endDate === null || endDate === "");
         if(!startIsNull && endIsNull){
             endDate = '99999';
-            intervallesAnnees.push("{'debut':'"+startDate+"','fin':'"+endDate+"'}");
+            intervallesAnnees.push(startDate+","+endDate);
         }
         else if(startIsNull && !endIsNull){
             startDate = '0';
-            intervallesAnnees.push("{'debut':'"+startDate+"','fin':'"+endDate+"'}");
+            intervallesAnnees.push(startDate+","+endDate);
         }
         else if(!startIsNull && !endIsNull){
-            intervallesAnnees.push("{'debut':'"+startDate+"','fin':'"+endDate+"'}");
+            intervallesAnnees.push(startDate+","+endDate);
         }
         else {
             // do nothing
@@ -177,6 +177,40 @@ function addDateInterval(){
     
 }
 
+function fillDataTable(jsonData){
+    
+    
+    var filmTableBody = document.getElementById("filmTableBody");
+    filmTableBody.innerHTML = "";
+    
+    for(var i = 0; i<jsonData.length; i++){
+        
+        var film = jsonData[i];
+        var id = film[0];
+        var title = film[1];
+        var year = film[2];
+        
+        var newRow = document.createElement("tr");
+        newRow.setAttribute("data-id",id);
+        newRow.className = "dataTableRow";
+        
+        var titleTD = document.createElement("td");
+        titleTD.innerHTML = title;
+        titleTD.className = "dataTableTitleTD";
+        var yearTD = document.createElement("td");
+        yearTD.innerHTML = year;
+        yearTD.className = "dataTableYearTD";
+        
+        newRow.appendChild(titleTD);
+        newRow.appendChild(yearTD);
+        
+        //filmTableBody.appendChild(newRow);
+        $('#listeFilms').DataTable().row.add(newRow).draw();
+    }
+    
+    
+}
+
 function sendToWebService(rechercheFilms){
     
     alert(JSON.stringify(rechercheFilms));
@@ -194,14 +228,15 @@ function sendToWebService(rechercheFilms){
             dataType: "json",
             data: filmSearchData,
             success: function (data) {
-                // redirection sur rechercheFilm
                 console.log(data);
+                fillDataTable(data);
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
-                alert(xhr.responseText);
-                alert(status);
-                alert(error);
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
             }
         });
     }
