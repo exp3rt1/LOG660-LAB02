@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){    
+$(document).ready(function(){  
+    console.log(window.location.hash.substring(1));
+    if(window.location.hash.substring(1) === "error") {
+        $('#errorBox').show();
+    }
     $('#boutonLogin').click(function(){
         var courriel = $('#clientCourriel').val();
         var motPasse = $('#clientMotPasse').val();
         console.log(courriel + ": " + motPasse);
         
-        $.ajax({
+        /*$.ajax({
             type: "POST",
             url: "/LOG660-LAB02/webresources/client/login",
             headers: { 
@@ -23,6 +27,7 @@ $(document).ready(function(){
             success: function (data) {
                 // redirection sur rechercheFilm
                 console.log(data);
+                //$(location).attr('pathname', data);
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
@@ -30,6 +35,6 @@ $(document).ready(function(){
                 alert(status);
                 alert(error);
             }
-        });
+        });*/
     });
 });

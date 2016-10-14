@@ -7,10 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.Client;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,31 +31,28 @@ public class ClientWS {
         
     @POST
     @Path("login")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response login(String data) {
-        String courriel = null;
-        String motDePasse = null;
-        
+    @Produces(MediaType.TEXT_HTML)
+    public Response login(
+            @FormParam("courriel") String courriel,
+            @FormParam("motPasse") String motDePasse
+    ) {  
+        URI uri = null;
         try {
-            JSONObject object = (JSONObject) new JSONParser().parse(data);
-            courriel = (String) object.get("courriel");
-            motDePasse = (String) object.get("motDePasse");
-            
-            System.out.print(courriel + ":" + motDePasse);
-            
+            //JSONObject object = (JSONObject) new JSONParser().parse(data);
+            //courriel = (String) object.get("courriel");
+            //motDePasse = (String) object.get("motDePasse");
+
             if(ctrl.getPassword(courriel, motDePasse)){
-                URI uri = new URI("/LOG660-LAB02/rechercheFilm.html");
-                return Response.temporaryRedirect(uri).build();
-                //return Response.status(200).entity("{\"reponse\":\"success\"}").build();
+                uri = new URI("/LOG660-LAB02/rechercheFilm.html");
             }
-        } 
-        catch (ParseException ex) {
-            Logger.getLogger(ClientWS.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {       
+            else {
+                uri = new URI("/LOG660-LAB02/#error");
+            }
+        }
+        catch (URISyntaxException ex) {       
             Logger.getLogger(ClientWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return Response.status(401).entity("{\"reponse\":\"fail\"}").build();
+        return Response.temporaryRedirect(uri).build();
     }
 }
