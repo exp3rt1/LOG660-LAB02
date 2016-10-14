@@ -182,6 +182,7 @@ function sendToWebService(rechercheFilms){
     alert(JSON.stringify(rechercheFilms));
     
     if(JSON.stringify(rechercheFilms) !== JSON.stringify({})){
+        var filmSearchData = JSON.stringify(rechercheFilms);
         $.ajax({
             type: "POST",
             url: "/LOG660-LAB02/webresources/film/recherche",
@@ -191,7 +192,7 @@ function sendToWebService(rechercheFilms){
             },
             contentType: "application/json",
             dataType: "json",
-            data: rechercheFilms,
+            data: filmSearchData,
             success: function (data) {
                 // redirection sur rechercheFilm
                 console.log(data);
