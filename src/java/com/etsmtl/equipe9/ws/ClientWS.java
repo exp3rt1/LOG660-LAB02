@@ -73,14 +73,19 @@ public class ClientWS extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+        Cookie idCookie;
+        HttpSession session;
         String courriel = request.getParameter("courriel");
         String motDePasse = request.getParameter("motPasse");
         
-        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) {
-                Cookie courrielCookie = new Cookie("courriel", courriel);
-                courrielCookie.setMaxAge(60 * 60);
-                response.addCookie(courrielCookie);
-                response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
+        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
+        {
+            session = request.getSession(true);            
+            idCookie = new Cookie("id", session.getId());
+            idCookie.setMaxAge(60 * 3600);
+            response.addCookie(idCookie);
+            
+            response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
         }
         else {
             response.sendRedirect("/LOG660-LAB02/#error");
