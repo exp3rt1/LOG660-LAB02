@@ -41,32 +41,35 @@ public class FilmWS {
     @Path("recherche")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response recherche(String data) {
+    public String recherche(String data) {
         
-        ArrayList<String> titles = new ArrayList<>();
+        /*ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
         ArrayList<String> actors = new ArrayList<>();
         ArrayList<Integer> releaseDates = new ArrayList<>();
         ArrayList<String> countries = new ArrayList<>();
         ArrayList<String> originalLanguages = new ArrayList<>();
         ArrayList<String> genres = new ArrayList<>();
-        ArrayList<YearInterval> dateIntervals = new ArrayList<>();
+        ArrayList<YearInterval> dateIntervals = new ArrayList<>();*/
           
         try {
-            JSONObject object = (JSONObject) new JSONParser().parse(data);
+            JSONObject searchObject = (JSONObject) new JSONParser().parse(data);
             
-            System.out.println(object.toString());
+            
             
             // TODO: Parse data
             // TODO: Call controller
             // TODO: Return data
             
-            return Response.status(200).entity("{\"reponse\":\"success\"}").build();   
+            
+            return "{\"GG\":\"ÇA MARCHE\"}";
+
+         
         } 
         catch (ParseException ex) {
             Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+            return "{\"GG\":\"ERROR\"}";
         }       
         
-        return Response.status(401).entity("{\"reponse\":\"fail\"}").build();
     }
 }
