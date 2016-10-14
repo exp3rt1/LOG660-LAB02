@@ -135,7 +135,7 @@ function addDateInterval(){
     var debut = document.createElement('select');
     debut.id = "debutAnnee";
     debut.className = "selectpicker dateSelect";
-    debut.style = 'display: block !important;';
+    debut.style = 'display: inline-block !important;';
     
     var finLabel = document.createElement('label');
     finLabel.innerHTML = "Année de fin :";
@@ -143,7 +143,7 @@ function addDateInterval(){
     var fin = document.createElement('select');
     fin.id = "finAnnee";
     fin.className = "selectpicker dateSelect";
-    fin.style = 'display: block !important;';
+    fin.style = 'display: inline-block !important;';
     
     var firstOption1 = document.createElement('option');
     firstOption1.value = '';
@@ -180,27 +180,28 @@ function addDateInterval(){
 function sendToWebService(rechercheFilms){
     
     alert(JSON.stringify(rechercheFilms));
-  
-    $.ajax({
-        type: "POST",
-        url: "/LOG660-LAB02/webresources/film/recherche",
-        headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-        },
-        contentType: "application/json",
-        dataType: "json",
-        data: rechercheFilms,
-        success: function (data) {
-            // redirection sur rechercheFilm
-            console.log(data);
-        },
-        error: function (xhr, status, error) {
-            // Mettre les champs en erreur
-            alert(xhr.responseText);
-            alert(status);
-            alert(error);
-        }
-    });
     
+    if(JSON.stringify(rechercheFilms) !== JSON.stringify({})){
+        $.ajax({
+            type: "POST",
+            url: "/LOG660-LAB02/webresources/film/recherche",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: rechercheFilms,
+            success: function (data) {
+                // redirection sur rechercheFilm
+                console.log(data);
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                alert(xhr.responseText);
+                alert(status);
+                alert(error);
+            }
+        });
+    }
 }

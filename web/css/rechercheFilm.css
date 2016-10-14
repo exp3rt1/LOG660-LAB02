@@ -8,8 +8,14 @@ and open the template in the editor.
     Author     : Oli
 */
 
+#pageTitle {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
 #addDateInterval {
-    margin-left: 15px;
     cursor: pointer;
     color: #337ab7;
 }
@@ -29,3 +35,48 @@ and open the template in the editor.
 .dateSelect {
     margin-left: 15px;
 }
+
+#rechercheAvancee table td {
+    padding: 5px;
+}
+
+#rechercheAvancee table {
+    width: 100%;
+    table-layout: fixed;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.labelTD {
+    width: 40%;
+}
+
+.inputTD {
+    width: 60%;
+}
+
+.dateInterval * {
+    margin-bottom: 3px;
+}
+
+#rechercheAvanceeBouton {
+    width: 225px;
+    height: 45px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+#rechercheAvanceeBoutonTD {
+    text-align: right;
+    padding: 15px !important;
+}
+
+
+
+
+
+
+
+
+
