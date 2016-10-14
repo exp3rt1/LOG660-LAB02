@@ -1,21 +1,23 @@
 package com.etsmtl.equipe9.dao;
 
-import com.etsmtl.equipe9.model.Client;
+import com.etsmtl.equipe9.model.Location;
+import com.etsmtl.equipe9.model.LocationId;
 import java.util.List;
 
 
-public class ClientDAO extends DAOAbstrait<Client, String>{
+public class LocationDAO extends DAOAbstrait<Location, LocationId>{
+
     
     @Override
-    public Client findAll() {
+    public Location findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
-    public Client findById(String courriel) {
+    public Location findById(LocationId id) {
         try {
             connect();
-            return this.em.find(Client.class, courriel);
+            return this.em.find(Location.class, id);
         } catch (Exception e) {
             return null;
         } finally {
@@ -24,22 +26,22 @@ public class ClientDAO extends DAOAbstrait<Client, String>{
     }
     
     @Override
-    public List<Client> findById(List<String> listeId) {
+    public List<Location> findById(List<LocationId> listeId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean insert(Client obj) {
+    public boolean insert(Location obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Client obj) {
+    public boolean update(Location obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Client obj) {
+    public boolean delete(Location obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

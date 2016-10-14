@@ -23,15 +23,4 @@ public abstract class DAOAbstrait<T,PK> implements IDAO<T,PK> {
         emf.close();
     }
     
-    public <T> T emFind(Class<T> entityClass, Object primaryKey){
-        try {
-            connect();
-            return this.em.find(entityClass, primaryKey);
-        } catch (Exception e) {
-            return null;
-        } finally {
-            disconnect();
-        }
-    }
-    
 }

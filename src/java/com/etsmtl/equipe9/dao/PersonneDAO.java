@@ -13,7 +13,14 @@ public class PersonneDAO extends DAOAbstrait<Personne, Long>{
 
     @Override
     public Personne findById(Long id) {
-        return this.emFind(Personne.class, id);
+        try {
+            connect();
+            return this.em.find(Personne.class, id);
+        } catch (Exception e) {
+            return null;
+        } finally {
+            disconnect();
+        }
     }
     
     @Override

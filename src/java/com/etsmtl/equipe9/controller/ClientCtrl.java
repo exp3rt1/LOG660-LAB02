@@ -1,20 +1,19 @@
 package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.dao.ClientDAO;
+import com.etsmtl.equipe9.service.DAOFactory;
 
 
 
 public class ClientCtrl {
     
+    ClientDAO dao = DAOFactory.getInstance().getClientDAO();
+    
     public boolean getPassword (String courriel, String motDePasse){
         // Quand on va avoir hasher le mot de passe, il faudra le dehasher
-        ClientDAO dao = new ClientDAO();
         String motDePasseBD = dao.findById(courriel).getMotpasse();
         
-        if (motDePasse.equals(motDePasseBD)){
-            return true;
-        }
-        return false;
+        return motDePasse.equals(motDePasseBD);
     }
     
     public static void main(String[] args) {

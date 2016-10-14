@@ -9,9 +9,6 @@ import com.etsmtl.equipe9.model.Personnage;
 import com.etsmtl.equipe9.model.Personne;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -157,15 +154,12 @@ public class FilmDAO extends DAOAbstrait<Film, Long> {
             Query query = em.createQuery(cq);
 
             List<Film> result = query.getResultList();
-
             return result;
 
         } catch (Exception e) {
-
             return null;
 
         } finally {
-
             disconnect();
         }
 
@@ -178,7 +172,14 @@ public class FilmDAO extends DAOAbstrait<Film, Long> {
 
     @Override
     public Film findById(Long id) {
-        return this.emFind(Film.class, id);
+        try {
+            connect();
+            return this.em.find(Film.class, id);
+        } catch (Exception e) {
+            return null;
+        } finally {
+            disconnect();
+        }
     }
 
     @Override
