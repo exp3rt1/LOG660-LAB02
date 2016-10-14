@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Recherche</title>
+        <title>Recherche de films</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -39,13 +39,17 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-            <!--C'est la bar de recherche avec les options avancé.-->
+            
+            <div id="pageTitle">Recherche de films</div>
+            
+            
+            <!--C'est la barre de recherche avec les options avancées.-->
             <div class="panel-group accordion-group accordion-caret" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="input-group col-md-12">
                             <input id="titre" type="text" class="form-control input-lg" 
-                                   placeholder="Titre" style="height: 46px; font-size: 20px;"/>
+                                   placeholder="Titre" style="height: 46px; font-size: 20px; padding-left: 15px;"/>
                             <span class="input-group-btn">
                                 <button id="rechercheBouton" class="btn btn-info btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -59,44 +63,55 @@ and open the template in the editor.
                         </div>
                     </div>
                     <div id="rechercheAvancee" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="col-md-12">
-                                <div>
-                                    <label>Titre(s) :</label>
-                                    <input id="titres" type="text" value="" data-role="tagsinput" />
-                                </div>
-                                <div>
-                                    <label>Réalisateur(s) :</label>
-                                    <input id="realisateurs" type="text" value="" data-role="tagsinput" />
-                                </div>
-                                <div>
-                                    <label>Acteur(s) :</label>
-                                    <input id="acteurs" type="text" value="" data-role="tagsinput" />
-                                </div>                      
-                                <div id="dateDiv">
-                                    <label>Année(s) de sortie :</label>
-                                    <select id="anneesSortie" class="selectpicker" multiple data-actions-box="true"></select>
-                                    <span id="addDateInterval" onclick="addDateInterval();">Ajouter une intervalle d'années</span>
-                                </div>                           
-                                <div>
-                                    <label>Pays de production :</label>
-                                    <select id="pays" class="selectpicker"  multiple data-actions-box="true"></select>
-                                </div>
-                                <div>
-                                    <label>Langue(s) originale(s) :</label>
-                                    <select id="languesOriginales" class="selectpicker"  multiple data-actions-box="true"></select>
-                                </div>
-                                <div>
-                                    <label>Genre(s) :</label>
-                                    <select id="genres" class="selectpicker"  multiple data-actions-box="true" ></select>
-                                </div>
-                               
-                                <button id="rechercheAvanceeBouton" class="btn btn-info" type="button">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                    Rechercher
-                                </button>
-                            </div>
-                        </div>
+                        
+                        <table>
+                            <tr>
+                                <td class="labelTD"><label>Titre(s) : </label></td>
+                                <td class="inputTD"><input id="titres" type="text" value="" data-role="tagsinput" /></td>
+                                <td class="labelTD"><label>Pays de production : </label></td>
+                                <td class="inputTD"><select id="pays" class="selectpicker"  multiple data-actions-box="true"></select></td>
+                            </tr>
+                            <tr>
+                                <td class="labelTD"><label>Réalisateur(s) : </label></td>
+                                <td class="inputTD"><input id="realisateurs" type="text" value="" data-role="tagsinput" /></td>
+                                <td class="labelTD"><label>Langue(s) originale(s) : </label></td>
+                                <td class="inputTD"><select id="languesOriginales" class="selectpicker"  multiple data-actions-box="true"></select></td>
+                            
+                            </tr>
+                            <tr>
+                                <td class="labelTD"><label>Acteur(s) : </label></td>
+                                <td class="inputTD"><input id="acteurs" type="text" value="" data-role="tagsinput" /></td>
+                                <td class="labelTD"><label>Genre(s) : </label></td>
+                                <td class="inputTD"><select id="genres" class="selectpicker"  multiple data-actions-box="true" ></select></td>
+                            </tr>                      
+
+                            <tr>
+                                <td class="labelTD"><label>Année(s) de sortie : </label></td>
+                                <td class="inputTD">
+                                    <select id="anneesSortie" class="selectpicker" multiple data-actions-box="true"></select>   
+                                </td>
+                                <td colspan="2">
+                                    <div id="addDateInterval" onclick="addDateInterval();">
+                                        <span class="glyphicon glyphicon-plus"></span> Ajouter une intervalle d'années</div>
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td colspan="4">
+                                    <div id="dateDiv"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" id="rechercheAvanceeBoutonTD">
+                                    <button id="rechercheAvanceeBouton" class="btn btn-info" type="button">
+                                        <i class="glyphicon glyphicon-search" style="margin-right: 5px;"></i>
+                                        Rechercher
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                       
+                        
+                        
                     </div>
                 </div>
             </div>

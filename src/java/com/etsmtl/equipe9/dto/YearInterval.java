@@ -11,19 +11,19 @@ package com.etsmtl.equipe9.dto;
  */
 public class YearInterval {
     
-    private String start;
-    private String end;
+    private int start;
+    private int end;
     
-    private YearInterval(String start, String end){
+    public YearInterval(int start, int end){
         this.start = start;
         this.end = end;
     }
     
-    public String getStart(){
+    public int getStart(){
         return start;
     }
     
-    public String getEnd(){
+    public int getEnd(){
         return end;
     }
     

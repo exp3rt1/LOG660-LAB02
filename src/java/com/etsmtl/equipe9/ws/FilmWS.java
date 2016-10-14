@@ -46,7 +46,7 @@ public class FilmWS {
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
         ArrayList<String> actors = new ArrayList<>();
-        ArrayList<String> releaseDates = new ArrayList<>();
+        ArrayList<Integer> releaseDates = new ArrayList<>();
         ArrayList<String> countries = new ArrayList<>();
         ArrayList<String> originalLanguages = new ArrayList<>();
         ArrayList<String> genres = new ArrayList<>();

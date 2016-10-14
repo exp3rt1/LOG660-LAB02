@@ -16,7 +16,7 @@ public class FilmDTO {
     private ArrayList<String> titles;
     private ArrayList<String> directors;
     private ArrayList<String> actors;
-    private ArrayList<String> releaseDates;
+    private ArrayList<Integer> releaseDates;
     private ArrayList<String> countries;
     private ArrayList<String> originalLanguages;
     private ArrayList<String> genres;
@@ -48,11 +48,11 @@ public class FilmDTO {
         this.actors = actors;
     }
 
-    public ArrayList<String> getReleaseDates() {
+    public ArrayList<Integer> getReleaseDates() {
         return releaseDates;
     }
 
-    public void setReleaseDates(ArrayList<String> releaseDates) {
+    public void setReleaseDates(ArrayList<Integer> releaseDates) {
         this.releaseDates = releaseDates;
     }
 

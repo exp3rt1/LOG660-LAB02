@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.dao.FilmDAO;
+import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
 import com.etsmtl.equipe9.model.Genre;
 import com.etsmtl.equipe9.model.Pays;
@@ -36,7 +37,8 @@ public class FilmCtrl {
    
     public void rechercheFilm(List<String> listeTitre, List<String> listeLangue, 
             List<String> listeGenre, List<String> listepays, List<String> 
-            listeRealisateur, List<String> listeActeur, List<Integer> listeAnneeSortie ) {
+            listeRealisateur, List<String> listeActeur, List<Integer>
+            listeAnneeSortie, List<YearInterval> listeAnneeInterval ) {
 
         // Entity Manager
         EntityManagerFactory emf
@@ -144,15 +146,28 @@ public class FilmCtrl {
             predicates.add(or); 
         }
         
+        // Critere Annee Interval
+        if (!listeAnneeInterval.isEmpty()){
+            
+            List<Predicate> predi = new ArrayList<Predicate>();
+            for (YearInterval a : listeAnneeInterval) {
+                
+                predi.add( cb.or(cb.between(film.get("anneesortie"), a.getStart(),a.getEnd())));
+            }
+            Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+            predicates.add(or); 
+        }
+        
         // Critere Vide, on retourne tous les films
         if (listeAnneeSortie.isEmpty() && listeActeur.isEmpty() && listeRealisateur.isEmpty()
-                && listepays.isEmpty() && listeGenre.isEmpty() && listeLangue.isEmpty() && listeTitre.isEmpty()) {
+                && listepays.isEmpty() && listeGenre.isEmpty() && listeLangue.isEmpty() 
+                && listeTitre.isEmpty() && listeAnneeInterval.isEmpty())  {
 
             CriteriaQuery<Film> query = cb.createQuery(Film.class);
             List<Film> result = em.createQuery(query).getResultList();
 
             for (Film film1 : result) {
-                System.out.println(film1.getTitre());
+                System.out.println(film1.getTitre()+" "+film1.getAnneesortie());
             }
             return;
 
@@ -166,7 +181,7 @@ public class FilmCtrl {
         List<Film> result = query.getResultList();
         
         for (Film film1 : result) {
-            System.out.println(film1.getTitre());
+            System.out.println(film1.getTitre()+" "+film1.getAnneesortie());
         }
     }
         
@@ -176,8 +191,9 @@ public class FilmCtrl {
         
        
         List<String> listetitre = new ArrayList<>();
-        //listetitre.add("ou");
-        //listetitre.add("bat");
+        //listetitre.add("the");
+        //listetitre.add("at");
+       
         
         List<String> listelangue = new ArrayList<>();
         //listelangue.add("Portuguese");
@@ -203,8 +219,12 @@ public class FilmCtrl {
         //listeanneesortie.add(1992);
         //listeanneesortie.add(1989);
         
+        List<YearInterval> listeanneeinterval = new ArrayList<>();
+        listeanneeinterval.add(new YearInterval(2000, 2005));
+        //listeanneeinterval.add(new YearInterval(0, 2000));
+        
         FilmCtrl control = new FilmCtrl();
-        control.rechercheFilm(listetitre, listelangue, listegenre, listepays, listerealisateur, listeacteur, listeanneesortie);
+        control.rechercheFilm(listetitre, listelangue, listegenre, listepays, listerealisateur, listeacteur, listeanneesortie,listeanneeinterval);
         
     }
 }
