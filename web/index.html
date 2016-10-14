@@ -31,15 +31,15 @@ and open the template in the editor.
                     <h1>Client login</h1>
                 </div>
                 <div class="panel-body">
-                    <form method="POST" class="form-horizontal" action="/LOG660-LAB02/webresources/client/login">
-                        <div class="form-group">
+                    <form id="form" method="POST" class="form-horizontal" action="/LOG660-LAB02/login">
+                        <div id="courrielContainer" class="form-group">
                             <div class="col-md-12">
-                                <input id="clientCourriel" type="email" class="form-control" name="courriel" placeholder="Courriel"/>
+                                <input id="clientCourriel" type="email" class="form-control" name="courriel" placeholder="Courriel" required/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div id="motPasseContainer" class="form-group">
                             <div class="col-md-12" >
-                                <input id="clientMotPasse" type="password" class="form-control" name="motPasse" placeholder="Mot de passe"/>
+                                <input id="clientMotPasse" type="password" class="form-control" name="motPasse" placeholder="Mot de passe" required/>
                             </div>
                         </div>
                         <div class="form-group">

@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){  
-    console.log(window.location.hash.substring(1));
+$(document).ready(function(){
     if(window.location.hash.substring(1) === "error") {
         $('#errorBox').show();
     }
