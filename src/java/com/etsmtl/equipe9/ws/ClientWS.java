@@ -1,6 +1,8 @@
 package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.ClientCtrl;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -41,12 +43,16 @@ public class ClientWS {
             System.out.print(courriel + ":" + motDePasse);
             
             if(ctrl.getPassword(courriel, motDePasse)){
-                return Response.status(200).entity("{\"reponse\":\"success\"}").build();
+                URI uri = new URI("/LOG660-LAB02/rechercheFilm.html");
+                return Response.temporaryRedirect(uri).build();
+                //return Response.status(200).entity("{\"reponse\":\"success\"}").build();
             }
         } 
         catch (ParseException ex) {
             Logger.getLogger(ClientWS.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        } catch (URISyntaxException ex) {       
+            Logger.getLogger(ClientWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return Response.status(401).entity("{\"reponse\":\"fail\"}").build();
     }
