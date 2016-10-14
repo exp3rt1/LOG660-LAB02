@@ -2,11 +2,6 @@ package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.ClientCtrl;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -14,20 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 
 @WebServlet("/login")
@@ -40,18 +23,14 @@ public class ClientWS extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        Cookie idCookie;
         HttpSession session;
         String courriel = request.getParameter("courriel");
         String motDePasse = request.getParameter("motPasse");
         
         if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
         {
-            session = request.getSession(true);            
-            idCookie = new Cookie("id", session.getId());
-            idCookie.setMaxAge(60 * 3600);
-            response.addCookie(idCookie);
-            
+            session = request.getSession(true);
+            session.setMaxInactiveInterval(1000);            
             response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
         }
         else {
