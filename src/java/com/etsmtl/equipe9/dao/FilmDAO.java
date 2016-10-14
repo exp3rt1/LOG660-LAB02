@@ -36,7 +36,7 @@ public class FilmDAO implements IDAO{
         EntityManagerFactory emf
                 = Persistence.createEntityManagerFactory("WebApplication1PU");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select f from Film f where f.idfilm in :listeId").setParameter("listeId", listeId);
+        Query query = em.createQuery("select DISTINCT f from Film f where f.idfilm in :listeId").setParameter("listeId", listeId);
         List<Film> liste = query.getResultList();
         em.close();
         emf.close();
