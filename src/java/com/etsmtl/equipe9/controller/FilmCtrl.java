@@ -146,7 +146,6 @@ public class FilmCtrl {
             predicates.add(or); 
         }
         
-<<<<<<< HEAD
         // Critere Annee Interval
         if (!listeAnneeInterval.isEmpty()){
             
@@ -159,10 +158,7 @@ public class FilmCtrl {
             predicates.add(or); 
         }
         
-        // Critere Vide
-=======
         // Critere Vide, on retourne tous les films
->>>>>>> f78dbcc07a9286c6790816070f81e1bc97c91e81
         if (listeAnneeSortie.isEmpty() && listeActeur.isEmpty() && listeRealisateur.isEmpty()
                 && listepays.isEmpty() && listeGenre.isEmpty() && listeLangue.isEmpty() 
                 && listeTitre.isEmpty() && listeAnneeInterval.isEmpty())  {
@@ -195,13 +191,9 @@ public class FilmCtrl {
         
        
         List<String> listetitre = new ArrayList<>();
-<<<<<<< HEAD
         //listetitre.add("the");
         //listetitre.add("at");
-=======
-        //listetitre.add("ou");
-        //listetitre.add("bat");
->>>>>>> f78dbcc07a9286c6790816070f81e1bc97c91e81
+       
         
         List<String> listelangue = new ArrayList<>();
         //listelangue.add("Portuguese");
@@ -229,7 +221,7 @@ public class FilmCtrl {
         
         List<YearInterval> listeanneeinterval = new ArrayList<>();
         listeanneeinterval.add(new YearInterval(2000, 2005));
-        //listeanneeinterval.add(1989);
+        //listeanneeinterval.add(new YearInterval(0, 2000));
         
         FilmCtrl control = new FilmCtrl();
         control.rechercheFilm(listetitre, listelangue, listegenre, listepays, listerealisateur, listeacteur, listeanneesortie,listeanneeinterval);
