@@ -9,16 +9,16 @@ import javax.persistence.Persistence;
 
 public abstract class DAOAbstrait<T,PK> implements IDAO<T,PK> {
     
-    private final String PERSISTANCE_UNIT_NAME = "WebApplication1PU";
-    private EntityManagerFactory emf;
-    private EntityManager em;
+    public final String PERSISTANCE_UNIT_NAME = "WebApplication1PU";
+    public EntityManagerFactory emf;
+    public EntityManager em;
     
-    private void connect() throws Exception{
+    public void connect() throws Exception{
         this.emf = Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
         this.em = emf.createEntityManager();
     }
     
-    private void disconnect(){
+    public void disconnect(){
         em.close();
         emf.close();
     }

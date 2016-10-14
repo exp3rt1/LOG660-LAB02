@@ -3,7 +3,6 @@ package com.etsmtl.equipe9.controller;
 import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.model.Client;
 import com.etsmtl.equipe9.model.Film;
-import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -15,7 +14,7 @@ import javax.persistence.StoredProcedureQuery;
 
 public class LocationCtrl {
 
-    public void locationFilm(String courriel, Long idfilm) throws SQLException{
+    public void locationFilm(String courriel, Long idfilm) {
 
         // Entity Manager
         EntityManagerFactory emf
@@ -30,7 +29,7 @@ public class LocationCtrl {
  
         try {
             storedProcedure.execute();
-        } catch (SQLException  e) {
+        } catch (Exception e) {
             
             
             

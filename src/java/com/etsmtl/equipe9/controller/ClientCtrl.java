@@ -18,8 +18,8 @@ public class ClientCtrl {
     }
     
     public static void main(String[] args) {
-        //ClientCtrl pass = new ClientCtrl();
-        //String password = pass.getPassword("RobertBSutton56@yahoo.com");
-        //System.out.println("Le password est: "+ password);
+        ClientCtrl pass = new ClientCtrl();
+        
+        System.out.println(pass.getPassword("RobertBSutton56@yahoo.com","allo"));
     }
 }
