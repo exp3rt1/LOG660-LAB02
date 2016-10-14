@@ -1,8 +1,6 @@
 package com.etsmtl.equipe9.dao;
 
-import com.etsmtl.equipe9.model.Client;
 import com.etsmtl.equipe9.model.Film;
-import com.etsmtl.equipe9.service.IDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,27 +8,19 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 
-public class FilmDAO implements IDAO{
+public class FilmDAO extends DAOAbstrait<Film, Long>{
 
     @Override
-    public Object findAll() {
+    public Film findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Film findById(Long id) {
-        
-        EntityManagerFactory emf
-                = Persistence.createEntityManagerFactory("WebApplication1PU");
-        EntityManager em = emf.createEntityManager();
-        Film film =  em.find(Film.class, id);
-        em.close();
-        emf.close();
-        
-        return film;
+        return this.emFind(Film.class, id);
     }
     
-    
+    @Override
     public List<Film> findById(List<Long> listeId) {
         
         EntityManagerFactory emf
@@ -45,17 +35,17 @@ public class FilmDAO implements IDAO{
     }
     
     @Override
-    public boolean insert(Object obj) {
+    public boolean insert(Film obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Object obj) {
+    public boolean update(Film obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Object obj) {
+    public boolean delete(Film obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

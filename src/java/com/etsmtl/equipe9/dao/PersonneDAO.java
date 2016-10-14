@@ -1,44 +1,39 @@
 package com.etsmtl.equipe9.dao;
 
 import com.etsmtl.equipe9.model.Personne;
-import com.etsmtl.equipe9.service.IDAO;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
 
-public class PersonneDAO implements IDAO{
+public class PersonneDAO extends DAOAbstrait<Personne, Long>{
 
     @Override
-    public Object findAll() {
+    public Personne findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Personne findById(Long id) {
-        
-        EntityManagerFactory emf
-                = Persistence.createEntityManagerFactory("WebApplication1PU");
-        EntityManager em = emf.createEntityManager();
-        Personne pers =  em.find(Personne.class, id);
-        em.close();
-        emf.close();
-        
-        return pers;
+        return this.emFind(Personne.class, id);
     }
-
+    
     @Override
-    public boolean insert(Object obj) {
+    public List<Personne> findById(List<Long> listeId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean update(Object obj) {
+    public boolean insert(Personne obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Object obj) {
+    public boolean update(Personne obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean delete(Personne obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
