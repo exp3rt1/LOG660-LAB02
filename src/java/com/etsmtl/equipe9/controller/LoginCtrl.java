@@ -4,8 +4,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import com.etsmtl.equipe9.service.IDAO;
 
-@Stateless
+//@Stateless
 public class LoginCtrl {
-    @EJB
+    //@EJB
     private IDAO db;
 }

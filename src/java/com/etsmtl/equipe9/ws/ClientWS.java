@@ -17,8 +17,7 @@ import javax.ws.rs.core.UriInfo;
 public class ClientWS extends HttpServlet {
     private ClientCtrl ctrl = new ClientCtrl();
 	
-    @Context
-    private UriInfo context;
+    @Context private UriInfo context;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -26,6 +25,7 @@ public class ClientWS extends HttpServlet {
         HttpSession session;
         String courriel = request.getParameter("courriel");
         String motDePasse = request.getParameter("motPasse");
+        System.out.print(courriel + ": " + motDePasse);
         
         if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
         {

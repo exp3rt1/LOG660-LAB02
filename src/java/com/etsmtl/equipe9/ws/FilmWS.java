@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -38,14 +40,14 @@ public class FilmWS {
     
     private FilmCtrl filmCtrl = new FilmCtrl();
 	
-    @Context
-    private UriInfo context;
+    @Context private UriInfo context;
+    @Context private HttpServletRequest servletRequest;
         
     @POST
     @Path("recherche")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String recherche(String data) {
+    public String recherche(String data, @Context HttpServletRequest request) {
         
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
@@ -55,7 +57,10 @@ public class FilmWS {
         ArrayList<String> originalLanguages = new ArrayList<>();
         ArrayList<String> genres = new ArrayList<>();
         ArrayList<YearInterval> dateIntervals = new ArrayList<>();
-          
+        
+        HttpSession session = request.getSession(false);
+        System.out.print(session.getId());
+        
         try {
             
             JSONObject searchObject = (JSONObject) new JSONParser().parse(data);
