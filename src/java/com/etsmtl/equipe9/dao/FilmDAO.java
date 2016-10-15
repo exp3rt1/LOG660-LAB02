@@ -23,7 +23,7 @@ public class FilmDAO extends DAOAbstrait<Film, Long> {
         
         try {
             connect();
-             Query query = em.createQuery("SELECT DISTINCT f.langueoriginale FROM Film f ORDER BY f.langueoriginale asc");
+             Query query = em.createQuery("SELECT DISTINCT f.langueoriginale FROM Film f WHERE f.langueoriginale != 'null' ORDER BY f.langueoriginale asc");
              List<String> listeLangue = query.getResultList();
              
            
