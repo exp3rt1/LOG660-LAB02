@@ -6,6 +6,8 @@ var maxDate = today.getFullYear();
 
 $(document).ready(function(){
     
+    $('.selectpicker').selectpicker();
+    
     setDatesInDateSelect();
     
     $('#listeFilms').DataTable({
@@ -15,7 +17,7 @@ $(document).ready(function(){
                 "bInfo": false,
                 "bLengthChange": false,
                 "bPaginate": true,
-                "pageLength": 25,
+                "pageLength": 20,
                 "pagingType": "simple_numbers",
                 "dom": 'lrtip'
     });
@@ -108,17 +110,17 @@ function advancedFilmSearch(){
 
 function setDatesInDateSelect() {
     var dates = document.getElementById('anneesSortie');
-    var firstOption = document.createElement('option');
-    firstOption.value = '';
-    firstOption.innerHTML = 'Choisir une date...';
-    dates.appendChild(firstOption);
+    //var firstOption = document.createElement('option');
+    //firstOption.value = '';
+    //firstOption.innerHTML = 'Choisir une date...';
+    //dates.appendChild(firstOption);
     for (var i = minDate; i<=maxDate; i++){
         var opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = i;
         dates.appendChild(opt);
     }
-    //$(dates).selectpicker('refresh');
+    $('#anneesSortie').selectpicker('refresh');
 }
 
 function addDateInterval(){
@@ -179,9 +181,7 @@ function addDateInterval(){
 
 function fillDataTable(jsonData){
     
-    
-    var filmTableBody = document.getElementById("filmTableBody");
-    filmTableBody.innerHTML = "";
+    $('#listeFilms').DataTable().clear();
     
     for(var i = 0; i<jsonData.length; i++){
         
@@ -208,12 +208,16 @@ function fillDataTable(jsonData){
         $('#listeFilms').DataTable().row.add(newRow).draw();
     }
     
+    hideSpinner();
     
 }
 
 function sendToWebService(rechercheFilms){
     
-    alert(JSON.stringify(rechercheFilms));
+    //alert(JSON.stringify(rechercheFilms));
+    
+    showSpinner();
+    $('#anneesSortie').selectpicker('refresh');
     
     if(JSON.stringify(rechercheFilms) !== JSON.stringify({})){
         var filmSearchData = JSON.stringify(rechercheFilms);
@@ -233,6 +237,7 @@ function sendToWebService(rechercheFilms){
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
+                hideSpinner();
                 alert("ERROR! See console...");
                 console.log(xhr.responseText);
                 console.log(status);
@@ -240,4 +245,13 @@ function sendToWebService(rechercheFilms){
             }
         });
     }
+    else{hideSpinner();}
+}
+
+function showSpinner(){
+    $('#spinner').show();
+}
+
+function hideSpinner(){
+    $('#spinner').hide();
 }

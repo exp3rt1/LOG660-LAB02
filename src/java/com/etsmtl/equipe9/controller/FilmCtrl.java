@@ -4,6 +4,7 @@ import com.etsmtl.equipe9.dao.FilmDAO;
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
+import com.etsmtl.equipe9.service.DAOFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +12,13 @@ import java.util.List;
 
 public class FilmCtrl {
     
+    FilmDAO dao = DAOFactory.getInstance().getFilmDAO();
+    
    public Film getFilm (Long idFilm){
-        
-        FilmDAO dao = new FilmDAO();
         return dao.findById(idFilm);
    }
    
    public List<Film> getFilms (FilmDTO dto){
-        
-        FilmDAO dao = new FilmDAO();
         return dao.rechercheFilm(dto);
    }
    
