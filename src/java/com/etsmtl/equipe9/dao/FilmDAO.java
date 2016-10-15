@@ -18,6 +18,25 @@ import javax.persistence.criteria.Root;
 
 public class FilmDAO extends DAOAbstrait<Film, Long> {
 
+   
+    public List<String> getLangues(){
+        
+        try {
+            connect();
+             Query query = em.createQuery("SELECT DISTINCT f.langueoriginale FROM Film f ORDER BY f.langueoriginale asc");
+             List<String> listeLangue = query.getResultList();
+             
+           
+             return listeLangue;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            disconnect();
+        }
+    }
+    
+    
+    
     public List<Film> rechercheFilm( FilmDTO dto){
 
         try {

@@ -4,6 +4,7 @@ package com.etsmtl.equipe9.service;
 import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.dao.FilmDAO;
 import com.etsmtl.equipe9.dao.LocationDAO;
+import com.etsmtl.equipe9.dao.PaysDAO;
 import com.etsmtl.equipe9.dao.PersonneDAO;
 
 
@@ -14,6 +15,7 @@ public final class DAOFactory {
     private ClientDAO clientDAO;
     private PersonneDAO personneDAO;
     private LocationDAO locationDAO;
+    private PaysDAO paysDAO;
 
     private DAOFactory() {}
 
@@ -50,6 +52,13 @@ public final class DAOFactory {
             locationDAO = new LocationDAO();
         }
         return locationDAO;
+    }
+    
+    public PaysDAO getPaysDAO() {
+        if (paysDAO == null) {
+            paysDAO = new PaysDAO();
+        }
+        return paysDAO;
     }
     
 }
