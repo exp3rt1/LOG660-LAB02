@@ -34,8 +34,11 @@ public class FilmCtrl {
 
         for (String langue : langues) {
 
-            System.out.println(langues);
+            System.out.println(langue);
         }
+        
+        Film film = control.getFilm(15864L);
+        System.out.println(film.getTitre());
 
     }
 }
