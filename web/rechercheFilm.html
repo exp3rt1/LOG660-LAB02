@@ -35,7 +35,15 @@ and open the template in the editor.
     <body>
         <div class="container">
             
+            <div style="float: right; margin-top: 10px;">
+                <form method="POST" class="form-horizontal" action="/LOG660-LAB02/logout">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                    </button>
+                </form>
+            </div>
             <div id="pageTitle">Recherche de films</div>
+            
             
             <div id="spinner" class="spinner">
                 <div align="center" class="cssload-fond">
@@ -103,7 +111,7 @@ and open the template in the editor.
                             </tr> 
                             <tr>
                                 <td colspan="4">
-                                    <div id="dateDiv"></div>
+                                    <div id="dateDiv" style="padding-top: 15px;"></div>
                                 </td>
                             </tr>
                             <tr>
@@ -135,11 +143,6 @@ and open the template in the editor.
                 </tbody>
             </table>
             
-            <form method="POST" class="form-horizontal" action="/LOG660-LAB02/logout">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-log-out"></span> Log out
-                </button>
-            </form>
         </div>
         
         <!-- Select -->
