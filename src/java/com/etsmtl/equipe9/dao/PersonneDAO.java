@@ -7,7 +7,7 @@ import java.util.List;
 public class PersonneDAO extends DAOAbstrait<Personne, Long>{
 
     @Override
-    public Personne findAll() {
+    public List<Personne> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -9,7 +9,7 @@ public class LocationDAO extends DAOAbstrait<Location, LocationId>{
 
     
     @Override
-    public Location findAll() {
+    public List<Location> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

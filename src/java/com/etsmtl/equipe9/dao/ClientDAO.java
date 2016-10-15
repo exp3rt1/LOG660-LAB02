@@ -7,7 +7,7 @@ import java.util.List;
 public class ClientDAO extends DAOAbstrait<Client, String>{
     
     @Override
-    public Client findAll() {
+    public List<Client> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

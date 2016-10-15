@@ -166,8 +166,17 @@ public class FilmDAO extends DAOAbstrait<Film, Long> {
     }
 
     @Override
-    public Film findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Film> findAll() {
+        try {
+            connect();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Film> query = cb.createQuery(Film.class);
+            return this.em.createQuery(query).getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            disconnect();
+        }
     }
 
     @Override
