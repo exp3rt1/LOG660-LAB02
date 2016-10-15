@@ -203,7 +203,7 @@ function fillDataTable(jsonData){
         var newRow = document.createElement("tr");
         newRow.setAttribute("data-id",id);
         newRow.className = "dataTableRow";
-        newRow.setAttribute("onclick","getFilmInfo('"+id+"');")
+        newRow.setAttribute("onclick","getFilmInfo('"+id+"');");
         
         var titleTD = document.createElement("td");
         titleTD.innerHTML = title;
@@ -264,40 +264,6 @@ function showSpinner(){
 
 function hideSpinner(){
     $('#spinner').hide();
-}
-
-function getFilmInfo(id){
-    
-    showSpinner();
-    if(id !== undefined && id !== null && id !== ""){     
-        $.ajax({
-            type: "POST",
-            url: "/LOG660-LAB02/webresources/film/info/"+id,
-            headers: { 
-                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
-            },
-            contentType: "application/json",
-            dataType: "json",
-            data: id,
-            success: function (data) {
-                //console.log(data);
-                hideSpinner();
-                alert(data[0]);
-            },
-            error: function (xhr, status, error) {
-                // Mettre les champs en erreur
-                hideSpinner();
-                alert("ERROR! See console...");
-                console.log(xhr.responseText);
-                console.log(status);
-                console.log(error);
-            }
-        });
-    }
-    else{
-        hideSpinner();
-    }
 }
 
 
@@ -387,3 +353,39 @@ function getAllFilmLanguages(){
         }
     });
 }
+
+
+function getFilmInfo(id){
+    
+    showSpinner();
+    if(id !== undefined && id !== null && id !== ""){     
+        $.ajax({
+            type: "POST",
+            url: "/LOG660-LAB02/webresources/film/info/"+id,
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: id,
+            success: function (data) {
+                //console.log(data);
+                hideSpinner();
+                alert(JSON.stringify(data));
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
+}
+

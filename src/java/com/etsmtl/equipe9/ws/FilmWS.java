@@ -11,12 +11,20 @@ import com.etsmtl.equipe9.controller.PaysCtrl;
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
+import com.etsmtl.equipe9.model.Genre;
+import com.etsmtl.equipe9.model.Pays;
+import com.etsmtl.equipe9.model.Personnage;
+import com.etsmtl.equipe9.model.Scenariste;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -195,14 +203,81 @@ public class FilmWS {
     public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request) {
         Long id = Long.parseLong(filmId);
         Film film = filmCtrl.getFilm(id);
-        String testStr = "NOT FOUND! GG.";
-        if(film != null){
-            testStr = "Nom : " + film.getTitre() + " - Durée : " + film.getDuree().toString() + " minutes";
+        
+        JSONObject filmJSON = new JSONObject();
+        
+        // Titre
+        String movieTitle = film.getTitre();
+        filmJSON.put("title", movieTitle);
+        
+        // Durée (en minutes)
+        String duration = film.getDuree().toString();
+        filmJSON.put("duration", duration);
+        
+        // Année de sortie
+        String year = film.getAnneesortie().toString();
+        filmJSON.put("year", year);
+        
+        // Langue originale
+        String language = film.getLangueoriginale();
+        filmJSON.put("language", language);
+        
+        // Résumé du scénario
+        String synopsis = film.getResumescenario();
+        filmJSON.put("synopsis", synopsis);
+        
+        // Réalisateur
+        JSONObject director = new JSONObject();
+        String directorId = film.getRealisateur().getIdpersonne().toString();
+        String directorName = film.getRealisateur().getNom();
+        director.put("directorId", directorId);
+        director.put("directorName", directorName);
+        filmJSON.put("director",director);
+     
+        // Liste des acteurs avec leur personnage
+        JSONArray actorList = new JSONArray();
+        Set<Personnage> personnages = film.getPersonnages();
+        for(Personnage personnage : personnages){
+            String characterName = personnage.getNompersonnage();
+            String actorName = personnage.getActeur().getNom();
+            String actorId = personnage.getActeur().getIdpersonne().toString();
+            JSONObject actor = new JSONObject();
+            actor.put("actorId", actorId);
+            actor.put("actorName", actorName);
+            actor.put("characterName", characterName);
+            actorList.add(actor);
         }
-        JSONArray json = new JSONArray();
-        json.add(testStr);
-        return json.toJSONString();
+        filmJSON.put("actors", actorList);
+        
+        // Scénaristes
+        JSONArray screenwriterList = new JSONArray();
+        Set<Scenariste> scenaristes = film.getScenaristes();
+        for(Scenariste scenariste : scenaristes){
+            String screenwriter = scenariste.getNom();
+            screenwriterList.add(screenwriter);
+        }
+        filmJSON.put("screenwriters", screenwriterList);
+        
+        // Pays
+        JSONArray countryList = new JSONArray();
+        Set<Pays> pays = film.getPays();
+        for(Pays lePays : pays){
+            String country = lePays.getNom();
+            countryList.add(country);
+        }
+        filmJSON.put("countries", countryList);
+        
+        // Genres
+        JSONArray genreList = new JSONArray();
+        Set<Genre> genres = film.getGenres();
+        for(Genre genre : genres){
+            String myGenre = genre.getNom();
+            genreList.add(myGenre);
+        }
+        filmJSON.put("genres", genreList);
+        
+        return filmJSON.toJSONString();
     }
     
-
+  
 }
