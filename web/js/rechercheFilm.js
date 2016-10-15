@@ -9,6 +9,9 @@ $(document).ready(function(){
     //$('.selectpicker').selectpicker();
     
     setDatesInDateSelect();
+    getAllFilmGenres();
+    getAllFilmCountries();
+    getAllFilmLanguages();
     
     $('#listeFilms').DataTable({
                 "bFilter": false,
@@ -200,6 +203,7 @@ function fillDataTable(jsonData){
         var newRow = document.createElement("tr");
         newRow.setAttribute("data-id",id);
         newRow.className = "dataTableRow";
+        newRow.setAttribute("onclick","getFilmInfo('"+id+"');")
         
         var titleTD = document.createElement("td");
         titleTD.innerHTML = title;
@@ -260,4 +264,126 @@ function showSpinner(){
 
 function hideSpinner(){
     $('#spinner').hide();
+}
+
+function getFilmInfo(id){
+    
+    showSpinner();
+    if(id !== undefined && id !== null && id !== ""){     
+        $.ajax({
+            type: "POST",
+            url: "/LOG660-LAB02/webresources/film/info/"+id,
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: id,
+            success: function (data) {
+                //console.log(data);
+                hideSpinner();
+                alert(data[0]);
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
+}
+
+
+function getAllFilmGenres(){
+    $.ajax({
+        type: "POST",
+        url: "/LOG660-LAB02/webresources/film/getAllFilmGenres",
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: "GENRES",
+        success: function (data) {
+            var genresSelect = document.getElementById("genres");
+            for(var i = 0; i<data.length; i++){
+                var genre = data[i];
+                var newOption = document.createElement("option");
+                newOption.value = genre;
+                newOption.innerHTML = genre;
+                genresSelect.appendChild(newOption);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    });
+}
+
+function getAllFilmCountries(){
+    $.ajax({
+        type: "POST",
+        url: "/LOG660-LAB02/webresources/film/getAllFilmCountries",
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: "COUNTRIES",
+        success: function (data) {
+            var paysSelect = document.getElementById("pays");
+            for(var i = 0; i<data.length; i++){
+                var pays = data[i];
+                var newOption = document.createElement("option");
+                newOption.value = pays;
+                newOption.innerHTML = pays;
+                paysSelect.appendChild(newOption);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    });
+}
+
+function getAllFilmLanguages(){
+    $.ajax({
+        type: "POST",
+        url: "/LOG660-LAB02/webresources/film/getAllFilmLanguages",
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: "LANGUAGES",
+        success: function (data) {
+            var languesSelect = document.getElementById("languesOriginales");
+            for(var i = 0; i<data.length; i++){
+                var langue = data[i];
+                var newOption = document.createElement("option");
+                newOption.value = langue;
+                newOption.innerHTML = langue;
+                languesSelect.appendChild(newOption);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    });
 }

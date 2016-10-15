@@ -6,6 +6,8 @@
 package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.FilmCtrl;
+import com.etsmtl.equipe9.controller.GenreCtrl;
+import com.etsmtl.equipe9.controller.PaysCtrl;
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -39,6 +42,8 @@ import org.json.simple.parser.ParseException;
 public class FilmWS {
     
     private FilmCtrl filmCtrl = new FilmCtrl();
+    private PaysCtrl paysCtrl = new PaysCtrl();
+    private GenreCtrl genreCtrl = new GenreCtrl();
 	
     @Context private UriInfo context;
     @Context private HttpServletRequest servletRequest;
@@ -143,4 +148,61 @@ public class FilmWS {
         }       
         
     }
+    
+    @POST
+    @Path("getAllFilmGenres")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getAllFilmGenres(String data, @Context HttpServletRequest request) {
+        JSONArray jsonGenres = new JSONArray();
+        List<String> genres = genreCtrl.getGenres();
+        genres.stream().filter((genre) -> (genre != null && !genre.isEmpty())).forEach((genre) -> {
+            jsonGenres.add(genre);
+        });
+        return jsonGenres.toJSONString();
+    }
+    
+    @POST
+    @Path("getAllFilmCountries")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getAllFilmCountries(String data, @Context HttpServletRequest request) {
+        JSONArray jsonCountries = new JSONArray();
+        List<String> countries = paysCtrl.getPays();
+        countries.stream().filter((country) -> (country != null && !country.isEmpty())).forEach((country) -> {
+            jsonCountries.add(country);
+        });
+        return jsonCountries.toJSONString();
+    }
+    
+    @POST
+    @Path("getAllFilmLanguages")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getAllFilmLanguages(String data, @Context HttpServletRequest request) {
+        JSONArray jsonLanguages = new JSONArray();
+        List<String> langues = filmCtrl.getLangues();
+        langues.stream().filter((langue) -> (langue != null && !langue.isEmpty())).forEach((langue) -> {
+            jsonLanguages.add(langue);
+        });
+        return jsonLanguages.toJSONString();
+    }
+    
+    @POST
+    @Path("info/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request) {
+        Long id = Long.parseLong(filmId);
+        Film film = filmCtrl.getFilm(id);
+        String testStr = "NOT FOUND! GG.";
+        if(film != null){
+            testStr = "Nom : " + film.getTitre() + " - Durée : " + film.getDuree().toString() + " minutes";
+        }
+        JSONArray json = new JSONArray();
+        json.add(testStr);
+        return json.toJSONString();
+    }
+    
+
 }
