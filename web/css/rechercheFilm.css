@@ -97,10 +97,12 @@ and open the template in the editor.
 
 .bootstrap-tagsinput {
     width: 250px !important;
+    height: 80px !important;
 }
 
-.bootstrap-select {
+.bootstrap-select, .inputTD select {
     width: 250px !important;
+    height: 80px !important;
 }
 
 
