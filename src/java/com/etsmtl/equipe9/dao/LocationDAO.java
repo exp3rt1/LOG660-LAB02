@@ -8,7 +8,7 @@ import javax.persistence.StoredProcedureQuery;
 
 public class LocationDAO extends DAOAbstrait<Location, LocationId> {
 
-    public void locationFilm(String courriel, Long idfilm) {
+    public boolean locationFilm(String courriel, Long idfilm) {
 
         try {
 
@@ -26,14 +26,15 @@ public class LocationDAO extends DAOAbstrait<Location, LocationId> {
             } catch (Exception e) {
 
                 System.out.println("Impossible de louer le film");
-                return;
+                return false;
             }
 
             // si tout cest bien passe
             System.out.println("Le film a ete louer");
+            return true;
 
         } catch (Exception e) {
-            return;
+            return false;
         } finally {
             disconnect();
         }

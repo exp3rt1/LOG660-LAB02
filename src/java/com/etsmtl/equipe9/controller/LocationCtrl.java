@@ -12,9 +12,9 @@ public class LocationCtrl {
 
     private LocationDAO dao = DAOFactory.getInstance().getLocationDAO();
 
-    public void louerFilm(String courriel, Long idfilm) {
+    public boolean louerFilm(String courriel, Long idfilm) {
 
-        dao.locationFilm(courriel, idfilm);
+        return dao.locationFilm(courriel, idfilm);
 
     }
 
