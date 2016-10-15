@@ -3,6 +3,7 @@ package com.etsmtl.equipe9.service;
 
 import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.dao.FilmDAO;
+import com.etsmtl.equipe9.dao.GenreDAO;
 import com.etsmtl.equipe9.dao.LocationDAO;
 import com.etsmtl.equipe9.dao.PaysDAO;
 import com.etsmtl.equipe9.dao.PersonneDAO;
@@ -16,6 +17,7 @@ public final class DAOFactory {
     private PersonneDAO personneDAO;
     private LocationDAO locationDAO;
     private PaysDAO paysDAO;
+    private GenreDAO genreDAO;
 
     private DAOFactory() {}
 
@@ -59,6 +61,13 @@ public final class DAOFactory {
             paysDAO = new PaysDAO();
         }
         return paysDAO;
+    }
+    
+    public GenreDAO getGenreDAO() {
+        if (genreDAO == null) {
+            genreDAO = new GenreDAO();
+        }
+        return genreDAO;
     }
     
 }
