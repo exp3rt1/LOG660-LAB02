@@ -16,6 +16,7 @@ import com.etsmtl.equipe9.model.Pays;
 import com.etsmtl.equipe9.model.Personnage;
 import com.etsmtl.equipe9.model.Scenariste;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -60,7 +62,7 @@ public class FilmWS {
     @Path("recherche")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String recherche(String data, @Context HttpServletRequest request) {
+    public String recherche(String data) {
         
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
@@ -71,8 +73,8 @@ public class FilmWS {
         ArrayList<String> genres = new ArrayList<>();
         ArrayList<YearInterval> dateIntervals = new ArrayList<>();
         
-        HttpSession session = request.getSession(false);
-        System.out.print(session.getId());
+        //HttpSession session = request.getSession(false);
+        //System.out.print(session.getId());
         
         try {
             
@@ -279,5 +281,18 @@ public class FilmWS {
         return filmJSON.toJSONString();
     }
     
-  
+    @GET
+    @Path("afficher/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public String showFilm (@PathParam("id") String filmId) {
+        System.out.println("test");
+        java.net.URI location = null;
+        try {
+            location = new java.net.URI("film.html?id="+filmId);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/LOG660-LAB02/film.html?id="+filmId;
+        //return Response.temporaryRedirect(location).status(200).build();
+    }
 }

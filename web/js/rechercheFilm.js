@@ -360,19 +360,16 @@ function getFilmInfo(id){
     showSpinner();
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
-            type: "POST",
-            url: "/LOG660-LAB02/webresources/film/info/"+id,
+            type: "GET",
+            url: "/LOG660-LAB02/webresources/film/afficher/"+id,
             headers: { 
-                'Accept': 'application/json',
+                'Accept': 'text/html',
                 'Content-Type': 'application/json' 
             },
             contentType: "application/json",
-            dataType: "json",
-            data: id,
             success: function (data) {
-                //console.log(data);
                 hideSpinner();
-                alert(JSON.stringify(data));
+                $(location).attr('href', data);
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
