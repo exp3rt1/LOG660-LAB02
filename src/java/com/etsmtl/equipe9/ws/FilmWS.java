@@ -7,6 +7,7 @@ package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.FilmCtrl;
 import com.etsmtl.equipe9.controller.GenreCtrl;
+import com.etsmtl.equipe9.controller.LocationCtrl;
 import com.etsmtl.equipe9.controller.PaysCtrl;
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
@@ -54,6 +55,7 @@ public class FilmWS {
     private FilmCtrl filmCtrl = new FilmCtrl();
     private PaysCtrl paysCtrl = new PaysCtrl();
     private GenreCtrl genreCtrl = new GenreCtrl();
+    private LocationCtrl locationCtrl = new LocationCtrl();
 	
     @Context private UriInfo context;
     @Context private HttpServletRequest servletRequest;
@@ -159,7 +161,7 @@ public class FilmWS {
         
     }
     
-    @POST
+    @GET
     @Path("getAllFilmGenres")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -172,7 +174,7 @@ public class FilmWS {
         return jsonGenres.toJSONString();
     }
     
-    @POST
+    @GET
     @Path("getAllFilmCountries")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -185,7 +187,7 @@ public class FilmWS {
         return jsonCountries.toJSONString();
     }
     
-    @POST
+    @GET
     @Path("getAllFilmLanguages")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -198,11 +200,12 @@ public class FilmWS {
         return jsonLanguages.toJSONString();
     }
     
-    @POST
-    @Path("info/{id}")
+    @GET
+    @Path("getFilmInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request) {
+        
         Long id = Long.parseLong(filmId);
         Film film = filmCtrl.getFilm(id);
         
@@ -281,6 +284,7 @@ public class FilmWS {
         return filmJSON.toJSONString();
     }
     
+    
     @GET
     @Path("afficher/{id}")
     @Produces(MediaType.TEXT_HTML)
@@ -294,5 +298,26 @@ public class FilmWS {
         }
         return "/LOG660-LAB02/film.html?id="+filmId;
         //return Response.temporaryRedirect(location).status(200).build();
+    }
+    
+    @POST
+    @Path("louerFilm")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String louerFilm(String data, @Context HttpServletRequest request) {
+        try {
+            JSONObject location = (JSONObject) new JSONParser().parse(data);
+            String email = (String) location.get("courriel");
+            String filmID = (String) location.get("filmID");
+            Long filmId = Long.parseLong(filmID);
+            boolean result = locationCtrl.louerFilm(email, filmId);
+            if(result){
+                return "SUCCESS";
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+            return "GG";
+        }
+        return "GG";
     }
 }
