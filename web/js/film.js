@@ -84,6 +84,7 @@ function setFilmInfo(film){
     $('#director').attr("data-directorid",directorId);
     $('#director').attr("onclick","getPersonData('"+directorId+"');");
     $('#director').attr("class","personLink");
+    $('#director').attr("title","Cliquer pour afficher les informations pour ce réalisateur");
     
     var actorsDiv = document.getElementById("actors");
     for(var i = 0; i < film.actors.length; i++){
@@ -97,6 +98,7 @@ function setFilmInfo(film){
         newActor.setAttribute("data-actorid",actorId);
         newActor.setAttribute("onclick","getPersonData('"+actorId+"');")
         newActor.className = "personLink";
+        newActor.setAttribute("title","Cliquer pour afficher les informations pour cet acteur");
         
         actorsDiv.appendChild(newActor);
         
@@ -226,7 +228,12 @@ function showPersonData(person){
     $('#personName').html(person.name);
     $('#personDateOfBirth').html(person.dateOfBirth);
     $('#personPlaceOfBirth').html(person.placeOfBirth);
-    $('#personBiography').html(person.biography);
+    if(person.biography === undefined || person.biography === null || person.biography === ""){
+         $('#personBiography').html("(aucune biographie trouvée)");
+    }
+    else{
+        $('#personBiography').html(person.biography);
+    }
     hideSpinner();
     showPersonModal();
 }

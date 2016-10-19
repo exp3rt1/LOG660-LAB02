@@ -13,6 +13,8 @@ and open the template in the editor.
     font-weight: 500;
     margin-bottom: 15px;
     margin-top: 15px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 #filmContent {
@@ -81,7 +83,7 @@ and open the template in the editor.
     margin: auto;*/
     overflow: hidden;
     padding: 0;
-    margin: 75px !important;
+    margin: 70px !important;
     border: 1px solid #888;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
@@ -102,16 +104,45 @@ and open the template in the editor.
 
 .personModalBody {
     padding: 15px;
-    height: 350px;
+    height: 400px;
     text-align: center;
     overflow: hidden;
     overflow-y: auto;
 }
 
+.personModalBody table {
+    table-layout: fixed;
+    width: 100%;
+    text-align: left;
+}
+
+.personModalBody tr {
+    width: 100%;
+}
+
+.personModalBody td {
+    padding: 10px;
+}
+
+.personModalTableTitle {
+    font-size: 15px;
+    font-weight: bold;
+    width: 20%;
+    
+}
+
+.personModalTableData {
+    font-size: 15px;
+    width: 80%;
+}
+
 .personModalFooter {
-    height: 75px;
+    height: 50px;
     background-color: lightgray;
     font-size: 120%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
 }
 
 .personModal #personModalCancel {
@@ -119,21 +150,32 @@ and open the template in the editor.
     color: rgb(72, 139, 249);
     font-weight: bold;
     background: transparent;
-    height: 45px;
-    width: 350px;
+    height: 100%;
+    width: 100%;
     padding: 10px;
+    margin: auto;
 }
 
-.personModal #personModalCancel:hover {
+.personModal #personModalCancel:active {
     border: 1px solid black;
     color: black;
 }
 
-.personModal #personModalCancel:active {
+.personModal #personModalCancel:hover {
     background: rgb(72, 139, 249);
     color: white;
     font-weight: bold;
     border: 1px solid black;
+}
+
+.backBtn {
+    padding: 5px 10px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    background: rgb(51, 122, 183);
+    color: white;
 }
 
 /* =================== */
