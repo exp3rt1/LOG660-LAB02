@@ -82,6 +82,8 @@ function setFilmInfo(film){
     
     $('#director').html(directorName);
     $('#director').attr("data-directorid",directorId);
+    $('#director').attr("onclick","getPersonData('"+directorId+"');");
+    $('#director').attr("class","personLink");
     
     var actorsDiv = document.getElementById("actors");
     for(var i = 0; i < film.actors.length; i++){
@@ -93,6 +95,8 @@ function setFilmInfo(film){
         var newActor = document.createElement("span");
         newActor.innerHTML = actorName + " (" + characterName + ")";
         newActor.setAttribute("data-actorid",actorId);
+        newActor.setAttribute("onclick","getPersonData('"+actorId+"');")
+        newActor.className = "personLink";
         
         actorsDiv.appendChild(newActor);
         
@@ -131,3 +135,115 @@ function setFilmInfo(film){
     $('#filmContent').show();
 }
 
+
+function rentMovie(){
+    
+    var id = _filmID;
+    var email = ""; // TODO: GET EMAIL FROM SESSION (Olivier)
+    
+    var rental = new Object();
+    rental.filmID = id;
+    rental.email = email;
+    
+    if(id !== undefined && id !== null && id !== ""){  
+        showSpinner();
+        $.ajax({
+            type: "GET",
+            url: "/LOG660-LAB02/webresources/film/louerFilm",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: rental,
+            success: function (result) {
+                hideSpinner();
+                if(result.sucess === true){
+                    alert("SUCCESS");
+                }
+                else{alert("FAIL");}
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
+}
+
+function getPersonData(personID){
+    
+    /*var person = new Object();
+    person.personID = personID;*/
+    
+    if(personID !== undefined && personID !== null && personID !== ""){  
+        showSpinner();
+        $.ajax({
+            type: "GET",
+            url: "/LOG660-LAB02/webresources/film/getPersonInfo/"+personID,
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: personID,
+            success: function (personObject) {
+                if(personObject !== undefined && personObject !== null){
+                    //alert(JSON.stringify(personObject));
+                    showPersonData(personObject);
+                }
+                else{
+                    hideSpinner();
+                    console.log("ERROR: Person info is null");
+                }
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
+}
+
+
+function showPersonData(person){
+    $('#personName').html(person.name);
+    $('#personDateOfBirth').html(person.dateOfBirth);
+    $('#personPlaceOfBirth').html(person.placeOfBirth);
+    $('#personBiography').html(person.biography);
+    hideSpinner();
+    showPersonModal();
+}
+
+
+function showPersonModal(){
+    $('#personModal').show();
+}
+
+function hidePersonModal(){
+    $('#personModal').hide();
+    $('#personName').html('');
+    $('#personDateOfBirth').html('');
+    $('#personPlaceOfBirth').html('');
+    $('#personBiography').html('');
+}
+
+function tryToClosePersonModal(event){
+    if(event.target === document.getElementById("personModal")){hidePersonModal();}
+}

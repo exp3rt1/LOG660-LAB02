@@ -94,5 +94,41 @@ and open the template in the editor.
             
             
         </div>
+        
+        <div id="personModal" class="personModal" 
+             style="display: none;"  onclick="tryToClosePersonModal(event);">
+            <div class="personModalContent">
+                    <div class="personModalHeader">Informations sur une personne</div>
+                    <div class="personModalBody">
+                        <table>
+                            <tr>
+                                <td>Nom</td>
+                                <td id="personName"></td>
+                            </tr>
+                            <tr>
+                                <td>Date de naissance</td>
+                                <td id="personDateOfBirth"></td>
+                            </tr>
+                            <tr>
+                                <td>Lieu de naissance</td>
+                                <td id="personPlaceOfBirth"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Biographie</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" id="personBiography">  
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="personModalFooter">
+                        <input id="personModalCancel" type="button" value="Fermer" onclick="hidePersonModal();"/>
+                    </div>
+            </div>
+	</div>
+        
+        
+        
     </body>
 </html>
