@@ -7,17 +7,22 @@ package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.FilmCtrl;
 import com.etsmtl.equipe9.controller.GenreCtrl;
+import com.etsmtl.equipe9.controller.LocationCtrl;
 import com.etsmtl.equipe9.controller.PaysCtrl;
 import com.etsmtl.equipe9.dto.ClientDTO;
+import com.etsmtl.equipe9.controller.PersonneCtrl;
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
 import com.etsmtl.equipe9.model.Genre;
 import com.etsmtl.equipe9.model.Pays;
 import com.etsmtl.equipe9.model.Personnage;
+import com.etsmtl.equipe9.model.Personne;
 import com.etsmtl.equipe9.model.Scenariste;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -52,9 +57,11 @@ import org.json.simple.parser.ParseException;
 @Path("film")
 public class FilmWS {
     
-    private FilmCtrl filmCtrl = new FilmCtrl();
-    private PaysCtrl paysCtrl = new PaysCtrl();
-    private GenreCtrl genreCtrl = new GenreCtrl();
+    private final FilmCtrl filmCtrl = new FilmCtrl();
+    private final PaysCtrl paysCtrl = new PaysCtrl();
+    private final GenreCtrl genreCtrl = new GenreCtrl();
+    private final LocationCtrl locationCtrl = new LocationCtrl();
+    private final PersonneCtrl personneCtrl = new PersonneCtrl();
 	
     @Context private UriInfo context;
     @Context private HttpServletRequest servletRequest;
@@ -170,7 +177,7 @@ public class FilmWS {
         
     }
     
-    @POST
+    @GET
     @Path("getAllFilmGenres")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -198,7 +205,7 @@ public class FilmWS {
         return jsonGenres.toJSONString();
     }
     
-    @POST
+    @GET
     @Path("getAllFilmCountries")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -224,7 +231,7 @@ public class FilmWS {
         return jsonCountries.toJSONString();
     }
     
-    @POST
+    @GET
     @Path("getAllFilmLanguages")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -237,11 +244,12 @@ public class FilmWS {
         return jsonLanguages.toJSONString();
     }
     
-    @POST
-    @Path("info/{id}")
+    @GET
+    @Path("getFilmInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+
         Long id = Long.parseLong(filmId);
         Film film = filmCtrl.getFilm(id);
         
@@ -332,6 +340,7 @@ public class FilmWS {
         return filmJSON.toJSONString();
     }
     
+    
     @GET
     @Path("afficher/{id}")
     @Produces(MediaType.TEXT_HTML)
@@ -351,4 +360,74 @@ public class FilmWS {
         
         return "/LOG660-LAB02/film.html?id="+filmId;
     }
+    
+    @POST
+    @Path("louerFilm")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String louerFilm(String data, @Context HttpServletRequest request) {
+        try {
+            JSONObject location = (JSONObject) new JSONParser().parse(data);
+            String email = (String) location.get("email");
+            String filmID = (String) location.get("filmID");
+            if(email.isEmpty() || filmID.isEmpty()){return null;}
+            Long filmId = Long.parseLong(filmID);
+            boolean result = locationCtrl.louerFilm(email, filmId);
+            if(result){
+                JSONObject success = new JSONObject();
+                success.put("success", true);
+                return success.toJSONString();
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return null;
+    }
+    
+    
+    @GET
+    @Path("getPersonInfo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getPersonInfo(@PathParam("id") String personID, @Context HttpServletRequest request) {
+        try {
+            //JSONObject location = (JSONObject) new JSONParser().parse(data);
+            //String personID = (String) location.get("personID");
+            
+            System.out.println("personID : " + personID);
+            
+            if(personID.isEmpty()){             
+                return null;
+            }
+            
+            Long personId = Long.parseLong(personID);
+            
+            System.out.println("Parsed personId : " + personId);
+            
+            Personne person = personneCtrl.getPersonne(personId);
+            
+            System.out.println("PersonID from object : " + person.getIdpersonne());
+            
+            JSONObject jsonPerson = new JSONObject();
+            
+            jsonPerson.put("id", person.getIdpersonne());
+            jsonPerson.put("name", person.getNom());
+            
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String dateOfBirth = formatter.format(person.getDatenaissance());
+            jsonPerson.put("dateOfBirth", dateOfBirth);
+            
+            jsonPerson.put("placeOfBirth", person.getLieunaissance());
+            jsonPerson.put("biography", person.getBiographie());
+            
+            return jsonPerson.toJSONString();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
 }

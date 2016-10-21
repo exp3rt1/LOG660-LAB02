@@ -269,7 +269,7 @@ function hideSpinner(){
 
 function getAllFilmGenres(){
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "/LOG660-LAB02/webresources/film/getAllFilmGenres",
         headers: { 
             'Accept': 'application/json',
@@ -298,7 +298,7 @@ function getAllFilmGenres(){
 
 function getAllFilmCountries(){
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "/LOG660-LAB02/webresources/film/getAllFilmCountries",
         headers: { 
             'Accept': 'application/json',
@@ -327,7 +327,7 @@ function getAllFilmCountries(){
 
 function getAllFilmLanguages(){
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "/LOG660-LAB02/webresources/film/getAllFilmLanguages",
         headers: { 
             'Accept': 'application/json',

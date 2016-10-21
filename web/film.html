@@ -17,38 +17,129 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
-        <script type="text/javascript" src="js/listeFilms.js"></script>
+        <script src="js/film.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/film.css" />
+        
     </head>
     <body>
-        <div class="container">
-            <div id="titre">
-                <h1>The Rock (1996)</h1>
+        
+        <div id="spinner" class="spinner">
+            <div align="center" class="cssload-fond">
+            <div class="cssload-container-general">
+            <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_1"></div></div>
+            <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_2"></div></div>
+            <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_3"></div></div>
+            <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_4"></div></div>
             </div>
-            <div id="resume">
-                <h3>Résumé</h3>
-                <p>An orphaned dinosaur raised by lemurs joins an arduous trek to a sancturary after a meteorite shower destroys his family home.</p>
-            </div>
-            <div id="duree">
-                <p>Duree: 82 min</p>
-            </div>
-            <div id="langue">
-                <p>Langue: English</p>
-            </div>
-            <div id="realisateur">
-                <h3>Réalisateur</h3>
-            </div>
-            <div id="acteurs">
-                <h3>Acteur(s)</h3>
-            </div>
-            <div id="scenaristes">
-                <h3>Scénariste(s)</h3>
-            </div>
-            <div id="pays"> 
-                <h3>Pays de production</h3>
-            </div>
-            <div id="genres">
-                <h3>Genres</h3>
             </div>
         </div>
+        
+        
+        <div class="container">
+            
+            <div style="float: right; margin-top: 10px; margin-right: 20px;">
+                <form method="POST" class="form-horizontal" action="/LOG660-LAB02/logout">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                    </button>
+                </form>
+            </div>
+            
+            <div style="float: left; margin-top: 10px; margin-left: 20px;">
+                <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                    </button>
+                </form>
+            </div>
+           
+            <div id="pageTitle">Informations sur le film</div>
+            
+            <div id="filmContent">
+            
+                <div id="titleDiv">
+                    <span id="title"></span><span> (</span><span id="year"></span><span>)</span>
+                </div>
+                <div id="synopsis"></div>
+                <br>
+                <div id="lengthDiv">
+                    <span id="lengthLabel">Durée (en minutes) : </span>
+                    <span id="length">115</span>
+                </div>
+                <br>
+                <div id="languageDiv">
+                    <span id="languageLabel">Langue originale : </span>
+                    <span id="language"></span>
+                </div>
+                <br>
+                <div id="directorDiv">
+                    <span id="directorLabel">Réalisateur : </span>
+                    <span id="director"></span>
+                </div>
+                <br>
+                <div id="actorsDiv">
+                    <div id="actorsLabel">Acteurs</div>
+                    <div id="actors"></div>
+                </div>
+                <br>
+                <div id="genresDiv">
+                    <div id="genresLabel">Genres</div>
+                    <div id="genres"></div>
+                </div>
+                <br>
+                <div id="screenwritersDiv">
+                    <div id="screenwritersLabel">Scénaristes</div>
+                    <div id="screenwriters"></div>
+                </div>
+                <br>
+                <div id="countriesDiv">
+                    <div id="countriesLabel">Pays de production</div>
+                    <div id="countries"></div>
+                </div>
+                
+            
+            </div>
+            
+            
+        </div>
+        
+        <div id="personModal" class="personModal" 
+             style="display: none;"  onclick="tryToClosePersonModal(event);">
+            <div class="personModalContent">
+                    <div class="personModalHeader">Informations sur une personne</div>
+                    <div class="personModalBody">
+                        <table>
+                            <tr>
+                                <td class="personModalTableTitle">Nom</td>
+                                <td id="personName" class="personModalTableData"></td>
+                            </tr>
+                            <tr>
+                                <td class="personModalTableTitle">Date de naissance</td>
+                                <td id="personDateOfBirth" class="personModalTableData"></td>
+                            </tr>
+                            <tr>
+                                <td class="personModalTableTitle" style="padding-bottom: 20px;">Lieu de naissance</td>
+                                <td id="personPlaceOfBirth" class="personModalTableData" style="padding-bottom: 20px;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" 
+                                style="font-size: 15px; font-weight: bold;
+                                border-top: 1px solid lightgrey; padding-top: 20px;">
+                                Biographie</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" id="personBiography"  style="font-size: 15px;">  
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="personModalFooter">
+                        <input id="personModalCancel" type="button" value="Fermer" onclick="hidePersonModal();"/>
+                    </div>
+            </div>
+	</div>
+        
+        
+        
     </body>
 </html>
