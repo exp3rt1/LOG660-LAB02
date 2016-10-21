@@ -8,6 +8,7 @@ package com.etsmtl.equipe9.ws;
 import com.etsmtl.equipe9.controller.FilmCtrl;
 import com.etsmtl.equipe9.controller.GenreCtrl;
 import com.etsmtl.equipe9.controller.PaysCtrl;
+import com.etsmtl.equipe9.dto.ClientDTO;
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
@@ -57,12 +58,13 @@ public class FilmWS {
 	
     @Context private UriInfo context;
     @Context private HttpServletRequest servletRequest;
+    @Context private HttpServletResponse response;
         
     @POST
     @Path("recherche")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String recherche(String data) {
+    public String recherche(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
@@ -73,9 +75,18 @@ public class FilmWS {
         ArrayList<String> genres = new ArrayList<>();
         ArrayList<YearInterval> dateIntervals = new ArrayList<>();
         
-        //HttpSession session = request.getSession(false);
-        //System.out.print(session.getId());
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
         
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
         try {
             
             JSONObject searchObject = (JSONObject) new JSONParser().parse(data);
@@ -163,9 +174,24 @@ public class FilmWS {
     @Path("getAllFilmGenres")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String getAllFilmGenres(String data, @Context HttpServletRequest request) {
+    public String getAllFilmGenres(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         JSONArray jsonGenres = new JSONArray();
         List<String> genres = genreCtrl.getGenres();
+        
+        // Securite
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        // Securite
+        
         genres.stream().filter((genre) -> (genre != null && !genre.isEmpty())).forEach((genre) -> {
             jsonGenres.add(genre);
         });
@@ -176,9 +202,22 @@ public class FilmWS {
     @Path("getAllFilmCountries")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String getAllFilmCountries(String data, @Context HttpServletRequest request) {
+    public String getAllFilmCountries(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         JSONArray jsonCountries = new JSONArray();
         List<String> countries = paysCtrl.getPays();
+        
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
         countries.stream().filter((country) -> (country != null && !country.isEmpty())).forEach((country) -> {
             jsonCountries.add(country);
         });
@@ -189,7 +228,7 @@ public class FilmWS {
     @Path("getAllFilmLanguages")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String getAllFilmLanguages(String data, @Context HttpServletRequest request) {
+    public String getAllFilmLanguages(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         JSONArray jsonLanguages = new JSONArray();
         List<String> langues = filmCtrl.getLangues();
         langues.stream().filter((langue) -> (langue != null && !langue.isEmpty())).forEach((langue) -> {
@@ -202,9 +241,21 @@ public class FilmWS {
     @Path("info/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request) {
+    public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(filmId);
         Film film = filmCtrl.getFilm(id);
+        
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
         
         JSONObject filmJSON = new JSONObject();
         
@@ -284,15 +335,20 @@ public class FilmWS {
     @GET
     @Path("afficher/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public String showFilm (@PathParam("id") String filmId) {
-        System.out.println("test");
-        java.net.URI location = null;
-        try {
-            location = new java.net.URI("film.html?id="+filmId);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+    public String showFilm (@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
         }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
         return "/LOG660-LAB02/film.html?id="+filmId;
-        //return Response.temporaryRedirect(location).status(200).build();
     }
 }

@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.ClientCtrl;
+import com.etsmtl.equipe9.dto.ClientDTO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,15 +26,29 @@ public class ClientWS extends HttpServlet {
         HttpSession session;
         String courriel = request.getParameter("courriel");
         String motDePasse = request.getParameter("motPasse");
-        System.out.print(courriel + ": " + motDePasse);
         
-        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
-        {
-            session = request.getSession(true);
-            session.setMaxInactiveInterval(1000);            
-            response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
+        try {
+            if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
+            {
+                // Crée une session
+                session = request.getSession(true);
+                session.setMaxInactiveInterval(1000); 
+                
+                // Crée un client
+                ClientDTO client = new ClientDTO();
+                client.setCourriel(courriel);
+                client.setMotDePasse(motDePasse); 
+                
+                // Ajoute l'objet client à la page
+                session.setAttribute("client", client);
+                
+                response.sendRedirect("/LOG660-LAB02/recherche");
+            }
+            else {
+                response.sendRedirect("/LOG660-LAB02/#error");
+            }
         }
-        else {
+        catch(Exception e) {
             response.sendRedirect("/LOG660-LAB02/#error");
         }
     }
