@@ -6,6 +6,34 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <jsp-file>test.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>redirection</servlet-name>
+        <servlet-class>com.etsmtl.equipe9.ws.ShowFilmWS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>rechercheFilm</servlet-name>
+        <jsp-file>rechercheFilm.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>showFilm</servlet-name>
+        <jsp-file>film.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>redirection</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rechercheFilm</servlet-name>
+        <url-pattern>/recherche</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showFilm</servlet-name>
+        <url-pattern>/film/show</url-pattern>
+    </servlet-mapping>
 </web-app>

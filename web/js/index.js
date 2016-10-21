@@ -12,28 +12,5 @@ $(document).ready(function(){
         var courriel = $('#clientCourriel').val();
         var motPasse = $('#clientMotPasse').val();
         console.log(courriel + ": " + motPasse);
-        
-        /*$.ajax({
-            type: "POST",
-            url: "/LOG660-LAB02/webresources/client/login",
-            headers: { 
-                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
-            },
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify({courriel: courriel, motDePasse: motPasse}),
-            success: function (data) {
-                // redirection sur rechercheFilm
-                console.log(data);
-                //$(location).attr('pathname', data);
-            },
-            error: function (xhr, status, error) {
-                // Mettre les champs en erreur
-                alert(xhr.responseText);
-                alert(status);
-                alert(error);
-            }
-        });*/
     });
 });
