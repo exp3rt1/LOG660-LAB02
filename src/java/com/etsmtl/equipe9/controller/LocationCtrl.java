@@ -17,10 +17,25 @@ public class LocationCtrl {
         return dao.locationFilm(courriel, idfilm);
 
     }
+    
+    public boolean verifierLocationExemplaire(String courriel, Long idfilm) {
+
+        return dao.verifierLocationExemplaire(courriel, idfilm);
+
+    }
+    
+    public boolean verifierLocationForfait(String courriel) {
+
+        return dao.verifierLocationForfait(courriel);
+
+    }
 
     public static void main(String[] args) {
         LocationCtrl location = new LocationCtrl();
-        location.louerFilm("MerryMBolton6@hotmail.com", 130623L);
+        //location.verifierLocationExemplaire("MerryMBolton6@hotmail.com", 859163L);
+        //location.louerFilm("MerryMBolton6@hotmail.com", 130623L);
+        location.verifierLocationForfait("MerryMBolton6@hotmail.com");
+        
 
     }
 }

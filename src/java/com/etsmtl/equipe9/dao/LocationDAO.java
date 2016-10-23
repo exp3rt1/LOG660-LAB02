@@ -8,6 +8,65 @@ import javax.persistence.StoredProcedureQuery;
 
 public class LocationDAO extends DAOAbstrait<Location, LocationId> {
 
+    public boolean verifierLocationForfait(String courriel) {
+        
+        try {
+
+            connect();
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("P_TEST_LOCATION_FORFAIT");
+            storedProcedure.registerStoredProcedureParameter("p_courrielClient", String.class, ParameterMode.IN);
+            storedProcedure.setParameter("p_courrielClient", courriel);
+           
+
+            try {
+                storedProcedure.execute();
+
+            } catch (Exception e) {
+
+                System.out.println("Le nombre maximum de location a ete atteint");
+                return false;
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        } finally {
+            disconnect();
+        }
+    }
+    
+    public boolean verifierLocationExemplaire(String courriel, Long idfilm) {
+        
+        try {
+
+            connect();
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("P_TEST_NBR_EXEMPLAIRE");
+            storedProcedure.registerStoredProcedureParameter("p_courrielClient", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_idFilm", Long.class, ParameterMode.IN);
+            storedProcedure.setParameter("p_courrielClient", courriel);
+            storedProcedure.setParameter("p_idFilm", idfilm);
+
+            try {
+                storedProcedure.execute();
+
+            // il ny a pu dexemplaire
+            } catch (Exception e) {
+
+                System.out.println("Il n'y a aucun exemplaire de libre pour ce film");
+                return false;
+            }
+
+            // il reste un exemplaire
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        } finally {
+            disconnect();
+        }
+    }
+    
     public boolean locationFilm(String courriel, Long idfilm) {
 
         try {
