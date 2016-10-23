@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CLIENT",schema="EQUIPE9")
+@NamedQuery(name = "Client.findAll", query = "SELECT c.courriel, c.motpasse FROM Client c")
 public class Client  implements java.io.Serializable {
 
     @Id
@@ -56,6 +58,11 @@ public class Client  implements java.io.Serializable {
     private Set<Location> locations = new HashSet<>(0);
 
     public Client() {}
+    
+    public Client(String courriel, String motpasse) {
+        this.courriel = courriel;
+        this.motpasse = motpasse;
+    }
     
     public Client(String courriel, String nom, String prenom, String motpasse, String numerotelephone, Date datenaissance) {
         this.courriel = courriel;

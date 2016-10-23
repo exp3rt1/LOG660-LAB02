@@ -238,6 +238,19 @@ public class FilmWS {
     public String getAllFilmLanguages(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         JSONArray jsonLanguages = new JSONArray();
         List<String> langues = filmCtrl.getLangues();
+        
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
         langues.stream().filter((langue) -> (langue != null && !langue.isEmpty())).forEach((langue) -> {
             jsonLanguages.add(langue);
         });
@@ -247,7 +260,6 @@ public class FilmWS {
     @GET
     @Path("getFilmInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
 
         Long id = Long.parseLong(filmId);
@@ -389,7 +401,6 @@ public class FilmWS {
     @GET
     @Path("getPersonInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public String getPersonInfo(@PathParam("id") String personID, @Context HttpServletRequest request) {
         try {
             //JSONObject location = (JSONObject) new JSONParser().parse(data);
