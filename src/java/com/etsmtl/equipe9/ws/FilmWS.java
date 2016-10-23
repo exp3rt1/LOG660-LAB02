@@ -250,8 +250,7 @@ public class FilmWS {
     @Consumes(MediaType.APPLICATION_JSON)
     public String getFilmInfo(@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
 
-        Long id = Long.parseLong(filmId);
-        Film film = filmCtrl.getFilm(id);
+        
         
         HttpSession session = request.getSession(false);
         if(session == null) {
@@ -266,6 +265,9 @@ public class FilmWS {
         }
         
         JSONObject filmJSON = new JSONObject();
+        
+        Long id = Long.parseLong(filmId);
+        Film film = filmCtrl.getFilm(id);
         
         // Titre
         String movieTitle = film.getTitre();
@@ -337,6 +339,11 @@ public class FilmWS {
         }
         filmJSON.put("genres", genreList);
         
+        
+        String email = client.getCourriel();
+        boolean filmCopiesLeft = locationCtrl.verifierLocationExemplaire(email, film.getIdfilm()); 
+        filmJSON.put("filmCopiesLeft", filmCopiesLeft);
+        
         return filmJSON.toJSONString();
     }
     
@@ -361,28 +368,77 @@ public class FilmWS {
         return "/LOG660-LAB02/film.html?id="+filmId;
     }
     
-    @POST
-    @Path("louerFilm")
+    
+    @GET
+    @Path("louerFilm/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String louerFilm(String data, @Context HttpServletRequest request) {
+    public String louerFilm(@PathParam("id") String filmID, @Context HttpServletRequest request) { 
+        
         try {
-            JSONObject location = (JSONObject) new JSONParser().parse(data);
-            String email = (String) location.get("email");
-            String filmID = (String) location.get("filmID");
-            if(email.isEmpty() || filmID.isEmpty()){return null;}
+            
+            HttpSession session = request.getSession(false);
+            if(session == null) {
+                response.sendRedirect("/LOG660-LAB02/");
+                return "";
+            }
+
+            ClientDTO client = (ClientDTO)session.getAttribute("client");
+            if(!client.getRole().equals("client")) {
+                response.sendRedirect("/LOG660-LAB02/");
+                return "";
+            }
+
             Long filmId = Long.parseLong(filmID);
-            boolean result = locationCtrl.louerFilm(email, filmId);
-            if(result){
-                JSONObject success = new JSONObject();
-                success.put("success", true);
+            String email = client.getCourriel();
+            
+            JSONObject success = new JSONObject();
+            
+            boolean filmCopiesLeft = locationCtrl.verifierLocationExemplaire(email, filmId); 
+            
+            if(!filmCopiesLeft){
+                success.put("success", false);
+                success.put("message", "Désolé. Il n'y a plus d'exemplaires dispnibles.");
+                success.put("noMoreCopies", true);
                 return success.toJSONString();
             }
-        } catch (ParseException ex) {
+            
+            boolean userCanRent = locationCtrl.verifierLocationForfait(email);
+            
+            if(!userCanRent){
+                success.put("success", false);
+                success.put("message", "Désolé. Votre forfait ne comprend plus de locations.");
+                if(filmCopiesLeft){
+                    success.put("noMoreCopies", false);
+                }
+                else {
+                    success.put("noMoreCopies", true);
+                }
+                return success.toJSONString();
+            }
+            
+            boolean result = locationCtrl.louerFilm(email, filmId);
+            if(result){
+                success.put("success", true);
+                success.put("message", "La location s'est effectuée avec succès!");
+                if(filmCopiesLeft){
+                    success.put("noMoreCopies", false);
+                }
+                else {
+                    success.put("noMoreCopies", true);
+                }
+                return success.toJSONString();
+            }
+            else{
+                success.put("success", false);
+                success.put("message", "Désolé. Votre reqête a échouée.");
+                return success.toJSONString();
+            }
+        } catch (Exception ex) {
             Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        return null;
+        //return null;
     }
     
     

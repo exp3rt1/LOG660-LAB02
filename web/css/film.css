@@ -17,6 +17,49 @@ and open the template in the editor.
     vertical-align: middle;
 }
 
+.rentMovieBtn {
+    border: white 2px solid;
+    border-radius: 7px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    background: rgb(11, 194, 101);
+    padding: 10px 10px 10px 10px;
+    width: 175px;
+    margin: 5px;
+    cursor: pointer;
+    white-space: pre-wrap;
+    overflow: hidden;
+    float: right;
+}
+
+.rentMovieBtn:hover, .rentMovieBtn:active {
+    background: rgb(41, 216, 126) !important;
+}
+
+.rentMovieBtn:active {
+    background: rgb(41, 216, 126) !important;
+    border: gray 2px solid;
+    color: gray;
+}
+
+.rentMovieBtnOff {
+    border: gray 2px solid;
+    border-radius: 7px;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    background: lightgray;
+    padding: 10px 10px 10px 10px;
+    width: 175px;
+    margin: 5px;
+    cursor: pointer;
+    white-space: pre-wrap;
+    overflow: hidden;
+    float: right;
+}
+
+
 #filmContent {
     display: none;
     margin: 20px;
