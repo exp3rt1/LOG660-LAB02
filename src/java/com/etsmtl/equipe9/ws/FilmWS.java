@@ -418,6 +418,7 @@ public class FilmWS {
             }
             
             boolean result = locationCtrl.louerFilm(email, filmId);
+            filmCopiesLeft = locationCtrl.verifierLocationExemplaire(email, filmId);
             if(result){
                 success.put("success", true);
                 success.put("message", "La location s'est effectuée avec succès!");

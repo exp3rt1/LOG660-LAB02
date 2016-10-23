@@ -250,13 +250,13 @@ function rentMovie(){
             success: function (result) {
                 hideSpinner();
                 if(result.success === true){
-                    if(result.noMoreCopies){
+                    if(result.noMoreCopies === true){
                         turnOffRentMovieBtn("Il n'y a plus d'exemplaires dispnibles");
                     }
                     alert(result.message);
                 }
                 else if(result.success === false){
-                    if(result.noMoreCopies){
+                    if(result.noMoreCopies === true){
                         turnOffRentMovieBtn("Il n'y a plus d'exemplaires dispnibles");
                     }
                     alert(result.message);
