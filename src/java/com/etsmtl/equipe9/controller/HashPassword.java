@@ -7,6 +7,7 @@ package com.etsmtl.equipe9.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import static java.nio.charset.StandardCharsets.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -26,11 +27,15 @@ public class HashPassword {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt.getBytes());
-            generatedPassword = new String(md.digest(passwordToHash.getBytes("UTF-8")));
+            md.update(salt.getBytes(UTF_8));
+            
+            byte[] hashedPassword = md.digest(passwordToHash.getBytes(UTF_8));
+            System.out.println("test : "+ new String(hashedPassword, UTF_8));
+            
+            generatedPassword = new String(hashedPassword, UTF_8);
             System.out.println("HashPassword : "+ generatedPassword);
         } 
-        catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        catch (NoSuchAlgorithmException e) {
             Logger.getLogger(HashPassword.class.getName()).log(Level.SEVERE, null, e);
         }
         return generatedPassword;
