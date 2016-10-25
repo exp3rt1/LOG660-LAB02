@@ -3,7 +3,11 @@ package com.etsmtl.equipe9.controller;
 import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.service.DAOFactory;
 import com.etsmtl.equipe9.model.Client;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.xml.security.utils.Base64;
 
 
@@ -16,10 +20,9 @@ public class ClientCtrl {
     }
     
     public boolean getPassword (String courriel, String motDePasse){
-        // Quand on va avoir hasher le mot de passe, il faudra le dehasher
         String motDePasseBD = this.getClient(courriel).getMotpasse();
         String hashedMotDePasse = hash.get_SHA_256_SecurePassword(motDePasse);
-        
+        boolean test = hashedMotDePasse.getBytes() == motDePasseBD.getBytes();
         return hashedMotDePasse.equals(motDePasseBD);
     }
     
@@ -36,7 +39,6 @@ public class ClientCtrl {
     }
     
     public static void main(String[] args) {
-        byte[] salt = null;
         ClientCtrl controleur = new ClientCtrl();
         HashPassword hash = new HashPassword();
         
@@ -45,7 +47,11 @@ public class ClientCtrl {
             System.out.println(liste.size());
             
             Client test = controleur.getClient("asd@asd.asd");
-            test.setMotpasse(hash.get_SHA_256_SecurePassword(test.getMotpasse()));
+            System.out.println("GG "+test.getMotpasse());
+            String gg = hash.get_SHA_256_SecurePassword(test.getMotpasse());
+            test.setMotpasse(gg);
+            System.out.println(gg);
+//            test.setDatenaissance(new Date(1990, 1, 20));
             System.out.println(controleur.updateClient(test)); // supposer de retourner true
             
             /*for(Client c: liste){

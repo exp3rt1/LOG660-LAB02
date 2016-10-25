@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Root;
 
 public class ClientDAO extends DAOAbstrait<Client, String>{
     
@@ -65,16 +66,12 @@ public class ClientDAO extends DAOAbstrait<Client, String>{
     public boolean update(Client obj) {
         try {
             connect();
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaUpdate<Client> query = cb.createCriteriaUpdate(Client.class);
-            int updateClient = this.em.createQuery(query).executeUpdate();
-            
-            if (updateClient > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            em.getTransaction().begin();
+            Client merge = em.merge(obj);
+            em.getTransaction().commit();
+            return merge != null;
         } catch (Exception e) {
+            System.out.println(e);
             return false;
         } finally {
             disconnect();
