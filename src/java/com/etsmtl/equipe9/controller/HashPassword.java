@@ -30,10 +30,10 @@ public class HashPassword {
             md.update(salt.getBytes(UTF_8));
             
             byte[] hashedPassword = md.digest(passwordToHash.getBytes(UTF_8));
-            System.out.println("test : "+ new String(hashedPassword, UTF_8));
+//            System.out.println("test : "+ new String(hashedPassword, UTF_8));
             
             generatedPassword = new String(hashedPassword, UTF_8);
-            System.out.println("HashPassword : "+ generatedPassword);
+//            System.out.println("HashPassword : "+ generatedPassword);
         } 
         catch (NoSuchAlgorithmException e) {
             Logger.getLogger(HashPassword.class.getName()).log(Level.SEVERE, null, e);

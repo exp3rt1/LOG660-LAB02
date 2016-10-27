@@ -38,23 +38,29 @@ public class ClientCtrl {
         return dao.update(client);
     }
     
+    public boolean updateClientMotPasse(Client client, String newPassword){
+        return dao.updateMotPasse(client.getCourriel(), newPassword);
+    }
+    
     public static void main(String[] args) {
         ClientCtrl controleur = new ClientCtrl();
         HashPassword hash = new HashPassword();
         
         try {
             List<Client> liste = controleur.getAllClient();
-            System.out.println(liste.size());
+//            System.out.println(liste.size());
+//            
+//            Client test = controleur.getClient("qwe@qwe.qwe");
+//            
+//            String gg = hash.get_SHA_256_SecurePassword("123456789");
+//            test.setMotpasse(gg);
+//            
+//            controleur.updateClientMotPasse(test, gg);
             
-            /*Client test = controleur.getClient("asd@asd.asd");
-            
-            String gg = hash.get_SHA_256_SecurePassword("123456789");
-            test.setMotpasse(gg);*/
             
             for(Client c: liste){
                 String hashedPassword = hash.get_SHA_256_SecurePassword(c.getMotpasse());
-                c.setMotpasse(hashedPassword);
-                controleur.updateClient(c);
+                controleur.updateClientMotPasse(c, hashedPassword);
             }
         }
         catch(Exception e) {

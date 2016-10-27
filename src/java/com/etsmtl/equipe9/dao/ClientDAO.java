@@ -77,6 +77,22 @@ public class ClientDAO extends DAOAbstrait<Client, String>{
             disconnect();
         }
     }
+    
+    public boolean updateMotPasse(String courrielClient, String newPassword){
+        try {
+            connect();
+            em.getTransaction().begin();
+            Client c = em.find(Client.class, courrielClient);
+            c.setMotpasse(newPassword);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        } finally {
+            disconnect();
+        }
+    }
 
     @Override
     public boolean delete(Client obj) {
