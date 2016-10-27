@@ -482,12 +482,18 @@ public class FilmWS {
             jsonPerson.put("id", person.getIdpersonne());
             jsonPerson.put("name", person.getNom());
             
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String dateOfBirth = formatter.format(person.getDatenaissance());
-            jsonPerson.put("dateOfBirth", dateOfBirth);
+            if(person.getDatenaissance() != null){
+                Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String dateOfBirth = formatter.format(person.getDatenaissance());
+                jsonPerson.put("dateOfBirth", dateOfBirth);
+            }
             
-            jsonPerson.put("placeOfBirth", person.getLieunaissance());
-            jsonPerson.put("biography", person.getBiographie());
+            if(person.getLieunaissance() != null){
+                jsonPerson.put("placeOfBirth", person.getLieunaissance());
+            }
+            if(person.getBiographie() != null){
+                jsonPerson.put("biography", person.getBiographie());
+            }
             
             return jsonPerson.toJSONString();
             

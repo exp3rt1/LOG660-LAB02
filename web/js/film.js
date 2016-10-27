@@ -186,9 +186,28 @@ function getPersonData(personID){
 
 
 function showPersonData(person){
-    $('#personName').html(person.name);
-    $('#personDateOfBirth').html(person.dateOfBirth);
-    $('#personPlaceOfBirth').html(person.placeOfBirth);
+    if(person.name === undefined || person.name === null || person.name === ""){
+         $('#personName').html("(non spécifié)");
+    }
+    else{
+        $('#personName').html(person.name);
+    }
+    
+    
+    if(person.dateOfBirth === undefined || person.dateOfBirth === null || person.dateOfBirth === ""){
+         $('#personDateOfBirth').html("(non spécifiée)");
+    }
+    else{
+        $('#personDateOfBirth').html(person.dateOfBirth);
+    }
+    
+    if(person.placeOfBirth === undefined || person.placeOfBirth === null || person.placeOfBirth === ""){
+         $('#personPlaceOfBirth').html("(non spécifié)");
+    }
+    else{
+        $('#personPlaceOfBirth').html(person.placeOfBirth);
+    }
+
     if(person.biography === undefined || person.biography === null || person.biography === ""){
          $('#personBiography').html("(aucune biographie trouvée)");
     }
