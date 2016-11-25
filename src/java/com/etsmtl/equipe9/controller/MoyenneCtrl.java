@@ -27,6 +27,11 @@ public class MoyenneCtrl {
         
         MaVueMoyenne moyenne = dao.findById(idFilm);
         
+        if (moyenne == null) {
+            
+            return null;
+        }
+        
         return moyenne.getCote();
    }
     
