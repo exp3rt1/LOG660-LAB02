@@ -138,6 +138,7 @@ function setFilmInfo(film){
         turnOffRentMovieBtn("Il n'y a plus d'exemplaires dispnibles");
     }
     
+    fetchRating();
     $('#filmContent').show();
 }
 
@@ -283,6 +284,86 @@ function rentMovie(){
                 else {
                     alert("FAIL");
                 }
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
+}
+
+
+function fetchRating(){
+    var id = _filmID;
+    
+    if(id !== undefined && id !== null && id !== ""){     
+        $.ajax({
+            type: "GET",
+            url: "/LOG660-LAB02/webresources/film/getFilmRating/"+id,
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: id,
+            success: function (data) {
+                hideSpinner();
+                var filmRating = data.rating;
+                
+                $('#starRating').barrating({
+                    theme: 'fontawesome-stars-o',
+                    initialRating: filmRating,
+                    showSelectedRating: true,
+                    hoverState: false,
+                    readonly: true,
+                    silent: true,
+                    deselectable: false
+                });
+                 $('#filmRating').html(filmRating + " / 5")
+                //alert(filmRating);
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
+}
+
+function fetchSuggestedFilms(){
+    var id = _filmID;
+    
+    if(id !== undefined && id !== null && id !== ""){     
+        $.ajax({
+            type: "GET",
+            url: "/LOG660-LAB02/webresources/film/getSuggestedFilms/"+id,
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: id,
+            success: function (data) {
+                hideSpinner();
+
+                alert(data.GG);
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur

@@ -8,6 +8,7 @@ package com.etsmtl.equipe9.ws;
 import com.etsmtl.equipe9.controller.FilmCtrl;
 import com.etsmtl.equipe9.controller.GenreCtrl;
 import com.etsmtl.equipe9.controller.LocationCtrl;
+import com.etsmtl.equipe9.controller.MoyenneCtrl;
 import com.etsmtl.equipe9.controller.PaysCtrl;
 import com.etsmtl.equipe9.dto.ClientDTO;
 import com.etsmtl.equipe9.controller.PersonneCtrl;
@@ -20,6 +21,7 @@ import com.etsmtl.equipe9.model.Personnage;
 import com.etsmtl.equipe9.model.Personne;
 import com.etsmtl.equipe9.model.Scenariste;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -62,6 +64,7 @@ public class FilmWS {
     private final GenreCtrl genreCtrl = new GenreCtrl();
     private final LocationCtrl locationCtrl = new LocationCtrl();
     private final PersonneCtrl personneCtrl = new PersonneCtrl();
+    private final MoyenneCtrl ratingCtrl = new MoyenneCtrl();
 	
     @Context private UriInfo context;
     @Context private HttpServletRequest servletRequest;
@@ -503,5 +506,56 @@ public class FilmWS {
         return null;
     }
     
+    
+    @GET
+    @Path("getFilmRating/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFilmRating(@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+    
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }    
+        JSONObject filmJSON = new JSONObject();
+        
+        Long id = Long.parseLong(filmId);
+        BigDecimal decimalFilmRating = ratingCtrl.getMoyenne(id);
+        decimalFilmRating.setScale(1, BigDecimal.ROUND_HALF_UP);
+        String filmRating = String.valueOf(decimalFilmRating.doubleValue());      
+        filmJSON.put("rating", filmRating);
+        return filmJSON.toJSONString();
+    }
+    
+    
+    @GET
+    @Path("getSuggestedFilms/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getSuggestedFilms(@PathParam("id") String filmId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+    
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("/LOG660-LAB02/");
+            return "";
+        }    
+        JSONObject filmJSON = new JSONObject();
+        
+        Long id = Long.parseLong(filmId);
+              
+        filmJSON.put("GG", "GG");
+        return filmJSON.toJSONString();
+    }
     
 }

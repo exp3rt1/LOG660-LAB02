@@ -17,6 +17,41 @@ and open the template in the editor.
     vertical-align: middle;
 }
 
+#sidebar {
+    width: 25%;
+    padding: 10px;
+    overflow: hidden;
+    float: right;
+}
+
+#ratingDiv {
+    margin-top: 30px;
+    width: 100%;
+    /*height: 75px;*/
+    background: rgb(200,200,200);
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+    padding-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 25px;
+    color: rgb(65,65,65);
+}
+
+
+#suggestedFilmsDiv {
+    margin-top: 15px;
+    width: 100%;
+    height: 300px;
+    background: rgb(200,200,200);
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+}
+
 .rentMovieBtn {
     border: white 2px solid;
     border-radius: 7px;
@@ -25,12 +60,12 @@ and open the template in the editor.
     font-size: 16px;
     background: rgb(11, 194, 101);
     padding: 10px 10px 10px 10px;
-    width: 175px;
-    margin: 5px;
+    width: 100%;
+    /*margin: 5px;*/
     cursor: pointer;
     white-space: pre-wrap;
     overflow: hidden;
-    float: right;
+    /*float: right;*/
 }
 
 .rentMovieBtn:hover, .rentMovieBtn:active {
@@ -62,11 +97,13 @@ and open the template in the editor.
 
 #filmContent {
     display: none;
-    margin: 20px;
+    margin: 0;
     padding: 20px;
     border-radius: 5px;
     border: gray;
     background: rgb(230,230,230);
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
 #titleDiv {
