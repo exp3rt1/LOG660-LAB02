@@ -134,52 +134,13 @@ function setFilmInfo(film){
         }
     }
     
+    if(!film.filmCopiesLeft){
+        turnOffRentMovieBtn("Il n'y a plus d'exemplaires dispnibles");
+    }
+    
     $('#filmContent').show();
 }
 
-
-function rentMovie(){
-    
-    var id = _filmID;
-    var email = ""; // TODO: GET EMAIL FROM SESSION (Olivier)
-    
-    var rental = new Object();
-    rental.filmID = id;
-    rental.email = email;
-    
-    if(id !== undefined && id !== null && id !== ""){  
-        showSpinner();
-        $.ajax({
-            type: "GET",
-            url: "/LOG660-LAB02/webresources/film/louerFilm",
-            headers: { 
-                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
-            },
-            contentType: "application/json",
-            dataType: "json",
-            data: rental,
-            success: function (result) {
-                hideSpinner();
-                if(result.sucess === true){
-                    alert("SUCCESS");
-                }
-                else{alert("FAIL");}
-            },
-            error: function (xhr, status, error) {
-                // Mettre les champs en erreur
-                hideSpinner();
-                alert("ERROR! See console...");
-                console.log(xhr.responseText);
-                console.log(status);
-                console.log(error);
-            }
-        });
-    }
-    else{
-        hideSpinner();
-    }
-}
 
 function getPersonData(personID){
     
@@ -225,9 +186,28 @@ function getPersonData(personID){
 
 
 function showPersonData(person){
-    $('#personName').html(person.name);
-    $('#personDateOfBirth').html(person.dateOfBirth);
-    $('#personPlaceOfBirth').html(person.placeOfBirth);
+    if(person.name === undefined || person.name === null || person.name === ""){
+         $('#personName').html("(non spécifié)");
+    }
+    else{
+        $('#personName').html(person.name);
+    }
+    
+    
+    if(person.dateOfBirth === undefined || person.dateOfBirth === null || person.dateOfBirth === ""){
+         $('#personDateOfBirth').html("(non spécifiée)");
+    }
+    else{
+        $('#personDateOfBirth').html(person.dateOfBirth);
+    }
+    
+    if(person.placeOfBirth === undefined || person.placeOfBirth === null || person.placeOfBirth === ""){
+         $('#personPlaceOfBirth').html("(non spécifié)");
+    }
+    else{
+        $('#personPlaceOfBirth').html(person.placeOfBirth);
+    }
+
     if(person.biography === undefined || person.biography === null || person.biography === ""){
          $('#personBiography').html("(aucune biographie trouvée)");
     }
@@ -253,4 +233,68 @@ function hidePersonModal(){
 
 function tryToClosePersonModal(event){
     if(event.target === document.getElementById("personModal")){hidePersonModal();}
+}
+
+
+function turnOffRentMovieBtn(offMsg){
+    var rentMovieBtn = document.getElementById("rentMovieBtn");
+    rentMovieBtn.className = "rentMovieBtnOff";
+    rentMovieBtn.disabled = true;
+    if(offMsg === undefined || offMsg === null || offMsg === ""){
+        offMsg = "Vous ne pouver pas louer ce film";
+    }
+    rentMovieBtn.value = offMsg;
+}
+
+
+function rentMovie(){
+    
+    var id = _filmID;
+    
+    var rental = new Object();
+    rental.filmID = id;
+    
+    if(id !== undefined && id !== null && id !== ""){  
+        showSpinner();
+        $.ajax({
+            type: "GET",
+            url: "/LOG660-LAB02/webresources/film/louerFilm/"+id,
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: rental,
+            success: function (result) {
+                hideSpinner();
+                if(result.success === true){
+                    if(result.noMoreCopies === true){
+                        turnOffRentMovieBtn("Il n'y a plus d'exemplaires dispnibles");
+                    }
+                    alert(result.message);
+                }
+                else if(result.success === false){
+                    if(result.noMoreCopies === true){
+                        turnOffRentMovieBtn("Il n'y a plus d'exemplaires dispnibles");
+                    }
+                    alert(result.message);
+                }
+                else {
+                    alert("FAIL");
+                }
+            },
+            error: function (xhr, status, error) {
+                // Mettre les champs en erreur
+                hideSpinner();
+                alert("ERROR! See console...");
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+    else{
+        hideSpinner();
+    }
 }

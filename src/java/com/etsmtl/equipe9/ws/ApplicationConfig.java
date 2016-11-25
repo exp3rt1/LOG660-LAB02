@@ -29,7 +29,6 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.etsmtl.equipe9.ws.FilmWS.class);
-        resources.add(com.etsmtl.equipe9.ws.LoginWS.class);
     }
     
 }
