@@ -527,8 +527,13 @@ public class FilmWS {
         
         Long id = Long.parseLong(filmId);
         BigDecimal decimalFilmRating = ratingCtrl.getMoyenne(id);
+        if(decimalFilmRating == null){
+            filmJSON.put("rating", null);
+            return filmJSON.toJSONString();
+        }
         decimalFilmRating.setScale(1, BigDecimal.ROUND_HALF_UP);
-        String filmRating = String.valueOf(decimalFilmRating.doubleValue());      
+        Double doubleFilmRating = decimalFilmRating.doubleValue();
+        String filmRating = String.valueOf(doubleFilmRating);      
         filmJSON.put("rating", filmRating);
         return filmJSON.toJSONString();
     }

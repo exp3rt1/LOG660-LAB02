@@ -318,7 +318,7 @@ function fetchRating(){
             success: function (data) {
                 hideSpinner();
                 var filmRating = data.rating;
-                
+                if(filmRating === null){filmRating = "0";}
                 $('#starRating').barrating({
                     theme: 'fontawesome-stars-o',
                     initialRating: filmRating,
@@ -328,7 +328,12 @@ function fetchRating(){
                     silent: true,
                     deselectable: false
                 });
-                 $('#filmRating').html(filmRating + " / 5")
+                if(filmRating !== "0"){
+                    $('#filmRating').html(filmRating + " / 5");
+                }
+                else{
+                    $('#filmRating').html("aucune évaluation");
+                }
                 //alert(filmRating);
             },
             error: function (xhr, status, error) {
