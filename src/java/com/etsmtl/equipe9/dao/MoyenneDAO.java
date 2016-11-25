@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Nicolas Desktop
  */
-public class MoyenneDAO extends DAOAbstrait<MaVueMoyenne, BigDecimal>{/*
+public class MoyenneDAO extends DAOAbstrait<MaVueMoyenne, Long>{/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,7 +26,7 @@ public class MoyenneDAO extends DAOAbstrait<MaVueMoyenne, BigDecimal>{/*
     }
 
     @Override
-    public MaVueMoyenne findById(BigDecimal id) {
+    public MaVueMoyenne findById(Long id) {
         try {
             connect();
             return this.em.find(MaVueMoyenne.class, id);
@@ -38,7 +38,7 @@ public class MoyenneDAO extends DAOAbstrait<MaVueMoyenne, BigDecimal>{/*
     }
 
     @Override
-    public List<MaVueMoyenne> findById(List<BigDecimal> listeId) {
+    public List<MaVueMoyenne> findById(List<Long> listeId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

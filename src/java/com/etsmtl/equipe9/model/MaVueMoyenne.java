@@ -37,22 +37,22 @@ public class MaVueMoyenne implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDFILM")
-    private BigDecimal idfilm;
+    private Long idfilm;
     @Column(name = "COTE")
     private BigDecimal cote;
 
     public MaVueMoyenne() {
     }
 
-    public MaVueMoyenne(BigDecimal idfilm) {
+    public MaVueMoyenne(Long idfilm) {
         this.idfilm = idfilm;
     }
 
-    public BigDecimal getIdfilm() {
+    public Long getIdfilm() {
         return idfilm;
     }
 
-    public void setIdfilm(BigDecimal idfilm) {
+    public void setIdfilm(Long idfilm) {
         this.idfilm = idfilm;
     }
 

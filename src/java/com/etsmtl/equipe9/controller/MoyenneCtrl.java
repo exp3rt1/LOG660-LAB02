@@ -22,7 +22,7 @@ public class MoyenneCtrl {
     
     MoyenneDAO dao = DAOFactory.getInstance().getMoyenneDAO();
     
-    public BigDecimal getMoyenne (BigDecimal idFilm){
+    public BigDecimal getMoyenne (Long idFilm){
         
         
         MaVueMoyenne moyenne = dao.findById(idFilm);
@@ -34,7 +34,7 @@ public class MoyenneCtrl {
         
         MoyenneCtrl control = new MoyenneCtrl();
         
-        System.out.println(control.getMoyenne(new BigDecimal("119190")));
+        System.out.println(control.getMoyenne(119190L));
         
     }
 }
