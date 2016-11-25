@@ -2,6 +2,7 @@
 package com.etsmtl.equipe9.service;
 
 import com.etsmtl.equipe9.dao.ClientDAO;
+import com.etsmtl.equipe9.dao.CorrDAO;
 import com.etsmtl.equipe9.dao.FilmDAO;
 import com.etsmtl.equipe9.dao.GenreDAO;
 import com.etsmtl.equipe9.dao.LocationDAO;
@@ -20,6 +21,7 @@ public final class DAOFactory {
     private PaysDAO paysDAO;
     private GenreDAO genreDAO;
     private MoyenneDAO moyenneDAO;
+    private CorrDAO corrDAO;
 
     private DAOFactory() {}
 
@@ -77,6 +79,13 @@ public final class DAOFactory {
             moyenneDAO = new MoyenneDAO();
         }
         return moyenneDAO;
+    }
+    
+    public CorrDAO getCorrDAO() {
+        if (corrDAO == null) {
+            corrDAO = new CorrDAO();
+        }
+        return corrDAO;
     }
     
 }
