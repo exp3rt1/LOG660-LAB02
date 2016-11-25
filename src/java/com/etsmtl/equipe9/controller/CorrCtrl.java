@@ -7,13 +7,9 @@ package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.dao.CorrDAO;
 import com.etsmtl.equipe9.dao.LocationDAO;
-import com.etsmtl.equipe9.model.MaVueCorrelation;
 import com.etsmtl.equipe9.service.DAOFactory;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.jasper.tagplugins.jstl.ForEach;
 
 /**
  *
@@ -24,29 +20,36 @@ public class CorrCtrl {
     CorrDAO daoC = DAOFactory.getInstance().getCorrDAO();
     LocationDAO daoL = DAOFactory.getInstance().getLocationDAO();
     
-    public ArrayList<Long> getCorr(Long idFilm){
+    public List<Long> getCorr(Long idFilm, String courriel){
+        
+        List<Long> listeCorrTrier = daoC.findByIdAll(idFilm);
+        
+        List<Long>listeFilmDejaLoue = daoL.retournerFilmDejaLoue(courriel);
+        
+        listeCorrTrier.removeAll(listeFilmDejaLoue);
         
         
-        List<MaVueCorrelation> listeCorr = daoC.findByIdAll(idFilm);
-        ArrayList<Long> listefilm = new ArrayList<>();
         int i = 0;
-        for (MaVueCorrelation corr : listeCorr) {
+        List<Long> listeRecommandation = new ArrayList<>();
+        
+        for (Long long1 : listeCorrTrier) {
             
             if (i == 3) {
                 break;
             }
-            listefilm.add(corr.getMaVueCorrelationPK().getIdfilm1());
+            listeRecommandation.add(long1);
             i++;
         }
         
-        return listefilm;
+        
+        return listeRecommandation;
     }
     
     public static void main(String[] args) {
         
         CorrCtrl control = new CorrCtrl();
         
-        ArrayList<Long> listefilm = control.getCorr(61184L);
+        List<Long> listefilm = control.getCorr(61184L, "MichaelEWash74@gmail.com");
         
         for (Long long1 : listefilm) {
             

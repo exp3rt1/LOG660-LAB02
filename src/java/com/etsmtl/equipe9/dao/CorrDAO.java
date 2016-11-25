@@ -7,6 +7,7 @@ package com.etsmtl.equipe9.dao;
 
 import com.etsmtl.equipe9.model.MaVueCorrelation;
 import com.etsmtl.equipe9.model.Pays;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -20,12 +21,23 @@ public class CorrDAO extends DAOAbstrait<MaVueCorrelation, Long>{/*
  * and open the template in the editor.
  */
 
-    public List<MaVueCorrelation> findByIdAll(Long id) {
+    public List<Long> findByIdAll(Long id) {
+        
+        List<Long> liste = new ArrayList<>();
+        
         try {
             connect();
-             Query query = em.createQuery("SELECT m FROM MaVueCorrelation m WHERE m.maVueCorrelationPK.idfilm2 = :idfilm2 ORDER BY m.correlation DESC").setParameter("idfilm2", id);
+             Query query = em.createQuery("SELECT m FROM MaVueCorrelation"
+                     + " m WHERE m.maVueCorrelationPK.idfilm2 = :idfilm2 ORDER BY "
+                     + "m.correlation DESC").setParameter("idfilm2", id);
              List<MaVueCorrelation> listeCorr = query.getResultList();
-             return listeCorr;
+             
+            for (MaVueCorrelation maVueCorrelation : listeCorr) {
+                
+                liste.add(maVueCorrelation.getMaVueCorrelationPK().getIdfilm1());
+            }
+             
+             return liste;
         } catch (Exception e) {
             return null;
         } finally {

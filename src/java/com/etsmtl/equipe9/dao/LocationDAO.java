@@ -1,13 +1,40 @@
 package com.etsmtl.equipe9.dao;
 
+import com.etsmtl.equipe9.model.Exemplaire;
 import com.etsmtl.equipe9.model.Location;
 import com.etsmtl.equipe9.model.LocationId;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ParameterMode;
+import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 
 public class LocationDAO extends DAOAbstrait<Location, LocationId> {
 
+    public List<Long> retournerFilmDejaLoue(String courriel){
+        
+        List<Long> liste = new ArrayList<>();
+        
+        try {
+            connect();
+             Query query = em.createQuery("SELECT e FROM Exemplaire e, Location l "
+                     + "WHERE l.client.courriel = :courriel AND l.exemplaire.idexemplaire = "
+                     + "e.idexemplaire").setParameter("courriel", courriel);
+             List<Exemplaire> listeEx = query.getResultList();
+             
+             for (Exemplaire exemplaire : listeEx) {
+                liste.add(exemplaire.getFilm().getIdfilm());
+            }
+             
+        } catch (Exception e) {
+            return null;
+        } finally {
+            disconnect();
+        }
+        
+        return liste;
+    }
+                          
     public boolean verifierLocationForfait(String courriel) {
         
         try {
