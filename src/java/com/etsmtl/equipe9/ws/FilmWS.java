@@ -5,6 +5,7 @@
  */
 package com.etsmtl.equipe9.ws;
 
+import com.etsmtl.equipe9.controller.CorrCtrl;
 import com.etsmtl.equipe9.controller.FilmCtrl;
 import com.etsmtl.equipe9.controller.GenreCtrl;
 import com.etsmtl.equipe9.controller.LocationCtrl;
@@ -65,6 +66,7 @@ public class FilmWS {
     private final LocationCtrl locationCtrl = new LocationCtrl();
     private final PersonneCtrl personneCtrl = new PersonneCtrl();
     private final MoyenneCtrl ratingCtrl = new MoyenneCtrl();
+    private final CorrCtrl correlationControler = new CorrCtrl();
 	
     @Context private UriInfo context;
     @Context private HttpServletRequest servletRequest;
@@ -558,8 +560,23 @@ public class FilmWS {
         JSONObject filmJSON = new JSONObject();
         
         Long id = Long.parseLong(filmId);
+        
+        List<Long> suggestedFilmIds = correlationControler.getCorr(id,client.getCourriel());
+        JSONArray suggestedFilms = new JSONArray();
+        
+        for (Long suggFilmId : suggestedFilmIds){
+            if(suggestedFilms.size() >= 3){break;}
+            Film suggFilm = filmCtrl.getFilm(suggFilmId);
+            String suggFilmTitle = suggFilm.getTitre();
+            String suggFilmYear = String.valueOf(suggFilm.getAnneesortie());
+            JSONObject suggFilmJSON = new JSONObject();
+            suggFilmJSON.put("id", suggFilmId);
+            suggFilmJSON.put("title", suggFilmTitle);
+            suggFilmJSON.put("year", suggFilmYear);
+            suggestedFilms.add(suggFilmJSON);
+        }
               
-        filmJSON.put("GG", "GG");
+        filmJSON.put("suggestedFilms", suggestedFilms);
         return filmJSON.toJSONString();
     }
     

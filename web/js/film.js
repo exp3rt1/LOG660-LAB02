@@ -139,6 +139,7 @@ function setFilmInfo(film){
     }
     
     fetchRating();
+    fetchSuggestedFilms();
     $('#filmContent').show();
 }
 
@@ -367,8 +368,29 @@ function fetchSuggestedFilms(){
             data: id,
             success: function (data) {
                 hideSpinner();
-
-                alert(data.GG);
+                var suggFilmsJSON = data.suggestedFilms;
+                var suggestedFilms = document.getElementById("suggestedFilms");
+                if(suggFilmsJSON.length === 0){
+                    var suggestedFilm = document.createElement("div");
+                    suggestedFilm.innerHTML = "(aucune suggestion)";
+                    suggestedFilm.style = "text-align: center;";
+                    suggestedFilms.appendChild(suggestedFilm);
+                    return;
+                }
+                for(var i = 0; i<suggFilmsJSON.length; i++){
+                    var suggFilmId = suggFilmsJSON[i].id;
+                    var suggFilmTitle = suggFilmsJSON[i].title;
+                    var suggFilmYear = suggFilmsJSON[i].year;
+                    var suggestedFilm = document.createElement("div");
+                    suggestedFilm.className = "suggestedFilm";
+                    suggestedFilm.innerHTML = suggFilmTitle + " (" + suggFilmYear + ")";
+                    
+                    var url = window.location.href;
+                    url = setUrlParameter(url, "id", suggFilmId);
+                    
+                    suggestedFilm.setAttribute("onclick","window.location.href = '"+url+"';");
+                    suggestedFilms.appendChild(suggestedFilm);
+                }
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
@@ -383,4 +405,21 @@ function fetchSuggestedFilms(){
     else{
         hideSpinner();
     }
+}
+
+function setUrlParameter(url, paramName, paramValue) {
+    if (url.indexOf(paramName + "=") >= 0) {
+            var prefix = url.substring(0, url.indexOf(paramName));
+            var suffix = url.substring(url.indexOf(paramName));
+            suffix = suffix.substring(suffix.indexOf("=") + 1);
+            suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix
+                            .indexOf("&")) : "";
+            url = prefix + paramName + "=" + paramValue + suffix;
+    } else {
+            if (url.indexOf("?") < 0)
+                    url += "?" + paramName + "=" + paramValue;
+            else
+                    url += "&" + paramName + "=" + paramValue;
+    }
+    return url;
 }
