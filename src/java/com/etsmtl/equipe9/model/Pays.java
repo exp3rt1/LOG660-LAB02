@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PAYS",schema="EQUIPE9")
+@Table(name="PAYS",schema=Configuration.BD_SCHEMA)
 public class Pays  implements java.io.Serializable {
 
     @Id

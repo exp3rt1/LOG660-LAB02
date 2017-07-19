@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -15,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="LOCATION",schema="EQUIPE9")
+@Table(name="LOCATION",schema=Configuration.BD_SCHEMA)
 public class Location  implements java.io.Serializable {
     
     @EmbeddedId

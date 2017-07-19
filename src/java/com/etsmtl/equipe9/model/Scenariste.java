@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="SCENARISTE",schema="EQUIPE9")
+@Table(name="SCENARISTE",schema=Configuration.BD_SCHEMA)
 public class Scenariste  implements java.io.Serializable {
 
     @Id

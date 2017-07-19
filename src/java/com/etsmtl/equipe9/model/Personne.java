@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import java.sql.Clob;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="PERSONNE",schema="EQUIPE9")
+@Table(name="PERSONNE",schema=Configuration.BD_SCHEMA)
 public class Personne  implements java.io.Serializable {
 
     @Id

@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="CLIENT",schema="EQUIPE9")
+@Table(name="CLIENT",schema=Configuration.BD_SCHEMA)
 @NamedQuery(name = "Client.findAll", query = "SELECT c.courriel, c.motpasse FROM Client c")
 public class Client  implements java.io.Serializable {
 

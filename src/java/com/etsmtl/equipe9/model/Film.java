@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="FILM",schema="EQUIPE9")
+@Table(name="FILM",schema=Configuration.BD_SCHEMA)
 public class Film  implements java.io.Serializable {
     
     @Id
@@ -45,7 +46,7 @@ public class Film  implements java.io.Serializable {
     private Integer duree;
     
     @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="FILMPAYS", schema="EQUIPE9", 
+    @JoinTable(name="FILMPAYS", schema=Configuration.BD_SCHEMA, 
         joinColumns = { 
             @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
         inverseJoinColumns = { 
@@ -59,7 +60,7 @@ public class Film  implements java.io.Serializable {
     private Set<Personnage> personnages = new HashSet<>(0);
     
     @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="FILMGENRE", schema="EQUIPE9", joinColumns = { 
+    @JoinTable(name="FILMGENRE", schema=Configuration.BD_SCHEMA, joinColumns = { 
         @JoinColumn(name="IDFILM", nullable=false, updatable=false) }, 
         inverseJoinColumns = { 
         @JoinColumn(name="IDGENRE", nullable=false, updatable=false) })

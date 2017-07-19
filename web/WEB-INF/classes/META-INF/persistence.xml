@@ -8,8 +8,8 @@
         
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@big-data-3.logti.etsmtl.ca:1521:log660"/>
-            <property name="javax.persistence.jdbc.user" value="equipe9"/>
-            <property name="javax.persistence.jdbc.password" value="88lyZUIU"/>
+            <property name="javax.persistence.jdbc.user" value="equipe23"/>
+            <property name="javax.persistence.jdbc.password" value="8kPB8b69"/>
         
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>

@@ -1,6 +1,7 @@
 package com.etsmtl.equipe9.model;
 
 
+import com.etsmtl.equipe9.service.Configuration;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PERSONNAGE",schema="EQUIPE9")
+@Table(name="PERSONNAGE",schema=Configuration.BD_SCHEMA)
 public class Personnage  implements java.io.Serializable {
 
     @EmbeddedId
