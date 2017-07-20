@@ -1,4 +1,3 @@
-
 package com.etsmtl.equipe9.service;
 
 import com.etsmtl.equipe9.dao.ClientDAO;

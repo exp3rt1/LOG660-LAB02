@@ -3,13 +3,8 @@ package com.etsmtl.equipe9.dao;
 import com.etsmtl.equipe9.model.Client;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.NamedQuery;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Root;
 
 public class ClientDAO extends DAOAbstrait<Client, String>{
     

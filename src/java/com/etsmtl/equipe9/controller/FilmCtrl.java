@@ -2,11 +2,8 @@ package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.dao.FilmDAO;
 import com.etsmtl.equipe9.dto.FilmDTO;
-import com.etsmtl.equipe9.dto.YearInterval;
 import com.etsmtl.equipe9.model.Film;
-import com.etsmtl.equipe9.model.Pays;
 import com.etsmtl.equipe9.service.DAOFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FilmCtrl {
