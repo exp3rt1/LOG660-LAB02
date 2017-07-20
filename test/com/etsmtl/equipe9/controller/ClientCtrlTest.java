@@ -44,10 +44,14 @@ public class ClientCtrlTest {
     
     @BeforeClass
     public static void setUpClass() {
+        ClientCtrl ctrl = new ClientCtrl();
+        ctrl.createClient("test@test.com", "123456");
     }
     
     @AfterClass
     public static void tearDownClass() {
+        ClientCtrl ctrl = new ClientCtrl();
+        ctrl.deleteClient("test@test.com");
     }
     
     @Before
@@ -64,14 +68,12 @@ public class ClientCtrlTest {
     @Test
     public void testGetPassword() {
         System.out.println("getPassword");
-        String courriel = "";
-        String motDePasse = "";
+        String courriel = "test@test.com";
+        String motDePasse = "123456";
         ClientCtrl instance = new ClientCtrl();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.getPassword(courriel, motDePasse);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -80,13 +82,11 @@ public class ClientCtrlTest {
     @Test
     public void testGetClient() {
         System.out.println("getClient");
-        String courriel = "";
+        String courriel = "NicholasTHudgins57@gmail.com";
         ClientCtrl instance = new ClientCtrl();
         Client expResult = null;
         Client result = instance.getClient(courriel);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
