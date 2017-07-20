@@ -146,7 +146,18 @@ public class Client  implements java.io.Serializable {
     public void setLocations(Set<Location> locations) {
         this.locations = locations;
     }
-
+    
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Client))return false;
+        Client otherClient = (Client)other;
+        if (otherClient.courriel != this.courriel) return false;
+        if (otherClient.motpasse != this.motpasse) return false;
+        if (otherClient.nom != this.nom) return false;
+        if (otherClient.prenom != this.prenom) return false;
+        return true;
+    }
+    
 }
-
-

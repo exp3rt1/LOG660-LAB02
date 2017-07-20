@@ -14,6 +14,15 @@ public class ClientCtrl {
     public ClientCtrl() {
     }
     
+    public boolean createClient (String courriel, String motDePasse){
+        Client newClient = new Client(courriel, motDePasse);
+        return dao.insert(newClient);
+    }
+    
+    public boolean deleteClient (String courriel){
+        return dao.delete(getClient(courriel));
+    }
+    
     public boolean getPassword (String courriel, String motDePasse){
         String motDePasseBD = this.getClient(courriel).getMotpasse();
         String hashedMotDePasse = hash.get_SHA_256_SecurePassword(motDePasse);
