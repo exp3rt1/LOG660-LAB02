@@ -105,7 +105,8 @@ public class ClientDAO extends DAOAbstrait<Client, String>{
         try {
             connect();
             em.getTransaction().begin();
-            em.remove(obj);
+            Client toBeRemoved = em.merge(obj);
+            em.remove(toBeRemoved);
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {

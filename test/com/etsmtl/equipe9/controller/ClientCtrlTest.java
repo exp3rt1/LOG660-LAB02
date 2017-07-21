@@ -1,6 +1,8 @@
 package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.model.Client;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,7 +47,7 @@ public class ClientCtrlTest {
     @BeforeClass
     public static void setUpClass() {
         ClientCtrl ctrl = new ClientCtrl();
-        ctrl.createClient("test@test.com", "123456");
+        ctrl.createClient("test@test.com", "test", "test", "123456", "819-329-8475", new GregorianCalendar(1990, Calendar.FEBRUARY, 11).getTime());
     }
     
     @AfterClass

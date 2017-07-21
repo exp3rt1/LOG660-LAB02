@@ -3,6 +3,7 @@ package com.etsmtl.equipe9.controller;
 import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.service.DAOFactory;
 import com.etsmtl.equipe9.model.Client;
+import java.util.Date;
 import java.util.List;
 
 
@@ -14,8 +15,8 @@ public class ClientCtrl {
     public ClientCtrl() {
     }
     
-    public boolean createClient (String courriel, String motDePasse){
-        Client newClient = new Client(courriel, motDePasse);
+    public boolean createClient (String courriel, String nom, String prenom, String motDePasse, String numeroTelephone, Date dateNaissance){
+        Client newClient = new Client(courriel, nom, prenom, hash.get_SHA_256_SecurePassword(motDePasse), numeroTelephone, dateNaissance);
         return dao.insert(newClient);
     }
     
