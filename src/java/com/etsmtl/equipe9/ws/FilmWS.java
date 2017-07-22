@@ -189,14 +189,14 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         try {
@@ -274,7 +274,7 @@ public class FilmWS {
             
             session.setAttribute("recherche", json.toJSONString());
             
-            //response.sendRedirect("/LOG660-LAB02/recherche");
+            //response.sendRedirect("./recherche");
             
             return json.toJSONString();
          
@@ -301,7 +301,7 @@ public class FilmWS {
     @Consumes(MediaType.APPLICATION_JSON)
     public void gotoRechercheAvancee(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException
     {
-        response.sendRedirect("/LOG660-LAB02/rechercheAvancee");
+        response.sendRedirect("./rechercheAvancee");
     }
     
     @GET
@@ -514,17 +514,17 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
-        return "/LOG660-LAB02/informationPersonne.html?id="+personneId;
+        return "./informationPersonne.html?id="+personneId;
     }
     
     
