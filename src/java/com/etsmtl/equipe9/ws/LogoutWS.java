@@ -18,6 +18,6 @@ public class LogoutWS extends HttpServlet{
         if(session != null) {
             session.setMaxInactiveInterval(1);
         }
-        response.sendRedirect("/LOG660-LAB02/");
+        response.sendRedirect("./");
     }
 }

@@ -3,6 +3,7 @@ package com.etsmtl.equipe9.ws;
 import com.etsmtl.equipe9.controller.ClientCtrl;
 import com.etsmtl.equipe9.dto.ClientDTO;
 import java.io.IOException;
+import java.net.URI;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,14 +42,14 @@ public class ClientWS extends HttpServlet {
                 // Ajoute l'objet client à la page
                 session.setAttribute("client", client);
                 
-                response.sendRedirect("/LOG660-LAB02/recherche");
+                response.sendRedirect("./recherche");
             }
             else {
-                response.sendRedirect("/LOG660-LAB02/#error");
+                response.sendRedirect("./#error");
             }
         }
         catch(Exception e) {
-            response.sendRedirect("/LOG660-LAB02/#error");
+            response.sendRedirect("./#error");
         }
     }
 }

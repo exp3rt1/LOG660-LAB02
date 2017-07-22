@@ -34,10 +34,10 @@ public class PersonneWS extends HttpServlet {
             idCookie.setMaxAge(60 * 3600);
             response.addCookie(idCookie);
             
-            response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
+            response.sendRedirect("./rechercheFilm.html");
         }
         else {
-            response.sendRedirect("/LOG660-LAB02/#error");
+            response.sendRedirect("./#error");
         }
     }
 }

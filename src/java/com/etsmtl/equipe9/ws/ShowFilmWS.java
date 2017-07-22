@@ -22,6 +22,6 @@ public class ShowFilmWS extends HttpServlet {
         // Mets le id en parametre et en session
         // Va chercher les info du film directement
         // Mets les infos en session
-        response.sendRedirect("/LOG660-LAB02/film/show");
+        response.sendRedirect("./film/show");
     }
 }

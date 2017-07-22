@@ -77,14 +77,14 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         try {
@@ -181,13 +181,13 @@ public class FilmWS {
         // Securite
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         // Securite
@@ -208,13 +208,13 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
@@ -234,13 +234,13 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
@@ -259,13 +259,13 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
@@ -360,17 +360,17 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
-        return "/LOG660-LAB02/film.html?id="+filmId;
+        return "./film.html?id="+filmId;
     }
     
     
@@ -384,13 +384,13 @@ public class FilmWS {
             
             HttpSession session = request.getSession(false);
             if(session == null) {
-                response.sendRedirect("/LOG660-LAB02/");
+                response.sendRedirect("./");
                 return "";
             }
 
             ClientDTO client = (ClientDTO)session.getAttribute("client");
             if(!client.getRole().equals("client")) {
-                response.sendRedirect("/LOG660-LAB02/");
+                response.sendRedirect("./");
                 return "";
             }
 
@@ -504,13 +504,13 @@ public class FilmWS {
     
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }    
         JSONObject filmJSON = new JSONObject();
@@ -536,13 +536,13 @@ public class FilmWS {
     
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }    
         JSONObject filmJSON = new JSONObject();
