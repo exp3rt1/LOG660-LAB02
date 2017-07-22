@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.etsmtl.equipe9.ws;
 
 import com.etsmtl.equipe9.controller.ClientCtrl;
@@ -17,10 +12,6 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-/**
- *
- * @author Oli
- */
 @WebServlet("/personne/{id}")
 public class PersonneWS extends HttpServlet {
     private ClientCtrl ctrl = new ClientCtrl();
@@ -43,10 +34,10 @@ public class PersonneWS extends HttpServlet {
             idCookie.setMaxAge(60 * 3600);
             response.addCookie(idCookie);
             
-            response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
+            response.sendRedirect("./rechercheFilm.html");
         }
         else {
-            response.sendRedirect("/LOG660-LAB02/#error");
+            response.sendRedirect("./#error");
         }
     }
 }

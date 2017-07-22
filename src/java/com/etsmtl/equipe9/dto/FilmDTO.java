@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.etsmtl.equipe9.dto;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Mario Morra
- */
 public class FilmDTO {
     
     private ArrayList<String> titles;

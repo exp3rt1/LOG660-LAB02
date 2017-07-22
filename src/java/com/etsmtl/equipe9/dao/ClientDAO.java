@@ -3,13 +3,8 @@ package com.etsmtl.equipe9.dao;
 import com.etsmtl.equipe9.model.Client;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.NamedQuery;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Root;
 
 public class ClientDAO extends DAOAbstrait<Client, String>{
     
@@ -54,12 +49,23 @@ public class ClientDAO extends DAOAbstrait<Client, String>{
     
     @Override
     public List<Client> findById(List<String> listeId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public boolean insert(Client obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            connect();
+            em.getTransaction().begin();
+            em.persist(obj);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        } finally {
+            disconnect();
+        }
     }
 
     @Override
@@ -96,7 +102,19 @@ public class ClientDAO extends DAOAbstrait<Client, String>{
 
     @Override
     public boolean delete(Client obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            connect();
+            em.getTransaction().begin();
+            Client toBeRemoved = em.merge(obj);
+            em.remove(toBeRemoved);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        } finally {
+            disconnect();
+        }
     }
     
 }

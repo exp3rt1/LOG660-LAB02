@@ -3,13 +3,8 @@ package com.etsmtl.equipe9.controller;
 import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.service.DAOFactory;
 import com.etsmtl.equipe9.model.Client;
-import java.io.UnsupportedEncodingException;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.xml.security.utils.Base64;
 
 
 public class ClientCtrl {
@@ -18,6 +13,15 @@ public class ClientCtrl {
     HashPassword hash = new HashPassword();
     
     public ClientCtrl() {
+    }
+    
+    public boolean createClient (String courriel, String nom, String prenom, String motDePasse, String numeroTelephone, Date dateNaissance){
+        Client newClient = new Client(courriel, nom, prenom, hash.get_SHA_256_SecurePassword(motDePasse), numeroTelephone, dateNaissance);
+        return dao.insert(newClient);
+    }
+    
+    public boolean deleteClient (String courriel){
+        return dao.delete(getClient(courriel));
     }
     
     public boolean getPassword (String courriel, String motDePasse){
@@ -40,31 +44,5 @@ public class ClientCtrl {
     
     public boolean updateClientMotPasse(Client client, String newPassword){
         return dao.updateMotPasse(client.getCourriel(), newPassword);
-    }
-    
-    public static void main(String[] args) {
-        ClientCtrl controleur = new ClientCtrl();
-        HashPassword hash = new HashPassword();
-        
-        try {
-            List<Client> liste = controleur.getAllClient();
-//            System.out.println(liste.size());
-//            
-//            Client test = controleur.getClient("qwe@qwe.qwe");
-//            
-//            String gg = hash.get_SHA_256_SecurePassword("123456789");
-//            test.setMotpasse(gg);
-//            
-//            controleur.updateClientMotPasse(test, gg);
-            
-            
-            for(Client c: liste){
-                String hashedPassword = hash.get_SHA_256_SecurePassword(c.getMotpasse());
-                controleur.updateClientMotPasse(c, hashedPassword);
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
     }
 }

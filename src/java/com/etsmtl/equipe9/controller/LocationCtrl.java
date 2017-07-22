@@ -2,11 +2,6 @@ package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.dao.LocationDAO;
 import com.etsmtl.equipe9.service.DAOFactory;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.ParameterMode;
-import javax.persistence.Persistence;
-import javax.persistence.StoredProcedureQuery;
 
 public class LocationCtrl {
 

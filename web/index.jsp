@@ -34,7 +34,7 @@
                     <h1>Client login</h1>
                 </div>
                 <div class="panel-body">
-                    <form method="POST" class="form-horizontal" action="/LOG660-LAB02/login">
+                    <form method="POST" class="form-horizontal" action="./login">
                         <div id="courrielContainer" class="form-group">
                             <div class="col-md-12">
                                 <input id="clientCourriel" type="email" class="form-control" name="courriel" placeholder="Courriel" required/>
