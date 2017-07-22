@@ -4,8 +4,7 @@ var minDate = 1900;
 var maxDate = today.getFullYear();  
 
 
-$(document).ready(function(){
-    
+$(document).ready(function(){  
     //$('.selectpicker').selectpicker();
     
     setDatesInDateSelect();
@@ -242,7 +241,7 @@ function sendToWebService(rechercheFilms){
             dataType: "json",
             data: filmSearchData,
             success: function (data) {
-                //console.log(data);
+                // console.log(data);
                 fillDataTable(data);
             },
             error: function (xhr, status, error) {
@@ -369,6 +368,8 @@ function getFilmInfo(id){
             contentType: "application/json",
             success: function (data) {
                 hideSpinner();
+                // console.log("getFilmInfo : data");
+                // console.log(data);
                 $(location).attr('href', data);
             },
             error: function (xhr, status, error) {

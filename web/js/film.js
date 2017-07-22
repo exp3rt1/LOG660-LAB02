@@ -150,7 +150,12 @@ function getPersonData(personID){
     person.personID = personID;*/
     
     if(personID !== undefined && personID !== null && personID !== ""){  
-        showSpinner();
+        // TODO Remove hard coded link (data returned by webresources
+        $(location).attr('href', 'http://localhost:8080/LOG660-LAB02/person.html?id=' + personID);
+        
+        
+        
+        /*showSpinner();
         $.ajax({
             type: "GET",
             url: "/LOG660-LAB02/webresources/film/getPersonInfo/"+personID,
@@ -163,7 +168,10 @@ function getPersonData(personID){
             data: personID,
             success: function (personObject) {
                 if(personObject !== undefined && personObject !== null){
+                    console.log("getPersonData : personObject");
+                    console.log(personObject);
                     //alert(JSON.stringify(personObject));
+                    $(location).attr('href', data);
                     showPersonData(personObject);
                 }
                 else{
@@ -179,11 +187,11 @@ function getPersonData(personID){
                 console.log(status);
                 console.log(error);
             }
-        });
+        });*/
     }
-    else{
+    /*else{
         hideSpinner();
-    }
+    }*/
 }
 
 
@@ -395,7 +403,8 @@ function fetchSuggestedFilms(){
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
                 hideSpinner();
-                alert("ERROR! See console...");
+                // @TODO fix this error when clicking on actor
+                // alert("ERROR! See console...");
                 console.log(xhr.responseText);
                 console.log(status);
                 console.log(error);
