@@ -1,0 +1,438 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 17, 2016, 3:16:31 PM
+    Author     : Mario Morra
+*/
+
+#pageTitle {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#sidebar {
+    width: 25%;
+    padding: 10px;
+    overflow: hidden;
+    float: right;
+}
+
+#ratingDiv {
+    margin-top: 30px;
+    width: 100%;
+    /*height: 75px;*/
+    background: rgb(200,200,200);
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+    padding-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 25px;
+    color: rgb(65,65,65);
+}
+
+
+#suggestedFilmsDiv {
+    margin-top: 15px;
+    width: 100%;
+    background: rgb(200,200,200);
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+#suggestedFilmsTitle {
+    width: 100%;
+    border-bottom: 1px solid black;
+    overflow: hidden;
+    padding: 10px;
+    font-size: 22px;
+}
+
+#suggestedFilms {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.suggestedFilm {
+    width: 100%;
+    overflow: hidden;
+    white-space: pre-wrap;
+    padding: 8px 8px 8px 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.suggestedFilm:hover, .suggestedFilm:active {
+    background: rgb(175, 175, 175);
+    cursor: pointer;
+}
+
+.rentMovieBtn {
+    border: white 2px solid;
+    border-radius: 7px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    background: rgb(11, 194, 101);
+    padding: 10px 10px 10px 10px;
+    width: 100%;
+    /*margin: 5px;*/
+    cursor: pointer;
+    white-space: pre-wrap;
+    overflow: hidden;
+    /*float: right;*/
+}
+
+.rentMovieBtn:hover, .rentMovieBtn:active {
+    background: rgb(41, 216, 126) !important;
+}
+
+.rentMovieBtn:active {
+    background: rgb(41, 216, 126) !important;
+    border: gray 2px solid;
+    color: gray;
+}
+
+.rentMovieBtnOff {
+    border: gray 2px solid;
+    border-radius: 7px;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    background: lightgray;
+    padding: 10px 10px 10px 10px;
+    width: 175px;
+    margin: 5px;
+    cursor: pointer;
+    white-space: pre-wrap;
+    overflow: hidden;
+    float: right;
+}
+
+
+#filmContent {
+    display: none;
+    margin: 0;
+    padding: 20px;
+    border-radius: 5px;
+    border: gray;
+    background: rgb(230,230,230);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#titleDiv {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#synopsis {
+    margin-top: 7px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+#lengthDiv, #languageDiv, #actorsDiv, #screenwritersDiv, #genresDiv, #countriesDiv, #directorDiv {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+#length, #language, #director, #screenwriters, #genres, #countries, #actors {
+    font-weight: 600;
+}
+
+.personLink {
+    text-decoration: underline;
+}
+
+.personLink:hover, .personLink:active {
+    color: blue;
+    cursor: pointer;
+}
+
+
+.personModal {
+    display: none;
+    position: fixed; 
+    z-index: 999; 
+    width: 100%; 
+    height: 100%; 
+    max-width: 100% !important; 
+    max-height: 100% !important; 
+    overflow: hidden; 
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4);  /* Black w/ opacity */
+    margin: 0; 
+    padding: 0;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+}
+
+.personModalContent {
+    position: relative;
+    background-color: #fefefe;
+    /*height: 285px;
+    width: 800px;
+    margin: auto;*/
+    overflow: hidden;
+    padding: 0;
+    margin: 70px !important;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.personModalHeader {
+    padding: 15px;
+    background-color: rgb(72, 139, 249);
+    color: white;
+    height: 60px;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+
+.personModalBody {
+    padding: 15px;
+    height: 400px;
+    text-align: center;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.personModalBody table {
+    table-layout: fixed;
+    width: 100%;
+    text-align: left;
+}
+
+.personModalBody tr {
+    width: 100%;
+}
+
+.personModalBody td {
+    padding: 10px;
+}
+
+.personModalTableTitle {
+    font-size: 15px;
+    font-weight: bold;
+    width: 20%;
+    
+}
+
+.personModalTableData {
+    font-size: 15px;
+    width: 80%;
+}
+
+.personModalFooter {
+    height: 50px;
+    background-color: lightgray;
+    font-size: 120%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.personModal #personModalCancel {
+    border: 1px solid rgb(72, 139, 249);
+    color: rgb(72, 139, 249);
+    font-weight: bold;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+}
+
+.personModal #personModalCancel:active {
+    border: 1px solid black;
+    color: black;
+}
+
+.personModal #personModalCancel:hover {
+    background: rgb(72, 139, 249);
+    color: white;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+.backBtn {
+    padding: 5px 10px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    background: rgb(51, 122, 183);
+    color: white;
+}
+
+/* =================== */
+
+.spinner {
+	position: fixed;
+	z-index: 9999999;
+	left: 50%;
+	top: 50%;
+	height: 75px;
+	width: 75px;
+	margin: 0px auto;
+}
+
+.cssload-fond{
+	position:relative;
+	margin: auto;
+}
+
+.cssload-container-general
+{
+	animation:cssload-animball_two 2.5s infinite;
+        -o-animation:cssload-animball_two 2.5s infinite;
+        -ms-animation:cssload-animball_two 2.5s infinite;
+        -webkit-animation:cssload-animball_two 2.5s infinite;
+        -moz-animation:cssload-animball_two 2.5s infinite;
+	width:116px; height:116px;
+}
+.cssload-internal
+{
+	width:116px; height:116px; position:absolute;
+}
+.cssload-ballcolor
+{
+	width: 53px;
+	height: 53px;
+	border-radius: 50%;
+}
+.cssload-ball_1, .cssload-ball_2, .cssload-ball_3, .cssload-ball_4
+{
+    position: absolute;
+    animation:cssload-animball_one 2.5s infinite ease;
+    -o-animation:cssload-animball_one 2.5s infinite ease;
+    -ms-animation:cssload-animball_one 2.5s infinite ease;
+    -webkit-animation:cssload-animball_one 2.5s infinite ease;
+    -moz-animation:cssload-animball_one 2.5s infinite ease;
+}
+.cssload-ball_1
+{
+    background-color: rgb(255,198,26);
+    top:0; left:0;
+}
+.cssload-ball_2
+{
+    background-color: rgb(227,41,44);
+    top:0; left:63px;
+}
+.cssload-ball_3
+{
+    background-color: rgb(44,161,220);
+    top:63px; left:0;
+}
+.cssload-ball_4
+{
+    background-color: rgb(11,194,99);
+    top:63px; left:63px;
+}
+
+
+@keyframes cssload-animball_one
+{
+    0%{ position: absolute;}
+    50%{top:32px; left:32px; position: absolute;opacity:0.5;}
+    100%{ position: absolute;}
+}
+
+@-o-keyframes cssload-animball_one
+{
+    0%{ position: absolute;}
+    50%{top:32px; left:32px; position: absolute;opacity:0.5;}
+    100%{ position: absolute;}
+}
+
+@-ms-keyframes cssload-animball_one
+{
+    0%{ position: absolute;}
+    50%{top:32px; left:32px; position: absolute;opacity:0.5;}
+    100%{ position: absolute;}
+}
+
+@-webkit-keyframes cssload-animball_one
+{
+    0%{ position: absolute;}
+    50%{top:32px; left:32px;position: absolute;opacity:0.5;}
+    100%{ position: absolute;}
+}
+
+@-moz-keyframes cssload-animball_one
+{
+    0%{ position: absolute;}
+    50%{top:32px; left:32px; position: absolute;opacity:0.5;}
+    100%{ position: absolute;}
+}
+
+@keyframes cssload-animball_two
+{
+    0%{transform:rotate(0deg) scale(1);}
+    50%{transform:rotate(360deg) scale(1.3);}
+    100%{transform:rotate(720deg) scale(1);}
+}
+
+@-o-keyframes cssload-animball_two
+{
+    0%{-o-transform:rotate(0deg) scale(1);}
+    50%{-o-transform:rotate(360deg) scale(1.3);}
+    100%{-o-transform:rotate(720deg) scale(1);}
+}
+
+@-ms-keyframes cssload-animball_two
+{
+    0%{-ms-transform:rotate(0deg) scale(1);}
+    50%{-ms-transform:rotate(360deg) scale(1.3);}
+    100%{-ms-transform:rotate(720deg) scale(1);}
+}
+
+@-webkit-keyframes cssload-animball_two
+{
+    0%{-webkit-transform:rotate(0deg) scale(1);}
+    50%{-webkit-transform:rotate(360deg) scale(1.3);}
+    100%{-webkit-transform:rotate(720deg) scale(1);}
+}
+
+@-moz-keyframes cssload-animball_two
+{
+    0%{-moz-transform:rotate(0deg) scale(1);}
+    50%{-moz-transform:rotate(360deg) scale(1.3);}
+    100%{-moz-transform:rotate(720deg) scale(1);}
+}
+
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0} 
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+
+
+

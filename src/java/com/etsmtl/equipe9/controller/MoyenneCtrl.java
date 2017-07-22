@@ -21,12 +21,5 @@ public class MoyenneCtrl {
         
         return moyenne.getCote();
    }
-    
-    public static void main(String[] args) {
-        
-        MoyenneCtrl control = new MoyenneCtrl();
-        
-        System.out.println(control.getMoyenne(119190L));
-        
-    }
+
 }

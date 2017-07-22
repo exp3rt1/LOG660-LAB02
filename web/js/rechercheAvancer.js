@@ -4,7 +4,8 @@ var minDate = 1900;
 var maxDate = today.getFullYear();  
 
 
-$(document).ready(function(){  
+$(document).ready(function(){
+    
     //$('.selectpicker').selectpicker();
     
     setDatesInDateSelect();
@@ -34,36 +35,7 @@ $(document).ready(function(){
     $('#rechercheAvanceeBouton').click(function(){
         advancedFilmSearch();
     });
-    
-    $('#rechercheAvanceeLien').click(function(){
-        
-    });
-    
-    getRecherche();
 });
-
-function getRecherche() {
-    $.ajax({
-        type: "GET",
-        url: "./webresources/film/getRecherche",
-        headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-        },
-        contentType: "application/json",
-        dataType: "json",
-        data: "RECHERCHE",
-        success: function (data) {
-            console.log(data);
-            fillDataTable(data);
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr.responseText);
-            console.log(status);
-            console.log(error);
-        }
-    });
-}
 
 function filmSearch(){
     var rechercheFilms = new Object();
@@ -261,7 +233,7 @@ function sendToWebService(rechercheFilms){
         var filmSearchData = JSON.stringify(rechercheFilms);
         $.ajax({
             type: "POST",
-            url: "./webresources/film/recherche",
+            url: "./webresources/film/rechercheAvancee",
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -270,8 +242,9 @@ function sendToWebService(rechercheFilms){
             dataType: "json",
             data: filmSearchData,
             success: function (data) {
-                // console.log(data);
-                fillDataTable(data);
+                console.log(data);
+                //fillDataTable(data);
+                $(location).attr('href', './recherche');
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
@@ -397,8 +370,6 @@ function getFilmInfo(id){
             contentType: "application/json",
             success: function (data) {
                 hideSpinner();
-                // console.log("getFilmInfo : data");
-                // console.log(data);
                 $(location).attr('href', data);
             },
             error: function (xhr, status, error) {

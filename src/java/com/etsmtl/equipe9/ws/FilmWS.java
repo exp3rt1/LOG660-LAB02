@@ -77,14 +77,14 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         try {
@@ -160,6 +160,8 @@ public class FilmWS {
                 json.add(jsonFilm);
             });
             
+            session.setAttribute("recherche", json.toJSONString());
+            
             return json.toJSONString();
          
         } 
@@ -167,7 +169,139 @@ public class FilmWS {
             Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
             return "{\"GG\":\"ERROR\"}";
         }       
+    }
+    
+    @POST
+    @Path("rechercheAvancee")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String rechercheAvancee(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         
+        System.out.println("waaaaaaaaaaaaaaaaaaaaaaaaaa");
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> directors = new ArrayList<>();
+        ArrayList<String> actors = new ArrayList<>();
+        ArrayList<Integer> releaseDates = new ArrayList<>();
+        ArrayList<String> countries = new ArrayList<>();
+        ArrayList<String> originalLanguages = new ArrayList<>();
+        ArrayList<String> genres = new ArrayList<>();
+        ArrayList<YearInterval> dateIntervals = new ArrayList<>();
+        
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("./");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("./");
+            return "";
+        }
+        try {
+            
+            JSONObject searchObject = (JSONObject) new JSONParser().parse(data);
+            
+            JSONArray titres = (JSONArray) searchObject.get("titres");
+            if(titres != null){
+                titres.stream().forEach((titre) -> {titles.add((String)titre);});
+            }
+            
+            JSONArray realisateurs = (JSONArray) searchObject.get("realisateurs");
+            if(realisateurs != null){
+                realisateurs.stream().forEach((realisateur) -> {directors.add((String)realisateur);});
+            }
+            
+            JSONArray acteurs = (JSONArray) searchObject.get("acteurs");
+            if(acteurs != null){
+                acteurs.stream().forEach((acteur) -> {actors.add((String)acteur);});
+            }
+            
+            JSONArray pays = (JSONArray) searchObject.get("pays");
+            if(pays != null){
+                pays.stream().forEach((unPays) -> {countries.add((String)unPays);});
+            }
+            
+            JSONArray languesOriginales = (JSONArray) searchObject.get("languesOriginales");
+            if(languesOriginales != null){
+                languesOriginales.stream().forEach((langueOriginale) -> {originalLanguages.add((String)langueOriginale);});
+            }
+            
+            JSONArray genrerinos = (JSONArray) searchObject.get("genres");
+            if(genrerinos != null){
+                genrerinos.stream().forEach((genrerino) -> {genres.add((String)genrerino);});
+            }
+            
+            JSONArray anneesSortie = (JSONArray) searchObject.get("anneesSortie");
+            if(anneesSortie != null){
+                for(Object anneeSortie : anneesSortie){
+                    Integer releaseDate = Integer.parseInt((String) anneeSortie);
+                    releaseDates.add(releaseDate);
+                }
+            }
+            
+            JSONArray intervallesAnnees = (JSONArray) searchObject.get("intervallesAnnees");
+            if(intervallesAnnees != null){
+                for(Object intervalleAnnees : intervallesAnnees){
+                    String interval = (String) intervalleAnnees;
+                    String start = interval.split(",")[0];
+                    String fin = interval.split(",")[1];
+                    dateIntervals.add(new YearInterval(Integer.parseInt(start),Integer.parseInt(fin)));
+                }
+            }
+            
+            FilmDTO filmDTO = new FilmDTO();
+            filmDTO.setActors(actors);
+            filmDTO.setCountries(countries);
+            filmDTO.setDateIntervals(dateIntervals);
+            filmDTO.setDirectors(directors);
+            filmDTO.setGenres(genres);
+            filmDTO.setOriginalLanguages(originalLanguages);
+            filmDTO.setReleaseDates(releaseDates);
+            filmDTO.setTitles(titles);
+            
+            List<Film> searchResults = filmCtrl.getFilms(filmDTO);        
+            
+            JSONArray json = new JSONArray();  
+            searchResults.stream().forEach((film) -> {
+                JSONArray jsonFilm = new JSONArray();
+                jsonFilm.add(film.getIdfilm().toString());
+                jsonFilm.add(film.getTitre());
+                jsonFilm.add(film.getAnneesortie());
+                json.add(jsonFilm);
+            });
+            
+            session.setAttribute("recherche", json.toJSONString());
+            
+            //response.sendRedirect("./recherche");
+            
+            return json.toJSONString();
+         
+        } 
+        catch (ParseException ex) {
+            Logger.getLogger(FilmWS.class.getName()).log(Level.SEVERE, null, ex);
+            return "{\"GG\":\"ERROR\"}";
+        }       
+    }
+    
+    @GET
+    @Path("getRecherche")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getRecherche(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException
+    {
+        HttpSession session = request.getSession(false);
+        return (String)session.getAttribute("recherche");
+    }
+    
+    @GET
+    @Path("gotoRechercheAvancee")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void gotoRechercheAvancee(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException
+    {
+        response.sendRedirect("./rechercheAvancee");
     }
     
     @GET
@@ -181,13 +315,13 @@ public class FilmWS {
         // Securite
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         // Securite
@@ -208,13 +342,13 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
@@ -234,13 +368,13 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
@@ -259,13 +393,13 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
@@ -360,17 +494,37 @@ public class FilmWS {
         
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
-        return "/LOG660-LAB02/film.html?id="+filmId;
+        return "./film.html?id="+filmId;
+    }
+    
+    @GET
+    @Path("afficherPersonne/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public String showPersonne (@PathParam("id") String personneId, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("./");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("./");
+            return "";
+        }
+        
+        return "./informationPersonne.html?id="+personneId;
     }
     
     
@@ -384,13 +538,13 @@ public class FilmWS {
             
             HttpSession session = request.getSession(false);
             if(session == null) {
-                response.sendRedirect("/LOG660-LAB02/");
+                response.sendRedirect("./");
                 return "";
             }
 
             ClientDTO client = (ClientDTO)session.getAttribute("client");
             if(!client.getRole().equals("client")) {
-                response.sendRedirect("/LOG660-LAB02/");
+                response.sendRedirect("./");
                 return "";
             }
 
@@ -504,13 +658,13 @@ public class FilmWS {
     
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }    
         JSONObject filmJSON = new JSONObject();
@@ -536,13 +690,13 @@ public class FilmWS {
     
         HttpSession session = request.getSession(false);
         if(session == null) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }
         
         ClientDTO client = (ClientDTO)session.getAttribute("client");
         if(!client.getRole().equals("client")) {
-            response.sendRedirect("/LOG660-LAB02/");
+            response.sendRedirect("./");
             return "";
         }    
         JSONObject filmJSON = new JSONObject();

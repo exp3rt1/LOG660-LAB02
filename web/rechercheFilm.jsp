@@ -38,7 +38,7 @@
         <div class="container">
             
             <div style="float: right; margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="/LOG660-LAB02/logout">
+                <form method="POST" class="form-horizontal" action="./logout">
                     <button type="submit" class="btn btn-primary btn-sm">
                         <span class="glyphicon glyphicon-log-out"></span> Déconnexion
                     </button>
@@ -73,7 +73,7 @@
                             </span>
                         </div> 
                         <div class="text-right">
-                            <a href="#rechercheAvancee" data-toggle="collapse" data-target="#rechercheAvancee" role="button" class="btn btn-link btn-large">
+                            <a id="rechercheAvanceeLien" href="./rechercheAvancee" role="button" class="btn btn-link btn-large">
                                 <span class="glyphicon glyphicon-cog"></span> Recherche Avancée
                             </a>
                         </div>
@@ -125,9 +125,6 @@
                                 </td>
                             </tr>
                         </table>
-                       
-                        
-                        
                     </div>
                 </div>
             </div>

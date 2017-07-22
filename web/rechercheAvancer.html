@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Recherche avancée</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        
+        <!-- TagsInput -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">
+        <script src="js/bootstrap-tagsinput.js"></script>
+           
+        <!-- DataTables -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css" />
+        <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+        
+        <!-- Our shit -->
+        <script src="js/rechercheAvancer.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/rechercheAvancer.css" />
+        
+    </head>
+    <body>
+        <div class="container">
+            
+            <div style="margin-top: 10px;">
+                <form method="POST" class="form-horizontal" action="./logout">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                    </button>
+                </form>
+            </div>
+            <div style="float: left; margin-top: 10px; margin-left: 20px;">
+                <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                    </button>
+                </form>
+            </div>
+            <div id="pageTitle">Recherche avancée</div>
+            
+            
+            <div id="spinner" class="spinner">
+                <div align="center" class="cssload-fond">
+                <div class="cssload-container-general">
+                <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_1"></div></div>
+                <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_2"></div></div>
+                <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_3"></div></div>
+                <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_4"></div></div>
+                </div>
+                </div>
+            </div>
+            
+            
+            <!--C'est la barre de recherche avec les options avancées.-->
+            <div class="">
+                <div class="panel panel-default">
+                    <div id="rechercheAvancee" class="">
+                        
+                        <label>Titre(s) : </label>
+                        <input id="titres" type="text" value="" data-role="tagsinput" />
+                        
+                        <label>Pays de production : </label></td>
+                        <select id="pays" class=""  multiple data-actions-box="true"></select>
+                        <label>Réalisateur(s) : </label></td>
+                        <input id="realisateurs" type="text" value="" data-role="tagsinput" /></td>
+                        <label>Langue(s) originale(s) : </label></td>
+                        <select id="languesOriginales" class=""  multiple data-actions-box="true"></select>
+                        <label>Acteur(s) : </label>
+                        <input id="acteurs" type="text" value="" data-role="tagsinput" /></td>
+                        <label>Genre(s) : </label></td>
+                        <select id="genres" class=""  multiple data-actions-box="true" ></select><label>Année(s) de sortie : </label>
+                        <select id="anneesSortie" class="" multiple data-actions-box="true"></select>
+                        <div id="addDateInterval" onclick="addDateInterval();">
+                        <span class="glyphicon glyphicon-plus"></span> Ajouter une intervalle d'années</div>
+                           
+                        <div id="dateDiv" style="padding-top: 15px;"></div>
+                        <button id="rechercheAvanceeBouton" class="btn btn-info" type="button">
+                            <i class="glyphicon glyphicon-search" style="margin-right: 5px;"></i>
+                                Rechercher
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Bar de recherche -->
+            
+        </div>
+        
+        <!-- Select -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+        
+        
+    </body>
+</html>

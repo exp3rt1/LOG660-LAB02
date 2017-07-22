@@ -20,15 +20,5 @@ public class GenreCtrl {
             listeNomGenre.add(genre.getNom());
         }
         return listeNomGenre;
-   }
-    
-    public static void main(String[] args) {
-        
-        GenreCtrl control = new GenreCtrl();
-        List<String> liste = control.getGenres();
-        
-        for (String string : liste) {
-            System.out.println(string);
-        }
     }
 }

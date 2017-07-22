@@ -27,17 +27,17 @@ public class PersonneWS extends HttpServlet {
         String courriel = request.getParameter("courriel");
         String motDePasse = request.getParameter("motPasse");
         
-        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
+        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.checkPassword(courriel, motDePasse)) 
         {
             session = request.getSession(true);            
             idCookie = new Cookie("id", session.getId());
             idCookie.setMaxAge(60 * 3600);
             response.addCookie(idCookie);
             
-            response.sendRedirect("/LOG660-LAB02/rechercheFilm.html");
+            response.sendRedirect("./rechercheFilm.html");
         }
         else {
-            response.sendRedirect("/LOG660-LAB02/#error");
+            response.sendRedirect("./#error");
         }
     }
 }

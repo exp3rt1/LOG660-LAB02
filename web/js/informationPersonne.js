@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var _filmID = "";
+var _personID = "";
 
  $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -17,9 +17,9 @@ var _filmID = "";
     };
 
 $(document).ready(function(){
-    _filmID = $.urlParam('id');
+    _personID = $.urlParam('id');
     showSpinner();
-    getFilmInfo();
+    getPersonData(_personID);
 });
 
 
@@ -82,7 +82,7 @@ function setFilmInfo(film){
     
     $('#director').html(directorName);
     $('#director').attr("data-directorid",directorId);
-    $('#director').attr("onclick","afficherPersonnes('"+directorId+"');");
+    $('#director').attr("onclick","getPersonData('"+directorId+"');");
     $('#director').attr("class","personLink");
     $('#director').attr("title","Cliquer pour afficher les informations pour ce réalisateur");
     
@@ -96,7 +96,7 @@ function setFilmInfo(film){
         var newActor = document.createElement("span");
         newActor.innerHTML = actorName + " (" + characterName + ")";
         newActor.setAttribute("data-actorid",actorId);
-        newActor.setAttribute("onclick","afficherPersonnes('"+actorId+"');")
+        newActor.setAttribute("onclick","getPersonData('"+actorId+"');")
         newActor.className = "personLink";
         newActor.setAttribute("title","Cliquer pour afficher les informations pour cet acteur");
         
@@ -150,12 +150,7 @@ function getPersonData(personID){
     person.personID = personID;*/
     
     if(personID !== undefined && personID !== null && personID !== ""){  
-        // TODO Remove hard coded link (data returned by webresources
-        $(location).attr('href', 'http://localhost:8080/LOG660-LAB02/person.html?id=' + personID);
-        
-        
-        
-        /*showSpinner();
+        showSpinner();
         $.ajax({
             type: "GET",
             url: "./webresources/film/getPersonInfo/"+personID,
@@ -168,10 +163,7 @@ function getPersonData(personID){
             data: personID,
             success: function (personObject) {
                 if(personObject !== undefined && personObject !== null){
-                    console.log("getPersonData : personObject");
-                    console.log(personObject);
                     //alert(JSON.stringify(personObject));
-                    $(location).attr('href', data);
                     showPersonData(personObject);
                 }
                 else{
@@ -187,11 +179,11 @@ function getPersonData(personID){
                 console.log(status);
                 console.log(error);
             }
-        });*/
+        });
     }
-    /*else{
+    else{
         hideSpinner();
-    }*/
+    }
 }
 
 
@@ -225,7 +217,7 @@ function showPersonData(person){
         $('#personBiography').html(person.biography);
     }
     hideSpinner();
-    showPersonModal();
+    // showPersonModal();
 }
 
 
@@ -403,8 +395,7 @@ function fetchSuggestedFilms(){
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
                 hideSpinner();
-                // @TODO fix this error when clicking on actor
-                // alert("ERROR! See console...");
+                alert("ERROR! See console...");
                 console.log(xhr.responseText);
                 console.log(status);
                 console.log(error);

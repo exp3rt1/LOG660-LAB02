@@ -21,14 +21,5 @@ public class PaysCtrl {
         }
         return listeNomPays;
    }
-    
-    public static void main(String[] args) {
-        
-        PaysCtrl control = new PaysCtrl();
-        List<String> liste = control.getPays();
-        
-        for (String string : liste) {
-            System.out.println(string);
-        }
-    }
+
 }
