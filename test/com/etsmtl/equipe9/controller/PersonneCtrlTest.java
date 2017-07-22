@@ -35,25 +35,10 @@ public class PersonneCtrlTest {
     @Test
     public void testGetPersonne() {
         System.out.println("getPersonne");
-        Long personne = null;
+        Long personne = 1848L;
         PersonneCtrl instance = new PersonneCtrl();
-        Personne expResult = null;
         Personne result = instance.getPersonne(personne);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class PersonneCtrl.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        PersonneCtrl.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
     
 }

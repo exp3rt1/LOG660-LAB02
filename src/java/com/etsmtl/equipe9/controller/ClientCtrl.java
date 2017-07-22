@@ -14,7 +14,7 @@ public class ClientCtrl {
     
     public ClientCtrl() {
     }
-    
+
     public boolean createClient (String courriel, String nom, String prenom, String motDePasse, String numeroTelephone, Date dateNaissance){
         Client newClient = new Client(courriel, nom, prenom, hash.get_SHA_256_SecurePassword(motDePasse), numeroTelephone, dateNaissance);
         return dao.insert(newClient);
@@ -24,7 +24,8 @@ public class ClientCtrl {
         return dao.delete(getClient(courriel));
     }
     
-    public boolean getPassword (String courriel, String motDePasse){
+    // vérifier si le mot de passe de l'utilisateur est bon
+    public boolean checkPassword (String courriel, String motDePasse){
         String motDePasseBD = this.getClient(courriel).getMotpasse();
         String hashedMotDePasse = hash.get_SHA_256_SecurePassword(motDePasse);
         return hashedMotDePasse.equals(motDePasseBD);
@@ -43,6 +44,6 @@ public class ClientCtrl {
     }
     
     public boolean updateClientMotPasse(Client client, String newPassword){
-        return dao.updateMotPasse(client.getCourriel(), newPassword);
+        return dao.updateMotPasse(client.getCourriel(), hash.get_SHA_256_SecurePassword(newPassword));
     }
 }

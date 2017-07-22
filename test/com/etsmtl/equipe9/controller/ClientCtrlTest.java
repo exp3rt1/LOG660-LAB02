@@ -65,7 +65,7 @@ public class ClientCtrlTest {
     }
 
     /**
-     * Test of getPassword method, of class ClientCtrl.
+     * Test of checkPassword method, of class ClientCtrl.
      */
     @Test
     public void testGetPassword() {
@@ -74,7 +74,7 @@ public class ClientCtrlTest {
         String motDePasse = "123456";
         ClientCtrl instance = new ClientCtrl();
         boolean expResult = true;
-        boolean result = instance.getPassword(courriel, motDePasse);
+        boolean result = instance.checkPassword(courriel, motDePasse);
         assertEquals(expResult, result);
     }
 
@@ -86,8 +86,8 @@ public class ClientCtrlTest {
         System.out.println("getClient");
         String courriel = "test@test.com";
         ClientCtrl instance = new ClientCtrl();
-        Client expResult = new Client("test@test.com", "test", "test", instance.hash.get_SHA_256_SecurePassword("123456"), "819-329-8475", new GregorianCalendar(1990, Calendar.FEBRUARY, 11).getTime());
-        Client result = instance.getClient(courriel);
+        String expResult = "test@test.com";
+        String result = instance.getClient(courriel).getCourriel();
         assertEquals(expResult, result);
     }
 
@@ -98,11 +98,8 @@ public class ClientCtrlTest {
     public void testGetAllClient() {
         System.out.println("getAllClient");
         ClientCtrl instance = new ClientCtrl();
-        List<Client> expResult = null;
         List<Client> result = instance.getAllClient();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -111,13 +108,14 @@ public class ClientCtrlTest {
     @Test
     public void testUpdateClient() {
         System.out.println("updateClient");
-        Client client = null;
         ClientCtrl instance = new ClientCtrl();
-        boolean expResult = false;
-        boolean result = instance.updateClient(client);
+        Client client = instance.getClient("test@test.com");
+        client.setNom("test2");
+        instance.updateClient(client);
+        Client updatedClient = instance.getClient("test@test.com");
+        String expResult = "test2";
+        String result = updatedClient.getNom();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -126,14 +124,14 @@ public class ClientCtrlTest {
     @Test
     public void testUpdateClientMotPasse() {
         System.out.println("updateClientMotPasse");
-        Client client = null;
-        String newPassword = "";
         ClientCtrl instance = new ClientCtrl();
-        boolean expResult = false;
-        boolean result = instance.updateClientMotPasse(client, newPassword);
+        Client client = instance.getClient("test@test.com");
+        String newPassword = "654321";
+        instance.updateClientMotPasse(client, newPassword);
+        Client updatedClient = instance.getClient("test@test.com");
+        String expResult = instance.hash.get_SHA_256_SecurePassword("654321");
+        String result = updatedClient.getMotpasse();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

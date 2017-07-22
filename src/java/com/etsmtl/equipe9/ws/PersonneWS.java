@@ -27,7 +27,7 @@ public class PersonneWS extends HttpServlet {
         String courriel = request.getParameter("courriel");
         String motDePasse = request.getParameter("motPasse");
         
-        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
+        if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.checkPassword(courriel, motDePasse)) 
         {
             session = request.getSession(true);            
             idCookie = new Cookie("id", session.getId());

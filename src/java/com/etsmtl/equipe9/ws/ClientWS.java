@@ -28,7 +28,7 @@ public class ClientWS extends HttpServlet {
         String motDePasse = request.getParameter("motPasse");
         
         try {
-            if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.getPassword(courriel, motDePasse)) 
+            if (!courriel.isEmpty() && !motDePasse.isEmpty() && ctrl.checkPassword(courriel, motDePasse)) 
             {
                 // Crée une session
                 session = request.getSession(true);

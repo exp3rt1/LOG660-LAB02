@@ -35,25 +35,10 @@ public class MoyenneCtrlTest {
     @Test
     public void testGetMoyenne() {
         System.out.println("getMoyenne");
-        Long idFilm = null;
+        Long idFilm = 119190L;
         MoyenneCtrl instance = new MoyenneCtrl();
-        BigDecimal expResult = null;
         BigDecimal result = instance.getMoyenne(idFilm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class MoyenneCtrl.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        MoyenneCtrl.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
     
 }
