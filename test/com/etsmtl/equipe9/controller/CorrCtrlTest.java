@@ -33,28 +33,10 @@ public class CorrCtrlTest {
      * Test of getCorr method, of class CorrCtrl.
      */
     @Test
-    public void testGetCorr() {
-        System.out.println("getCorr");
-        Long idFilm = null;
-        String courriel = "";
+    public void testGetCorr() {        
         CorrCtrl instance = new CorrCtrl();
-        List<Long> expResult = null;
-        List<Long> result = instance.getCorr(idFilm, courriel);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        List<Long> listefilm = instance.getCorr(61184L, "MichaelEWash74@gmail.com");
+        assertEquals(listefilm.size(), 3);
     }
-
-    /**
-     * Test of main method, of class CorrCtrl.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        CorrCtrl.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
