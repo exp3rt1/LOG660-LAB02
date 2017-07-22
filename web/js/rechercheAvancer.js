@@ -35,36 +35,7 @@ $(document).ready(function(){
     $('#rechercheAvanceeBouton').click(function(){
         advancedFilmSearch();
     });
-    
-    $('#rechercheAvanceeLien').click(function(){
-        
-    });
-    
-    getRecherche();
 });
-
-function getRecherche() {
-    $.ajax({
-        type: "GET",
-        url: "/LOG660-LAB02/webresources/film/getRecherche",
-        headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-        },
-        contentType: "application/json",
-        dataType: "json",
-        data: "RECHERCHE",
-        success: function (data) {
-            console.log(data);
-            fillDataTable(data);
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr.responseText);
-            console.log(status);
-            console.log(error);
-        }
-    });
-}
 
 function filmSearch(){
     var rechercheFilms = new Object();
@@ -262,7 +233,7 @@ function sendToWebService(rechercheFilms){
         var filmSearchData = JSON.stringify(rechercheFilms);
         $.ajax({
             type: "POST",
-            url: "/LOG660-LAB02/webresources/film/recherche",
+            url: "/LOG660-LAB02/webresources/film/rechercheAvancee",
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -271,8 +242,9 @@ function sendToWebService(rechercheFilms){
             dataType: "json",
             data: filmSearchData,
             success: function (data) {
-                //console.log(data);
-                fillDataTable(data);
+                console.log(data);
+                //fillDataTable(data);
+                $(location).attr('href', '/LOG660-LAB02/recherche');
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur

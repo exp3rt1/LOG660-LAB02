@@ -40,6 +40,7 @@ public class ClientWS extends HttpServlet {
                 
                 // Ajoute l'objet client à la page
                 session.setAttribute("client", client);
+                session.setAttribute("recherche", "");
                 
                 response.sendRedirect("/LOG660-LAB02/recherche");
             }

@@ -21,6 +21,14 @@
         <jsp-file>rechercheFilm.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>rechercheAvanceee</servlet-name>
+        <jsp-file>rechercheAvancer.html</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>informationPersonne</servlet-name>
+        <jsp-file>informationPersonne.html</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>showFilm</servlet-name>
         <jsp-file>film.html</jsp-file>
     </servlet>
@@ -31,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>rechercheFilm</servlet-name>
         <url-pattern>/recherche</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rechercheAvanceee</servlet-name>
+        <url-pattern>/rechercheAvancee</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>showFilm</servlet-name>

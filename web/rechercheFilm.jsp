@@ -73,7 +73,7 @@
                             </span>
                         </div> 
                         <div class="text-right">
-                            <a href="#rechercheAvancee" data-toggle="collapse" data-target="#rechercheAvancee" role="button" class="btn btn-link btn-large">
+                            <a id="rechercheAvanceeLien" href="/LOG660-LAB02/rechercheAvancee" role="button" class="btn btn-link btn-large">
                                 <span class="glyphicon glyphicon-cog"></span> Recherche Avancée
                             </a>
                         </div>
@@ -125,9 +125,6 @@
                                 </td>
                             </tr>
                         </table>
-                       
-                        
-                        
                     </div>
                 </div>
             </div>

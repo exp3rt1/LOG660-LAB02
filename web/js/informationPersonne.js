@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var _filmID = "";
+var _personID = "";
 
  $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -17,9 +17,9 @@ var _filmID = "";
     };
 
 $(document).ready(function(){
-    _filmID = $.urlParam('id');
+    _personID = $.urlParam('id');
     showSpinner();
-    getFilmInfo();
+    getPersonData(_personID);
 });
 
 
@@ -82,7 +82,7 @@ function setFilmInfo(film){
     
     $('#director').html(directorName);
     $('#director').attr("data-directorid",directorId);
-    $('#director').attr("onclick","afficherPersonnes('"+directorId+"');");
+    $('#director').attr("onclick","getPersonData('"+directorId+"');");
     $('#director').attr("class","personLink");
     $('#director').attr("title","Cliquer pour afficher les informations pour ce réalisateur");
     
@@ -96,7 +96,7 @@ function setFilmInfo(film){
         var newActor = document.createElement("span");
         newActor.innerHTML = actorName + " (" + characterName + ")";
         newActor.setAttribute("data-actorid",actorId);
-        newActor.setAttribute("onclick","afficherPersonnes('"+actorId+"');")
+        newActor.setAttribute("onclick","getPersonData('"+actorId+"');")
         newActor.className = "personLink";
         newActor.setAttribute("title","Cliquer pour afficher les informations pour cet acteur");
         
@@ -217,7 +217,7 @@ function showPersonData(person){
         $('#personBiography').html(person.biography);
     }
     hideSpinner();
-    showPersonModal();
+    // showPersonModal();
 }
 
 
