@@ -84,9 +84,9 @@ public class ClientCtrlTest {
     @Test
     public void testGetClient() {
         System.out.println("getClient");
-        String courriel = "NicholasTHudgins57@gmail.com";
+        String courriel = "test@test.com";
         ClientCtrl instance = new ClientCtrl();
-        Client expResult = null;
+        Client expResult = new Client("test@test.com", "test", "test", instance.hash.get_SHA_256_SecurePassword("123456"), "819-329-8475", new GregorianCalendar(1990, Calendar.FEBRUARY, 11).getTime());
         Client result = instance.getClient(courriel);
         assertEquals(expResult, result);
     }
