@@ -46,7 +46,7 @@ $(document).ready(function(){
 function getRecherche() {
     $.ajax({
         type: "GET",
-        url: "/LOG660-LAB02/webresources/film/getRecherche",
+        url: "./webresources/film/getRecherche",
         headers: { 
             'Accept': 'application/json',
             'Content-Type': 'application/json' 

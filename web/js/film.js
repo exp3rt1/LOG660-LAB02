@@ -429,7 +429,7 @@ function afficherPersonnes(id) {
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/afficherPersonne/"+id,
+            url: "./webresources/film/afficherPersonne/"+id,
             headers: { 
                 'Accept': 'text/html',
                 'Content-Type': 'application/json' 

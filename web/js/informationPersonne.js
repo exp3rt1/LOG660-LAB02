@@ -38,7 +38,7 @@ function getFilmInfo(){
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/getFilmInfo/"+id,
+            url: "./webresources/film/getFilmInfo/"+id,
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -153,7 +153,7 @@ function getPersonData(personID){
         showSpinner();
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/getPersonInfo/"+personID,
+            url: "./webresources/film/getPersonInfo/"+personID,
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -260,7 +260,7 @@ function rentMovie(){
         showSpinner();
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/louerFilm/"+id,
+            url: "./webresources/film/louerFilm/"+id,
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -308,7 +308,7 @@ function fetchRating(){
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/getFilmRating/"+id,
+            url: "./webresources/film/getFilmRating/"+id,
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -358,7 +358,7 @@ function fetchSuggestedFilms(){
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/getSuggestedFilms/"+id,
+            url: "./webresources/film/getSuggestedFilms/"+id,
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -429,7 +429,7 @@ function afficherPersonnes(id) {
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/afficherPersonne/"+id,
+            url: "./webresources/film/afficherPersonne/"+id,
             headers: { 
                 'Accept': 'text/html',
                 'Content-Type': 'application/json' 

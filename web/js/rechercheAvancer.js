@@ -233,7 +233,7 @@ function sendToWebService(rechercheFilms){
         var filmSearchData = JSON.stringify(rechercheFilms);
         $.ajax({
             type: "POST",
-            url: "/LOG660-LAB02/webresources/film/rechercheAvancee",
+            url: "./webresources/film/rechercheAvancee",
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
@@ -244,7 +244,7 @@ function sendToWebService(rechercheFilms){
             success: function (data) {
                 console.log(data);
                 //fillDataTable(data);
-                $(location).attr('href', '/LOG660-LAB02/recherche');
+                $(location).attr('href', './recherche');
             },
             error: function (xhr, status, error) {
                 // Mettre les champs en erreur
@@ -271,7 +271,7 @@ function hideSpinner(){
 function getAllFilmGenres(){
     $.ajax({
         type: "GET",
-        url: "/LOG660-LAB02/webresources/film/getAllFilmGenres",
+        url: "./webresources/film/getAllFilmGenres",
         headers: { 
             'Accept': 'application/json',
             'Content-Type': 'application/json' 
@@ -300,7 +300,7 @@ function getAllFilmGenres(){
 function getAllFilmCountries(){
     $.ajax({
         type: "GET",
-        url: "/LOG660-LAB02/webresources/film/getAllFilmCountries",
+        url: "./webresources/film/getAllFilmCountries",
         headers: { 
             'Accept': 'application/json',
             'Content-Type': 'application/json' 
@@ -329,7 +329,7 @@ function getAllFilmCountries(){
 function getAllFilmLanguages(){
     $.ajax({
         type: "GET",
-        url: "/LOG660-LAB02/webresources/film/getAllFilmLanguages",
+        url: "./webresources/film/getAllFilmLanguages",
         headers: { 
             'Accept': 'application/json',
             'Content-Type': 'application/json' 
@@ -362,7 +362,7 @@ function getFilmInfo(id){
     if(id !== undefined && id !== null && id !== ""){     
         $.ajax({
             type: "GET",
-            url: "/LOG660-LAB02/webresources/film/afficher/"+id,
+            url: "./webresources/film/afficher/"+id,
             headers: { 
                 'Accept': 'text/html',
                 'Content-Type': 'application/json' 
