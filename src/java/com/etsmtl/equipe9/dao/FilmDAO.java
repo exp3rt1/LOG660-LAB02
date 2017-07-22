@@ -60,111 +60,131 @@ public class FilmDAO extends DAOAbstrait<Film, Long> {
             List<Predicate> predicates = new ArrayList<Predicate>();
 
             // Critere titre
-            if (!dto.getTitles().isEmpty()) {
+            if (dto.getTitles() != null) {
+                if (!dto.getTitles().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (String titre : dto.getTitles()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (String titre : dto.getTitles()) {
 
-                    predi.add(cb.or(cb.like(cb.lower(film.get("titre")), "%" + titre.toLowerCase() + "%")));
+                        predi.add(cb.or(cb.like(cb.lower(film.get("titre")), "%" + titre.toLowerCase() + "%")));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere langue
-            if (!dto.getOriginalLanguages().isEmpty()) {
+            if (dto.getOriginalLanguages() != null) {
+                if (!dto.getOriginalLanguages().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (String langue : dto.getOriginalLanguages()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (String langue : dto.getOriginalLanguages()) {
 
-                    predi.add(cb.or(cb.equal(cb.lower(film.get("langueoriginale")), langue.toLowerCase())));
+                        predi.add(cb.or(cb.equal(cb.lower(film.get("langueoriginale")), langue.toLowerCase())));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere genre
-            if (!dto.getGenres().isEmpty()) {
+            if (dto.getGenres() != null) {
+                if (!dto.getGenres().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (String g : dto.getGenres()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (String g : dto.getGenres()) {
 
-                    predi.add(cb.or(cb.equal(cb.lower(filmGenre.get("nom")), g.toLowerCase())));
+                        predi.add(cb.or(cb.equal(cb.lower(filmGenre.get("nom")), g.toLowerCase())));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere pays
-            if (!dto.getCountries().isEmpty()) {
+            if (dto.getCountries() != null) {
+                if (!dto.getCountries().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (String p : dto.getCountries()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (String p : dto.getCountries()) {
 
-                    predi.add(cb.or(cb.equal(cb.lower(filmPays.get("nom")), p.toLowerCase())));
+                        predi.add(cb.or(cb.equal(cb.lower(filmPays.get("nom")), p.toLowerCase())));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere realisateur
-            if (!dto.getDirectors().isEmpty()) {
+            if (dto.getDirectors() != null) {
+                if (!dto.getDirectors().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (String r : dto.getDirectors()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (String r : dto.getDirectors()) {
 
-                    predi.add(cb.or(cb.like(cb.lower(filmRealisateur.get("nom")), "%" + r.toLowerCase() + "%")));
+                        predi.add(cb.or(cb.like(cb.lower(filmRealisateur.get("nom")), "%" + r.toLowerCase() + "%")));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere Acteur
-            if (!dto.getActors().isEmpty()) {
+            if (dto.getActors() != null) {
+                if (!dto.getActors().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (String a : dto.getActors()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (String a : dto.getActors()) {
 
-                    predi.add(cb.or(cb.like(cb.lower(filmPersonnagePersonne.get("nom")), "%" + a.toLowerCase() + "%")));
+                        predi.add(cb.or(cb.like(cb.lower(filmPersonnagePersonne.get("nom")), "%" + a.toLowerCase() + "%")));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere Annee Sortie
-            if (!dto.getReleaseDates().isEmpty()) {
+            if (dto.getReleaseDates() != null) {
+                if (!dto.getReleaseDates().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (int a : dto.getReleaseDates()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (int a : dto.getReleaseDates()) {
 
-                    predi.add(cb.or(cb.equal(film.get("anneesortie"), a)));
+                        predi.add(cb.or(cb.equal(film.get("anneesortie"), a)));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere Annee Interval
-            if (!dto.getDateIntervals().isEmpty()) {
+            if (dto.getDateIntervals() != null) {
+                if (!dto.getDateIntervals().isEmpty()) {
 
-                List<Predicate> predi = new ArrayList<Predicate>();
-                for (YearInterval a : dto.getDateIntervals()) {
+                    List<Predicate> predi = new ArrayList<Predicate>();
+                    for (YearInterval a : dto.getDateIntervals()) {
 
-                    predi.add(cb.or(cb.between(film.get("anneesortie"), a.getStart(), a.getEnd())));
+                        predi.add(cb.or(cb.between(film.get("anneesortie"), a.getStart(), a.getEnd())));
+                    }
+                    Predicate or = cb.or(predi.toArray(new Predicate[]{}));
+                    predicates.add(or);
                 }
-                Predicate or = cb.or(predi.toArray(new Predicate[]{}));
-                predicates.add(or);
             }
 
             // Critere Vide, on retourne tous les films
-            if (dto.getReleaseDates().isEmpty() && dto.getDirectors().isEmpty() && dto.getActors().isEmpty()
-                    && dto.getCountries().isEmpty() && dto.getGenres().isEmpty() && dto.getOriginalLanguages().isEmpty()
-                    && dto.getTitles().isEmpty() && dto.getDateIntervals().isEmpty()) {
+            if (dto.getReleaseDates() != null && dto.getDirectors() != null && dto.getActors() != null
+                    && dto.getCountries() != null && dto.getGenres() != null && dto.getOriginalLanguages() != null
+                    && dto.getTitles() != null && dto.getDateIntervals() != null) {
+                if (dto.getReleaseDates().isEmpty() && dto.getDirectors().isEmpty() && dto.getActors().isEmpty()
+                        && dto.getCountries().isEmpty() && dto.getGenres().isEmpty() && dto.getOriginalLanguages().isEmpty()
+                        && dto.getTitles().isEmpty() && dto.getDateIntervals().isEmpty()) {
 
-                CriteriaQuery<Film> query = cb.createQuery(Film.class);
-                List<Film> result = em.createQuery(query).getResultList();
+                    CriteriaQuery<Film> query = cb.createQuery(Film.class);
+                    List<Film> result = em.createQuery(query).getResultList();
 
-                return result;
+                    return result;
 
+                }
             }
 
             //Query construction

@@ -33,14 +33,9 @@ public class HashPasswordTest {
      */
     @Test
     public void testGet_SHA_256_SecurePassword() {
-        System.out.println("get_SHA_256_SecurePassword");
-        String passwordToHash = "";
+        String passwordToHash = "test";
         HashPassword instance = new HashPassword();
-        String expResult = "";
         String result = instance.get_SHA_256_SecurePassword(passwordToHash);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+        assertNotEquals(passwordToHash, result);
+    }    
 }

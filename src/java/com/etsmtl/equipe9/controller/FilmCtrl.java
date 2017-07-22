@@ -23,19 +23,4 @@ public class FilmCtrl {
         return dao.getLangues();
 
     }
-
-    public static void main(String[] args) {
-
-        FilmCtrl control = new FilmCtrl();
-        List<String> langues = control.getLangues();
-
-        for (String langue : langues) {
-
-            System.out.println(langue);
-        }
-        
-        Film film = control.getFilm(15864L);
-        System.out.println(film.getTitre());
-
-    }
 }

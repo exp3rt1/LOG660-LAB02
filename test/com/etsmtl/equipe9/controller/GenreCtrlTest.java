@@ -34,25 +34,9 @@ public class GenreCtrlTest {
      */
     @Test
     public void testGetGenres() {
-        System.out.println("getGenres");
         GenreCtrl instance = new GenreCtrl();
-        List<String> expResult = null;
         List<String> result = instance.getGenres();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class GenreCtrl.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        GenreCtrl.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
     
 }

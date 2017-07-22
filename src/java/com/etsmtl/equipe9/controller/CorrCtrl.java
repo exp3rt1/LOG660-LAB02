@@ -35,18 +35,4 @@ public class CorrCtrl {
         
         return listeRecommandation;
     }
-    
-    public static void main(String[] args) {
-        
-        CorrCtrl control = new CorrCtrl();
-        
-        List<Long> listefilm = control.getCorr(61184L, "MichaelEWash74@gmail.com");
-        
-        for (Long long1 : listefilm) {
-            
-            System.out.println(long1);
-        }
-        
-        
-    }
 }

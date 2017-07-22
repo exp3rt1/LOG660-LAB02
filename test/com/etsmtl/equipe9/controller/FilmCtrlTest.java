@@ -2,6 +2,7 @@ package com.etsmtl.equipe9.controller;
 
 import com.etsmtl.equipe9.dto.FilmDTO;
 import com.etsmtl.equipe9.model.Film;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,6 +12,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class FilmCtrlTest {
+    
+    private ArrayList<String> liste;
     
     public FilmCtrlTest() {
     }
@@ -25,6 +28,8 @@ public class FilmCtrlTest {
     
     @Before
     public void setUp() {
+        liste = new ArrayList<String>();
+        liste.add("shrek");
     }
     
     @After
@@ -36,14 +41,9 @@ public class FilmCtrlTest {
      */
     @Test
     public void testGetFilm() {
-        System.out.println("getFilm");
-        Long idFilm = null;
         FilmCtrl instance = new FilmCtrl();
-        Film expResult = null;
-        Film result = instance.getFilm(idFilm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Film result = instance.getFilm(15864L);
+        assertNotNull(result);
     }
 
     /**
@@ -51,14 +51,15 @@ public class FilmCtrlTest {
      */
     @Test
     public void testGetFilms() {
-        System.out.println("getFilms");
-        FilmDTO dto = null;
+        
+        FilmDTO dto = new FilmDTO();
+        dto.setTitles(liste);
+        
         FilmCtrl instance = new FilmCtrl();
-        List<Film> expResult = null;
         List<Film> result = instance.getFilms(dto);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        System.out.println(result.size());
+        assertNotNull(result);
     }
 
     /**
@@ -66,25 +67,8 @@ public class FilmCtrlTest {
      */
     @Test
     public void testGetLangues() {
-        System.out.println("getLangues");
         FilmCtrl instance = new FilmCtrl();
-        List<String> expResult = null;
         List<String> result = instance.getLangues();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class FilmCtrl.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        FilmCtrl.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+        assertNotNull(result);
+    }    
 }
