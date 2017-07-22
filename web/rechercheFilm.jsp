@@ -73,7 +73,7 @@
                             </span>
                         </div> 
                         <div class="text-right">
-                            <a id="rechercheAvanceeLien" href="/LOG660-LAB02/rechercheAvancee" role="button" class="btn btn-link btn-large">
+                            <a id="rechercheAvanceeLien" href="./rechercheAvancee" role="button" class="btn btn-link btn-large">
                                 <span class="glyphicon glyphicon-cog"></span> Recherche Avancée
                             </a>
                         </div>
