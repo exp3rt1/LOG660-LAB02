@@ -143,18 +143,18 @@ function addDateInterval(){
       
     var debutLabel = document.createElement('label');
     debutLabel.innerHTML = "Année de début :";
-    debutLabel.style = 'margin-left: 15px;';
+    debutLabel.style = '';
     var debut = document.createElement('select');
     debut.id = "debutAnnee";
-    debut.className = "selectpicker dateSelect";
+    debut.className = "selectpicker selectTD";
     debut.style = 'display: inline-block !important;';
     
     var finLabel = document.createElement('label');
     finLabel.innerHTML = "Année de fin :";
-    finLabel.style = 'margin-left: 15px;';
+    finLabel.style = '';
     var fin = document.createElement('select');
     fin.id = "finAnnee";
-    fin.className = "selectpicker dateSelect";
+    fin.className = "selectpicker selectTD";
     fin.style = 'display: inline-block !important;';
     
     var firstOption1 = document.createElement('option');

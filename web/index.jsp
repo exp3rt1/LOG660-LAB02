@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" id="boutonLogin" class="btn btn-primary col-md-12">Login</button>
+                                <button type="submit" id="boutonLogin" class="btn btn-primary col-md-12" style="width:100%">Login</button>
                             </div>
                         </div>
                     </form>    

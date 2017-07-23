@@ -34,20 +34,21 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-            
-            <div style="margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="./logout">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
-                    </button>
-                </form>
-            </div>
-            <div style="float: left; margin-top: 10px; margin-left: 20px;">
-                <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Retour
-                    </button>
-                </form>
+            <div>
+                <div style="float: right; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="./logout">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                        </button>
+                    </form>
+                </div>
+                <div style="float: left; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                        </button>
+                    </form>
+                </div>
             </div>
             <div id="pageTitle">Recherche avancée</div>
             
@@ -66,27 +67,38 @@ and open the template in the editor.
             
             <!--C'est la barre de recherche avec les options avancées.-->
             <div class="">
-                <div class="panel panel-default">
+                <div class="">
                     <div id="rechercheAvancee" class="">
-                        
-                        <label>Titre(s) : </label>
-                        <input id="titres" type="text" value="" data-role="tagsinput" />
-                        
-                        <label>Pays de production : </label></td>
-                        <select id="pays" class=""  multiple data-actions-box="true"></select>
-                        <label>Réalisateur(s) : </label></td>
-                        <input id="realisateurs" type="text" value="" data-role="tagsinput" /></td>
-                        <label>Langue(s) originale(s) : </label></td>
-                        <select id="languesOriginales" class=""  multiple data-actions-box="true"></select>
-                        <label>Acteur(s) : </label>
-                        <input id="acteurs" type="text" value="" data-role="tagsinput" /></td>
-                        <label>Genre(s) : </label></td>
-                        <select id="genres" class=""  multiple data-actions-box="true" ></select><label>Année(s) de sortie : </label>
-                        <select id="anneesSortie" class="" multiple data-actions-box="true"></select>
-                        <div id="addDateInterval" onclick="addDateInterval();">
-                        <span class="glyphicon glyphicon-plus"></span> Ajouter une intervalle d'années</div>
-                           
-                        <div id="dateDiv" style="padding-top: 15px;"></div>
+                        <div>
+                            <label>Titre(s) : </label>
+                            <input id="titres" type="text" value="" data-role="tagsinput" />
+                        </div>
+                        <div>
+                            <label>Pays de production : </label></td>
+                            <select class="selectTD" id="pays" class=""  multiple data-actions-box="true"></select>
+                        </div>
+                        <div>
+                            <label>Réalisateur(s) : </label></td>
+                            <input id="realisateurs" type="text" value="" data-role="tagsinput" /></td>
+                        </div>
+                        <div>
+                            <label>Langue(s) originale(s) : </label></td>
+                            <select class="selectTD" id="languesOriginales" class=""  multiple data-actions-box="true"></select>
+                        </div>
+                        <div>
+                            <label>Acteur(s) : </label>
+                            <input id="acteurs" type="text" value="" data-role="tagsinput" /></td>
+                        </div>
+                        <div>
+                            <label>Genre(s) : </label></td>
+                            <select class="selectTD" id="genres" class=""  multiple data-actions-box="true" ></select><label>Année(s) de sortie : </label>
+                        </div>
+                        <div>
+                            <select class="selectTD" id="anneesSortie" class="" multiple data-actions-box="true"></select>
+                            <div id="addDateInterval" onclick="addDateInterval();"> 
+                            <span class="glyphicon glyphicon-plus"></span> Ajouter une intervalle d'années</div>
+                        </div>  
+                        <div id="dateDiv" style="padding-top: 15px; padding-bottom: 15px;"></div>
                         <button id="rechercheAvanceeBouton" class="btn btn-info" type="button">
                             <i class="glyphicon glyphicon-search" style="margin-right: 5px;"></i>
                                 Rechercher
