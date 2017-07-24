@@ -10,28 +10,31 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!-- JQuery -->
+       <!-- JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         
         <!-- Bootstrap -->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
-            
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/fontawesome-stars.css" />
-        <link rel="stylesheet" type="text/css" href="css/fontawesome-stars-o.css" />
-        <link rel="stylesheet" type="text/css" href="css/css-stars.css" />
-        <script src="js/jquery.barrating.min.js"></script> 
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
         
+        <!-- TagsInput -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">
+        <script src="js/bootstrap-tagsinput.js"></script>
+           
+        <!-- DataTables -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css" />
+        <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+        
+        <!-- Our shit -->
         <link rel="stylesheet" type="text/css" href="css/informationPersonne.css" />
         <script src="js/informationPersonne.js"></script>
     </head>
     <body>
-        waaaaaaaaaaaaaaa personne
         <div class="container">
             
-            <div style="float: right; margin-top: 10px; margin-right: 20px;">
+            <div style="float: right; margin-top: 10px;">
                 <form method="POST" class="form-horizontal" action="./logout">
                     <button type="submit" class="btn btn-primary btn-sm">
                         <span class="glyphicon glyphicon-log-out"></span> Déconnexion
@@ -39,45 +42,45 @@ and open the template in the editor.
                 </form>
             </div>
             
-            <div style="float: left; margin-top: 10px; margin-left: 20px;">
+            <div style="float: left; margin-top: 10px;">
                 <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
                     <button type="submit" class="btn btn-primary btn-sm">
                         <span class="glyphicon glyphicon-chevron-left"></span> Retour
                     </button>
                 </form>
             </div>
-                <div class="personModalContent">
-                        <div class="personModalHeader">Informations sur une personne</div>
-                        <div class="personModalBody">
-                            <table>
-                                <tr>
-                                    <td class="personModalTableTitle">Nom</td>
-                                    <td id="personName" class="personModalTableData"></td>
-                                </tr>
-                                <tr>
-                                    <td class="personModalTableTitle">Date de naissance</td>
-                                    <td id="personDateOfBirth" class="personModalTableData"></td>
-                                </tr>
-                                <tr>
-                                    <td class="personModalTableTitle" style="padding-bottom: 20px;">Lieu de naissance</td>
-                                    <td id="personPlaceOfBirth" class="personModalTableData" style="padding-bottom: 20px;"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" 
-                                    style="font-size: 15px; font-weight: bold;
-                                    border-top: 1px solid lightgrey; padding-top: 20px;">
-                                    Biographie</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" id="personBiography"  style="font-size: 15px;">  
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="personModalFooter">
-                            <input id="personModalCancel" type="button" value="Fermer" onclick="hidePersonModal();"/>
-                        </div>
-                </div>
+            
+            <div id="pageTitle">Informations sur une personne</div>
+            
+            <div class="personModalContent">
+                    <div class="personModalHeader">Informations sur une personne</div>
+                    <div class="personModalBody">
+                        <table>
+                            <tr>
+                                <td class="personModalTableTitle">Nom</td>
+                                <td id="personName" class="personModalTableData"></td>
+                            </tr>
+                            <tr>
+                                <td class="personModalTableTitle">Date de naissance</td>
+                                <td id="personDateOfBirth" class="personModalTableData"></td>
+                            </tr>
+                            <tr>
+                                <td class="personModalTableTitle" style="padding-bottom: 20px;">Lieu de naissance</td>
+                                <td id="personPlaceOfBirth" class="personModalTableData" style="padding-bottom: 20px;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" 
+                                style="font-size: 15px; font-weight: bold;
+                                border-top: 1px solid lightgrey; padding-top: 20px;">
+                                Biographie</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" id="personBiography"  style="font-size: 15px;">  
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
         </div>
     </body>
 </html>
