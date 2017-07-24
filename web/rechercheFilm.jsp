@@ -37,12 +37,14 @@
     <body>
         <div class="container">
             
-            <div style="float: right; margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="./logout">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
-                    </button>
-                </form>
+            <div>
+                <div style="float: right; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="./logout">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                        </button>
+                    </form>
+                </div>
             </div>
             <div id="pageTitle">Recherche de films</div>
             

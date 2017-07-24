@@ -12,9 +12,10 @@ and open the template in the editor.
     font-size: 30px;
     font-weight: 500;
     margin-bottom: 15px;
-    margin-top: 15px;
+    margin-top: 30px;
     text-align: center;
     vertical-align: middle;
+    clear: both;
 }
 
 #sidebar {
