@@ -1,6 +1,8 @@
 package com.etsmtl.equipe9.controller;
 
+import com.etsmtl.equipe9.dao.ClientDAO;
 import com.etsmtl.equipe9.model.Client;
+import com.etsmtl.equipe9.service.DAOFactory;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -11,34 +13,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/*
-    
-    public static void main(String[] args) {
-        ClientCtrl controleur = new ClientCtrl();
-        HashPassword hash = new HashPassword();
-        
-        try {
-            List<Client> liste = controleur.getAllClient();
-//            System.out.println(liste.size());
-//            
-//            Client test = controleur.getClient("qwe@qwe.qwe");
-//            
-//            String gg = hash.get_SHA_256_SecurePassword("123456789");
-//            test.setMotpasse(gg);
-//            
-//            controleur.updateClientMotPasse(test, gg);
-            
-            
-            for(Client c: liste){
-                String hashedPassword = hash.get_SHA_256_SecurePassword(c.getMotpasse());
-                controleur.updateClientMotPasse(c, hashedPassword);
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
 public class ClientCtrlTest {
     
     public ClientCtrlTest() {
@@ -47,13 +21,18 @@ public class ClientCtrlTest {
     @BeforeClass
     public static void setUpClass() {
         ClientCtrl ctrl = new ClientCtrl();
-        ctrl.createClient("test@test.com", "test", "test", "123456", "819-329-8475", new GregorianCalendar(1990, Calendar.FEBRUARY, 11).getTime());
+        ClientDAO dao = DAOFactory.getInstance().getClientDAO();
+        String password = ctrl.hash.get_SHA_256_SecurePassword("123456");
+        Client testClient = new Client("test@test.com", "test", "test", password, "819-329-8475", new GregorianCalendar(1990, Calendar.FEBRUARY, 11).getTime());
+        dao.insert(testClient);
     }
     
     @AfterClass
     public static void tearDownClass() {
         ClientCtrl ctrl = new ClientCtrl();
-        ctrl.deleteClient("test@test.com");
+        ClientDAO dao = DAOFactory.getInstance().getClientDAO();
+        Client testClient = ctrl.getClient("test@test.com");
+        dao.delete(testClient);
     }
     
     @Before
