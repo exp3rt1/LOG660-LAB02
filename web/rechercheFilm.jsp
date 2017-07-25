@@ -30,8 +30,9 @@
         <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
         
         <!-- Our shit -->
-        <script src="js/rechercheFilm.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/global.css" />
         <link rel="stylesheet" type="text/css" href="css/rechercheFilm.css" />
+        <script src="js/rechercheFilm.js"></script>
         
     </head>
     <body>

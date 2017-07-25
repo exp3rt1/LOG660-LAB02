@@ -28,56 +28,48 @@ and open the template in the editor.
         <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
         
         <!-- Our shit -->
+        <link rel="stylesheet" type="text/css" href="css/global.css" />
         <link rel="stylesheet" type="text/css" href="css/informationPersonne.css" />
         <script src="js/informationPersonne.js"></script>
     </head>
     <body>
         <div class="container">
             
-            <div style="float: right; margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="./logout">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
-                    </button>
-                </form>
+            <div id="header">
+                <div style="float: right; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="./logout">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                        </button>
+                    </form>
+                </div>
+
+                <div style="float: left; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                        </button>
+                    </form>
+                </div>
             </div>
-            
-            <div style="float: left; margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Retour
-                    </button>
-                </form>
-            </div>
-            
-            <div id="pageTitle">Informations sur une personne</div>
             
             <div class="personModalContent">
                 <div class="personModalBody">
-                    <table>
-                        <tr>
-                            <td class="personModalTableTitle">Nom</td>
-                            <td id="personName" class="personModalTableData"></td>
-                        </tr>
-                        <tr>
-                            <td class="personModalTableTitle">Date de naissance</td>
-                            <td id="personDateOfBirth" class="personModalTableData"></td>
-                        </tr>
-                        <tr>
-                            <td class="personModalTableTitle" style="padding-bottom: 20px;">Lieu de naissance</td>
-                            <td id="personPlaceOfBirth" class="personModalTableData" style="padding-bottom: 20px;"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" 
-                            style="font-size: 15px; font-weight: bold;
-                            border-top: 1px solid lightgrey; padding-top: 20px;">
-                            Biographie</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" id="personBiography"  style="font-size: 15px;">  
-                            </td>
-                        </tr>
-                    </table>
+                    <div>
+                        <span id="personName"></span>
+                    </div>
+                    <div>
+                        <span class="personTitle">Date de naissance</span>
+                        <span id="personDateOfBirth" class="content" style="text-align: left;"></span>
+                    </div>
+                    <div>
+                        <span class="personTitle">Lieu de naissance</span>
+                        <span id="personPlaceOfBirth" class="content"></span>
+                    </div>
+                    <div>
+                        <span class="personTitle">Biographie</span>
+                        <span id="personBiography" class="content"></span>
+                    </div>                    
                 </div>
             </div>
         </div>
