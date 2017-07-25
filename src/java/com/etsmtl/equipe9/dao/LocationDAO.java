@@ -142,6 +142,21 @@ public class LocationDAO extends DAOAbstrait<Location, LocationId> {
             disconnect();
         }
     }
+    
+    public Location find(String courriel, Long idfilm) {
+        try {
+            connect();
+            Query query = em.createQuery("SELECT l FROM Location l WHERE l.client.courriel = :courriel AND l.exemplaire.idexemplaire IN (SELECT e.idexemplaire FROM Exemplaire e WHERE e.film.idfilm = :idfilm AND e.estloue = 1)");
+            query.setParameter("courriel", courriel);
+            query.setParameter("idfilm", idfilm);
+            Location location = (Location)query.getSingleResult();
+            return location;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            disconnect();
+        }
+    }
 
     @Override
     public List<Location> findById(List<LocationId> listeId) {
@@ -160,7 +175,19 @@ public class LocationDAO extends DAOAbstrait<Location, LocationId> {
 
     @Override
     public boolean delete(Location obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            connect();
+            em.getTransaction().begin();
+            Location toBeRemoved = em.merge(obj);
+            em.remove(toBeRemoved);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        } finally {
+            disconnect();
+        }
     }
 
 }

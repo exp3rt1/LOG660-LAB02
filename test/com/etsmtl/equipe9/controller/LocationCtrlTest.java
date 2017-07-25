@@ -1,5 +1,7 @@
 package com.etsmtl.equipe9.controller;
 
+import com.etsmtl.equipe9.dao.LocationDAO;
+import com.etsmtl.equipe9.service.DAOFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,14 +36,18 @@ public class LocationCtrlTest {
     @Test
     public void testLouerFilm() {
         System.out.println("louerFilm");
-        String courriel = "";
-        Long idfilm = null;
+        String courriel = "MaggiePDepriest5@yahoo.com";
+        // 42876
+        Long idfilm = 42876L; // titre : Rashômon
         LocationCtrl instance = new LocationCtrl();
-        boolean expResult = false;
+        
+        boolean expResult = true;
         boolean result = instance.louerFilm(courriel, idfilm);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        // supprimer la location
+        LocationDAO dao = DAOFactory.getInstance().getLocationDAO();
+        dao.delete(dao.find(courriel, idfilm));
     }
 
     /**
@@ -50,14 +56,12 @@ public class LocationCtrlTest {
     @Test
     public void testVerifierLocationExemplaire() {
         System.out.println("verifierLocationExemplaire");
-        String courriel = "";
-        Long idfilm = null;
+        String courriel = "MaggiePDepriest5@yahoo.com";
+        Long idfilm = 42876L; // titre : Rashômon
         LocationCtrl instance = new LocationCtrl();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.verifierLocationExemplaire(courriel, idfilm);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -66,25 +70,26 @@ public class LocationCtrlTest {
     @Test
     public void testVerifierLocationForfait() {
         System.out.println("verifierLocationForfait");
-        String courriel = "";
+        String courriel = "MaggiePDepriest5@yahoo.com";
         LocationCtrl instance = new LocationCtrl();
-        boolean expResult = false;
+          
+        boolean expResult = true;
         boolean result = instance.verifierLocationForfait(courriel);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class LocationCtrl.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        LocationCtrl.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        // MaggiePDepriest5@yahoo.com a un forfait avec 1 seul film à la fois
+        // donc on fait une location et on vérifie si maintenant elle ne peut plus faire de location
+        Long idfilm = 42876L; // titre : Rashômon
+        instance.louerFilm(courriel, idfilm); // louer un film
+        
+        // vérifier si maintenant elle ne peut plus faire de location de film
+        expResult = false;
+        result = instance.verifierLocationForfait(courriel);
+        assertEquals(expResult, result);
+        
+        // supprimer la location
+        LocationDAO dao = DAOFactory.getInstance().getLocationDAO();
+        dao.delete(dao.find(courriel, idfilm));
     }
     
 }

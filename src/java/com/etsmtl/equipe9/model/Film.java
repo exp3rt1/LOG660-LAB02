@@ -74,14 +74,12 @@ public class Film  implements java.io.Serializable {
 
     public Film() {}
 	
-    public Film(Long idfilm, String titre, Integer anneesortie, String resumescenario) {
-        this.idfilm = idfilm;
+    public Film(String titre, Integer anneesortie, String resumescenario) {
         this.titre = titre;
         this.anneesortie = anneesortie;
         this.resumescenario = resumescenario;
     }
-    public Film(Long idfilm, Personne realisateur, String titre, Integer anneesortie, String langueoriginale, String resumescenario, Integer duree, Set<Pays> pays, Set<Lienmedia> lienmedias, Set<Personnage> personnages, Set<Genre> genres, Set<Exemplaire> exemplaires, Set<Scenariste> scenaristes) {
-       this.idfilm = idfilm;
+    public Film(Personne realisateur, String titre, Integer anneesortie, String langueoriginale, String resumescenario, Integer duree, Set<Pays> pays, Set<Lienmedia> lienmedias, Set<Personnage> personnages, Set<Genre> genres, Set<Exemplaire> exemplaires, Set<Scenariste> scenaristes) {
        this.realisateur = realisateur;
        this.titre = titre;
        this.anneesortie = anneesortie;
