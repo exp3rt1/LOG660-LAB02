@@ -159,7 +159,7 @@ public class FilmWS {
                 jsonFilm.add(film.getAnneesortie());
                 json.add(jsonFilm);
             });
-            
+            System.out.println(json.toJSONString());
             session.setAttribute("recherche", json.toJSONString());
             
             return json.toJSONString();
@@ -177,7 +177,6 @@ public class FilmWS {
     @Consumes(MediaType.APPLICATION_JSON)
     public String rechercheAvancee(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
         
-        System.out.println("waaaaaaaaaaaaaaaaaaaaaaaaaa");
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> directors = new ArrayList<>();
         ArrayList<String> actors = new ArrayList<>();
@@ -297,11 +296,22 @@ public class FilmWS {
     
     @GET
     @Path("gotoRechercheAvancee")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void gotoRechercheAvancee(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException
+    @Produces(MediaType.TEXT_HTML)
+    public String gotoRechercheAvancee(String data, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException
     {
-        response.sendRedirect("./rechercheAvancee");
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("./");
+            return "";
+        }
+        
+        ClientDTO client = (ClientDTO)session.getAttribute("client");
+        if(!client.getRole().equals("client")) {
+            response.sendRedirect("./");
+            return "";
+        }
+        
+        return "./rechercheAvancer.html";
     }
     
     @GET
@@ -485,7 +495,6 @@ public class FilmWS {
         
         return filmJSON.toJSONString();
     }
-    
     
     @GET
     @Path("afficher/{id}")

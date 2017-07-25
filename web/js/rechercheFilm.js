@@ -5,7 +5,7 @@ var maxDate = today.getFullYear();
 
 
 $(document).ready(function(){  
-    //$('.selectpicker').selectpicker();
+    hideSpinner();
     
     setDatesInDateSelect();
     getAllFilmGenres();
@@ -36,7 +36,7 @@ $(document).ready(function(){
     });
     
     $('#rechercheAvanceeLien').click(function(){
-        
+        advancedFilmSearch();
     });
     
     getRecherche();
@@ -55,7 +55,8 @@ function getRecherche() {
         data: "RECHERCHE",
         success: function (data) {
             console.log(data);
-            fillDataTable(data);
+            if (data != "")
+                fillDataTable(data);
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -78,73 +79,28 @@ function filmSearch(){
 }
 
 function advancedFilmSearch(){
-    
-    var rechercheFilms = new Object();
-    
-    var titres = $('#titres').val();
-    var realisateurs = $('#realisateurs').val();
-    var acteurs = $('#acteurs').val();
-    var anneesSortie = $('#anneesSortie').val();
-    var pays = $('#pays').val();
-    var languesOriginales = $('#languesOriginales').val();
-    var genres = $('#genres').val();
-    
-    if(titres !== undefined && titres !== null && titres !== ""){
-        rechercheFilms.titres = titres.split(',');
-    }
-    if(realisateurs !== undefined && realisateurs !== null && realisateurs !== ""){
-        rechercheFilms.realisateurs = realisateurs.split(',');
-    }
-    if(acteurs !== undefined && acteurs !== null && acteurs !== ""){
-        rechercheFilms.acteurs = acteurs.split(',');
-    }
-    if(anneesSortie !== undefined && anneesSortie !== null && anneesSortie !== ""){
-        //rechercheFilms.anneesSortie = anneesSortie.split(',');
-        rechercheFilms.anneesSortie = anneesSortie;
-    }
-    if(pays !== undefined && pays !== null && pays !== ""){
-        //rechercheFilms.pays = pays.split(',');
-        rechercheFilms.pays = pays;
-    }
-    if(languesOriginales !== undefined && languesOriginales !== null && languesOriginales !== ""){
-        //rechercheFilms.languesOriginales = languesOriginales.split(',');
-        rechercheFilms.languesOriginales = languesOriginales;
-    }
-    if(genres !== undefined && genres !== null && genres !== ""){
-        //rechercheFilms.genres = genres.split(',');
-        rechercheFilms.genres = genres;
-    }
-    
-    var intervallesAnnees = [];
-    
-    $('.dateInterval').each(function(loopIndex, intervalDiv) {
-        var startDate = $(intervalDiv).find('#debutAnnee').val();
-        var endDate = $(intervalDiv).find('#finAnnee').val();
-        var startIsNull = (startDate === undefined || startDate === null || startDate === "");
-        var endIsNull = (endDate === undefined || endDate === null || endDate === "");
-        if(!startIsNull && endIsNull){
-            endDate = '99999';
-            intervallesAnnees.push(startDate+","+endDate);
-        }
-        else if(startIsNull && !endIsNull){
-            startDate = '0';
-            intervallesAnnees.push(startDate+","+endDate);
-        }
-        else if(!startIsNull && !endIsNull){
-            intervallesAnnees.push(startDate+","+endDate);
-        }
-        else {
-            // do nothing
+      
+    $.ajax({
+        type: "GET",
+        url: "./webresources/film/gotoRechercheAvancee",
+        headers: { 
+            'Accept': 'text/html',
+            'Content-Type': 'application/json' 
+        },
+        contentType: "application/json",
+        success: function (data) {
+            hideSpinner();
+            $(location).attr('href', data);
+        },
+        error: function (xhr, status, error) {
+            // Mettre les champs en erreur
+            alert("ERROR! See console...");
+            console.log(xhr.responseText);
+            console.log(status);
+            console.log(error);
         }
     });
-    
-    if(intervallesAnnees.length > 0){
-        rechercheFilms.intervallesAnnees = intervallesAnnees;
-    }
-    
-    sendToWebService(rechercheFilms);
 }
-
 
 function setDatesInDateSelect() {
     var dates = document.getElementById('anneesSortie');
@@ -291,6 +247,7 @@ function showSpinner(){
 }
 
 function hideSpinner(){
+    console.log("gg");
     $('#spinner').hide();
 }
 
@@ -415,4 +372,3 @@ function getFilmInfo(id){
         hideSpinner();
     }
 }
-

@@ -6,7 +6,7 @@ var maxDate = today.getFullYear();
 
 $(document).ready(function(){
     
-    //$('.selectpicker').selectpicker();
+    hideSpinner();
     
     setDatesInDateSelect();
     getAllFilmGenres();
