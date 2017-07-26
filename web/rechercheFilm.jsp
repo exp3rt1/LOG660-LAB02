@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             
-            <div>
+            <div id="header">
                 <div style="float: right; margin-top: 10px;">
                     <form method="POST" class="form-horizontal" action="./logout">
                         <button type="submit" class="btn btn-primary btn-sm">

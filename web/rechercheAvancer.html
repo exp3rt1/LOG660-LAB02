@@ -33,37 +33,37 @@ and open the template in the editor.
         <script src="js/rechercheAvancer.js"></script>
         
     </head>
-    <body>
-        <div id="header">
-            <div style="float: right; margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="./logout">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-log-out"></span> Déconnexion
-                    </button>
-                </form>
-            </div>
-            <div style="float: left; margin-top: 10px;">
-                <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Retour
-                    </button>
-                </form>
-            </div>
-        </div>
-        
-        <div id="spinner" class="spinner">
-            <div align="center" class="cssload-fond">
-                <div class="cssload-container-general">
-                    <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_1"></div></div>
-                    <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_2"></div></div>
-                    <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_3"></div></div>
-                    <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_4"></div></div>
+    <body>        
+        <div class="container">            
+            <div id="header">
+                <div style="float: right; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="./logout">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-log-out"></span> Déconnexion
+                        </button>
+                    </form>
+                </div>
+                <div style="float: left; margin-top: 10px;">
+                    <form method="POST" class="form-horizontal" action="javascript:window.history.back();">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
-        
-        <div class="container">
-            <div id="pageTitle">Recherche avancée</div>            
+            
+            <div id="pageTitle">Recherche avancée</div>
+
+            <div id="spinner" class="spinner">
+                <div align="center" class="cssload-fond">
+                    <div class="cssload-container-general">
+                        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_1"></div></div>
+                        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_2"></div></div>
+                        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_3"></div></div>
+                        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_4"></div></div>
+                    </div>
+                </div>
+            </div>
             
             <!--C'est la barre de recherche avec les options avancées.-->
             <div>
